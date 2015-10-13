@@ -1,5 +1,4 @@
-![](https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VOU5MUmh3MzMydlk)
-
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VOU5MUmh3MzMydlk" width="600">
 #An Introduction and Greenplum Database Tutorial using
 #the Greenplum DB Sandbox VM
 
@@ -21,7 +20,7 @@ Greenplum Database also includes features designed to optimize PostgreSQL for bu
 Greenplum Database stores and processes large amounts of data by distributing the data and processing workload across several servers or hosts. Greenplum Database is an array of individual databases based upon PostgreSQL 8.2 working together to present a single database image. The master is the entry point to the Greenplum Database system. It is the database instance to which clients connect and submit SQL statements. The master coordinates its work with the other database instances in the system, called segments, which store and process the data.
 
 Figure 1. High-Level Greenplum Database Architecture 
-![](https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VM2Y2bjh1VUx1c3M)
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VM2Y2bjh1VUx1c3M" width="500">
 
 The following topics describe the components that make up a Greenplum Database system and how they work together.
 
@@ -87,24 +86,31 @@ In a large scale, multi-terabyte data warehouse, large amounts of data must be l
 By using external tables in conjunction with Greenplum Database's parallel file server (gpfdist), administrators can achieve maximum parallelism and load bandwidth from their Greenplum Database system.
 
 Figure 1. External Tables Using Greenplum Parallel File Server (gpfdist) 
-![](https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VME5JMDZCNmE2cGs)
+
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VME5JMDZCNmE2cGs" width="500">
+
 Another Greenplum utility, gpload, runs a load task that you specify in a YAML-formatted control file. You describe the source data locations, format, transformations required, participating hosts, database destinations, and other particulars in the control file and gpload executes the load. This allows you to describe a complex task and execute it in a controlled, repeatable fashion.
 
-This tutorial will demon
+This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the **gpfdist** parallel data load utility.
 
 
 
  1. Open a terminal and ssh into the sandbox machine. 
- `ssh gpadmin@X.X.X.X`
+ Type: `ssh gpadmin@X.X.X.X`
 
 
  2. Start the Greeplum Database. 
-`./start_all.sh`
+Type: `./start_all.sh`
 
- 3. `cd gpdb-sandbox-dayinthelife`
- 4. 
+ 3. Type: `cd gpdb-sandbox-tutorial`
+ 4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.   
+![]()
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8Vb1dtN2NQdXF3dXM" width="600">
+
+Type: `psql -f create_tables.sql`
+This will create all the tables needed for the following steps.
 
 
-Originally the work of Brad Ganas
 
-BIG Thanks to those who inspired this:  Matt Neglay, Austin Rutherford, and others!!
+
+BIG Thanks to those who inspired this: Brad Ganas, Matt Neglay, Austin Rutherford, and others!!
