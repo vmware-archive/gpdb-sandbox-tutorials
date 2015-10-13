@@ -76,7 +76,9 @@ This screen provides you all the information you need to interact with the VM.
 	 - Managment URLs
 	 - IP address for SSH Connection
 
-Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operation simpler.
+Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operation simpler.  
+
+This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.   
 
 
 ----------
@@ -102,40 +104,41 @@ This tutorial will demonstrate how to load an external csv delimited file into t
  2. Start the Greeplum Database. 
 Type: `./start_all.sh`
 
- 3. Type: `cd gpdb-sandbox-tutorial`
+ 3. Type: `cd gpdb-sandbox-tutorials`
  
  4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file: 
  <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8Vb1dtN2NQdXF3dXM" width="500">
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
-	First, uncompress the Data file:  
-	Type: `gunzip ./data/2008_cms_data.csv.gz`
-
-	Next, start the **gpfdist** utility  
-	Type: `gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/ -p 8081 -l /home/gpadmin/gpdb-sandbox-tutorials/gpfdist.log &`
+	
+	First, start the **gpfdist** utility  
+	Type: `gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/data -p 8081 -l /home/gpadmin/gpdb-sandbox-tutorials/gpfdist.log &`
 		
 	This will start the gpfdist server with the data directory as its source, so that any external tables built will be able to poin to any files there firectly or via a wildcard.  In this example, we will point to the file directly.
 		
-	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the CMS table create in an earlier step.
+	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.
 		
 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVzlSNEJrdDVkQVU" width="700">
 		
 	Type: `psql -d tutorialdb -f ext_table.sql` to run the shell-script.
  
- 6. We can now load a native Greenplum table (CMS) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.
+ 6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.
 Start psql by typing:   
 	`psql -d tutorialdb`  
-	Now, let's generate a count of the rows in the CMS table that was created earlier.  At the psql prompt type:  
-	`select count(*) from cms;`  
+	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  At the psql prompt type:  
+	`select count(*) from playbyplay;`  
 	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file, type:  
-	`select count(*) from ext_cms;`  
-	This returns 3999998 rows.  
+	`select count(*) from ext_ playbyplay;`  
+	This returns 47990 rows.  
  7. Load the data into Greenplum using a psql command, type:
-	`insert into cms (select * from ext_cms);`  
-	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the cms table again, type:
-	`select count(*) from cms;`  
-	Now, it should report 3999998 rows, or the same number from our data file.
- 8. External Tables can also point at sources other than local files.  Web external tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.
+	`insert into cms (select * from ext_ playbyplay);`  
+	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again, type:
+	`select count(*) from playbyplay;`  
+	Now, it should report 47990 rows, or the same number from our data file.
+ 8. External Tables can also point at sources other than local files.  Web external tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.
+	Type:
+	`create external web table ext_weather (like weather)     
+	Execute 'wget -qO - https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/blob/master/data/weather_2013.csv?raw=true'`
 
  
  9. g

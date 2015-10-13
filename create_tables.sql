@@ -58,3 +58,22 @@ penaltytype text,
 penaltyyards smallint
 )
 distributed by (gameid);
+
+create table weather
+(
+gameid	int,
+hometeam character varying(3),
+hometeam_full	text,
+hometeam_score	smallint,
+awayteam_full	text,
+awayteam_score	smallint,
+temperature	smallint,
+wind_chill	smallint,
+humidity	smallint,
+wind_mph	smallint,
+description	text,
+date		date
+)
+distributed by (gameid);
+
+
