@@ -2,39 +2,59 @@
 -- PART I - LOADING DATA. 
 --------------------------------------------------------------------------------------
 -- create a database to work in.
-create database ditl;
-
+create database tutorialdb;
+\c tutorialdb;
 -- Drop these objects if they already exist in the database.
-drop table if exists cms;
-drop table if exists cms_part;
-drop table if exists cms_qlz;
-drop table if exists cms_zlib;
-drop table if exists cms_zlib9;
-drop table if exists wwearthquakes_lastwk;
-drop table if exists cms_load_errors;
-drop table if exists cms_bad_key;
-drop external table if exists cms_backup;
-drop external table if exists cms_export;
-drop external table if exists ext_cms;
-drop external table if exists ext_wwearthquakes_lastwk;
-drop table if exists cms_seq;
-drop table if exists cms_p0;
-drop sequence if exists myseq;
-
+drop table if exists playbyplay;
+drop table if exists players;
+drop table if exists weather;
 -- Create the table to hold the cms data from data.gov.  we already know the layout.
-drop table if exists cms;
-CREATE TABLE cms
+CREATE TABLE playbyplay 
 (
-  car_line_id character varying(20),
-  bene_sex_ident_cd numeric(20),
-  bene_age_cat_cd bigint,
-  car_line_icd9_dgns_cd character varying(10),
-  car_line_hcpcs_cd character varying(10),
-  car_line_betos_cd character varying(5),
-  car_line_srvc_cnt bigint,
-  car_line_prvdr_type_cd bigint,
-  car_line_cms_type_srvc_cd character varying(5),
-  car_line_place_of_srvc_cd bigint,
-  car_hcpcs_pmt_amt bigint
+gameid int,
+gamedate date,
+quarter smallint,
+minute smallint,
+second smallint,
+offense character varying(3),
+defense character varying(3),
+down smallint,
+togo smallint,
+yardline smallint,
+filler1 bit,
+seriesfirstdown boolean,
+filler2 bit,
+nextscore smallint,
+description text,
+teamwin smallint,
+filler3 bit,
+filler4 bit,
+seasonyear smallint,
+yards smallint,
+formation text,
+playtype text,
+isrush boolean,
+ispass boolean,
+isincomplete boolean,
+istouchdown boolean,
+passtype text,
+issack boolean,
+ischallenge boolean,
+ischallengedreversed boolean,
+challenger boolean,
+ismeasurement boolean,
+isinterception boolean,
+isfumble boolean,
+ispenalty boolean,
+istwopointconversion boolean,
+istwopointoconversionsuccessful boolean,
+rushdirection text,
+yardlinefixed smallint,
+yardlinedirection text,
+ispenaltyaccepted boolean,
+penaltyteam character varying(3),
+isnoplay boolean,
+penaltytype text,
+penaltyyards smallint
 )
-distributed by (car_line_id);
+distributed by (gameid);
