@@ -137,9 +137,7 @@ Start psql by typing:
 	Now, it should report 47990 rows, or the same number from our data file.
  8. External Tables can also point at sources other than local files.  Web external tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.
 	Type:  
-	```
-	create external web table ext_weather (like weather) Execute 'wget -qO - https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/blob/master/data/weather_2013.csv?raw=true' on all format 'csv' (header) log errors into err_weather segment reject limit 100;
-	```
+	```create external web table ext_weather (like weather) Execute 'wget -qO - https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/blob/master/data/weather_2013.csv?raw=true' on all format 'csv' (header) log errors into err_weather segment reject limit 100;```
 	
 
  
