@@ -1,7 +1,7 @@
 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VOU5MUmh3MzMydlk" width="750">
 <h1 style="text-align: center;" markdown="1">An Introduction and Greenplum Database Tutorial</h1>
 
-<h1 style="text-align: center;" markdown="1">using the</h1>
+<h2 style="text-align: center;" markdown="1">using the</h2>
 <h1 style="text-align: center;" markdown="1">Greenplum DB Sandbox VM</h1>
 
 
