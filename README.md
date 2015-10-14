@@ -173,7 +173,7 @@ Lesson 2: Querying the Database with Apache Zeppelin
  	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  
 
  5. Click football to open the newly created notebook.
- 6. You are 
+ 6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle and type: `%psql.sql select count(*) from weather;` 
   
 
 
