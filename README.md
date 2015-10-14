@@ -110,7 +110,7 @@ Type: `./start_all.sh`
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
-	First, start the **gpfdist** utility  
+	First, start the **gpfdist** utility.  
 	Type: `gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/data -p 8081 -l /home/gpadmin/gpdb-sandbox-tutorials/gpfdist.log &`
 		
 	This will start the gpfdist server with the data directory as its source, so that any external tables built will be able to poin to any files there firectly or via a wildcard.  In this example, we will point to the file directly.
@@ -124,12 +124,12 @@ Type: `./start_all.sh`
 	Start psql by typing:  `psql`  
 	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  
 	At the psql prompt type:  `select count(*) from playbyplay;`  
-	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file,   
+	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file.   
 	Type:  `select count(*) from ext_playbyplay;`  
 	This returns 47990 rows.  
- 7. Load the data into Greenplum using a psql command,   
+ 7. Load the data into Greenplum using a psql command.  
     Type: `insert into playbyplay (select * from ext_ playbyplay);`  
-	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again,     
+	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again.     
 	Type: `select count(*) from playbyplay;`    
 	Now, it should report 47990 rows, or the same number from our data file.  
  Log out of psql by typing: `\q` then press enter.
