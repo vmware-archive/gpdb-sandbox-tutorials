@@ -131,7 +131,7 @@ Start psql by typing:
 	`select count(*) from ext_ playbyplay;`  
 	This returns 47990 rows.  
  7. Load the data into Greenplum using a psql command, type:
-	`insert into cms (select * from ext_ playbyplay);`  
+	`insert into play (select * from ext_ playbyplay);`  
 	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again, type:  
 	`select count(*) from playbyplay;`    
 	Now, it should report 47990 rows, or the same number from our data file.
