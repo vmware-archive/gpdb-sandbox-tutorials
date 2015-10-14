@@ -95,6 +95,7 @@ Figure 1. External Tables Using Greenplum Parallel File Server (gpfdist)
 
 Another Greenplum utility, gpload, runs a load task that you specify in a YAML-formatted control file. You describe the source data locations, format, transformations required, participating hosts, database destinations, and other particulars in the control file and gpload executes the load. This allows you to describe a complex task and execute it in a controlled, repeatable fashion.
 
+**Exercises**  
 This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the **gpfdist** parallel data load utility.
 
  1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
@@ -144,8 +145,7 @@ This tutorial will demonstrate how to load an external csv delimited file into t
 	 You can test the Web External Table by just querying some rows. Run the following query to test.  
 	 Type: `select * from ext_weather limit 10;`
 	
-	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800">
-		
+	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800">  
  10. Now, we can load the data from the External Web Table into the Greenplum Database.  
 	Type: `insert into weather (select * from ext_weather);`  
 	This should report that 22384 rows were inserted.
@@ -153,12 +153,39 @@ This tutorial will demonstrate how to load an external csv delimited file into t
 	Type: `select * from weather limit 10;`
 	This should return a data set that resembles the one shown above for ext_weather.
 	
-This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.
+This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.  
 	
 ****
-Lesson 2: Querying the Database with Apache Zeppelin
+Lesson 2: Querying the Database
 ----------	
-[Apache Zeppelin (incubating)](https://zeppelin.incubator.apache.org/) is a web-based notebook that enables interactive data analytics.  A [PostgeSQL interpreter](https://issues.apache.org/jira/browse/ZEPPELIN-250) has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. 
+This lesson provides an overview of how Greenplum Database processes queries. Understanding this process can be useful when writing and tuning queries.
+ 
+Users issue queries to Greenplum Database as they would to any database management system. They connect to the database instance on the Greenplum master host using a client application such as psql and submit SQL statements.  In this lesson, you will use [Apache Zeppelin (incubating)](https://zeppelin.incubator.apache.org/) to submit SQL statements to the Greenplum Database.  Apache Zeppelin is a web-based notebook that enables interactive data analytics.  A [PostgeSQL interpreter](https://issues.apache.org/jira/browse/ZEPPELIN-250) has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. 
+
+**Understanding Query Planning and Dispatch**  
+The master receives, parses, and optimizes the query. The resulting query plan is either parallel or targeted. The master dispatches parallel query plans to all segments, as shown in Figure 1. Each segment is responsible for executing local database operations on its own set of data.query plans.
+
+Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.
+
+Figure 1. Dispatching the Parallel Query Plan  
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VV2k2LXlqSHFIX0k" width="400">
+ 	  
+**Understanding Greenplum Query Plans**    
+A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and executed from bottom to top.
+
+In addition to common database operations such as tables scans, joins, and so on, Greenplum Database has an additional operation type called motion. A motion operation involves moving tuples between the segments during query processing.
+
+To achieve maximum parallelism during query execution, Greenplum divides the work of the query plan into slices. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan, with one slice on each side of the motion.
+
+**Understanding Parallel Query Execution** 
+Greenplum creates a number of database processes to handle the work of a query. On the master, the query worker process is called the query dispatcher (QD). The QD is responsible for creating and dispatching the query plan. It also accumulates and presents the final results. On the segments, a query worker process is called a query executor (QE). A QE is responsible for completing its portion of work and communicating its intermediate results to the other worker processes.
+
+There is at least one worker process assigned to each slice of the query plan. A worker process works on its assigned portion of the query plan independently. During query execution, each segment will have a number of processes working on the query in parallel.
+
+Related processes that are working on the same slice of the query plan but on different segments are called gangs. As a portion of work is completed, tuples flow up the query plan from one gang of processes to the next. This inter-process communication between the segments is referred to as the interconnect component of Greenplum Database.  
+
+**Exercises**  
+Now, that query execution has been explained, let's run some queries.
 
  1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
  Type: `ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132
@@ -189,7 +216,7 @@ Lesson 2: Querying the Database with Apache Zeppelin
   	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VdXJkd3lGZWhYck0" width="800">  
 
   
-
+ 
 
 
 
@@ -204,6 +231,6 @@ Lesson 4: Advanced Analytics with the Greenplum Database
 ----------	
 
 ****
-Lesson 4: Advanced Analytics with the Greenplum Database
+Lesson 5: Backup and Recovery 
 ----------	
 
