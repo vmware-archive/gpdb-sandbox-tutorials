@@ -22,10 +22,10 @@ Greenplum Database also includes features designed to optimize PostgreSQL for bu
 
 Greenplum Database stores and processes large amounts of data by distributing the data and processing workload across several servers or hosts. Greenplum Database is an array of individual databases based upon PostgreSQL 8.2 working together to present a single database image. The master is the entry point to the Greenplum Database system. It is the database instance to which clients connect and submit SQL statements. The master coordinates its work with the other database instances in the system, called segments, which store and process the data.
 
-Figure 1. High-Level Greenplum Database Architecture 
-<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VM2Y2bjh1VUx1c3M" width="500">
+Figure 1. High-Level Greenplum Database Architecture  
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VM2Y2bjh1VUx1c3M" width="400">  
 
-The following topics describe the components that make up a Greenplum Database system and how they work together.
+The following topics describe the components that make up a Greenplum Database system and how they work together. 
 
 **Greenplum Master**
 The Greenplum Database master is the entry to the Greenplum Database system, accepting client connections and SQL queries, and distributing work to the segment instances.
@@ -68,7 +68,7 @@ This tutorial showcases how GPDB can address day-to-day tasks performed in typic
 
 The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.
 
- - Import the GPDB Sandbox Virtual Machine 
+ - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box
  - Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
 ![](https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VUUtkUERxbFNZd00)
 This screen provides you all the information you need to interact with the VM.
@@ -76,7 +76,7 @@ This screen provides you all the information you need to interact with the VM.
 	 - Managment URLs
 	 - IP address for SSH Connection
 
-Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operation simpler.  
+Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  
 
 This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.   
 
@@ -105,8 +105,8 @@ Type: `./start_all.sh`
 
  3. Type: `cd gpdb-sandbox-tutorials`
  
- 4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:   
- <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">
+ 4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:  
+	 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
@@ -115,23 +115,22 @@ Type: `./start_all.sh`
 		
 	This will start the gpfdist server with the data directory as its source, so that any external tables built will be able to poin to any files there firectly or via a wildcard.  In this example, we will point to the file directly.
 		
-	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.
+	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.  
 	
 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VLXVIbkJwcnJJdjQ" width="800">
 	
 	Type: `psql -f ext_table.sql` to run the shell-script.
- 6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.
-Start psql by typing:   
-	`psql`  
-	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  At the psql prompt type:  
-	`select count(*) from playbyplay;`  
-	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file, type:  
-	`select count(*) from ext_ playbyplay;`  
+ 6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.  
+	Start psql by typing:  `psql`  
+	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  
+	At the psql prompt type:  `select count(*) from playbyplay;`  
+	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file,   
+	Type:  `select count(*) from ext_playbyplay;`  
 	This returns 47990 rows.  
- 7. Load the data into Greenplum using a psql command, type:
-	`insert into playbyplay (select * from ext_ playbyplay);`  
-	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again, type:  
-	`select count(*) from playbyplay;`    
+ 7. Load the data into Greenplum using a psql command,   
+    Type: `insert into playbyplay (select * from ext_ playbyplay);`  
+	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again,     
+	Type: `select count(*) from playbyplay;`    
 	Now, it should report 47990 rows, or the same number from our data file.  
  Log out of psql by typing: `\q` then press enter.
  
