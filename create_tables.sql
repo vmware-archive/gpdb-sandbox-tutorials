@@ -1,14 +1,16 @@
 --------------------------------------------------------------------------------------
 -- PART I - LOADING DATA. 
 --------------------------------------------------------------------------------------
--- create a database to work in.
-create database tutorialdb;
-\c tutorialdb;
+-- create a schema to work in.
+create schema tutorial;
+alter database gpadmin set search_path to  tutorial,public,pg_catalog;
+
 -- Drop these objects if they already exist in the database.
 drop table if exists playbyplay;
 drop table if exists players;
 drop table if exists weather;
--- Create the table to hold the cms data from data.gov.  we already know the layout.
+
+
 CREATE TABLE playbyplay 
 (
 gameid int,

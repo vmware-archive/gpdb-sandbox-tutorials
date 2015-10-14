@@ -107,7 +107,7 @@ Type: `./start_all.sh`
  3. Type: `cd gpdb-sandbox-tutorials`
  
  4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file: 
- <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8Vb1dtN2NQdXF3dXM" width="500">
+ <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
@@ -117,33 +117,38 @@ Type: `./start_all.sh`
 	This will start the gpfdist server with the data directory as its source, so that any external tables built will be able to poin to any files there firectly or via a wildcard.  In this example, we will point to the file directly.
 		
 	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.
-		
-	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVzlSNEJrdDVkQVU" width="700">
-		
-	Type: `psql -d tutorialdb -f ext_table.sql` to run the shell-script.
- 
+	
+	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VLXVIbkJwcnJJdjQ" width="800">
+	
+	Type: `psql -f ext_table.sql` to run the shell-script.
  6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.
 Start psql by typing:   
-	`psql -d tutorialdb`  
+	`psql`  
 	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  At the psql prompt type:  
 	`select count(*) from playbyplay;`  
 	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file, type:  
 	`select count(*) from ext_ playbyplay;`  
 	This returns 47990 rows.  
  7. Load the data into Greenplum using a psql command, type:
-	`insert into play (select * from ext_ playbyplay);`  
+	`insert into playbyplay (select * from ext_ playbyplay);`  
 	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again, type:  
 	`select count(*) from playbyplay;`    
-	Now, it should report 47990 rows, or the same number from our data file.
- 8. External Tables can also point at sources other than local files.  Web external tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.  
-	Type: `psql -d tutorialdb -f ext_web_tables.sql`
-	
+	Now, it should report 47990 rows, or the same number from our data file.  
+ Log out of psql by typing: `\q` then press enter.
  
- 9. g
- 10. 
+ 8. External Tables can also point at sources other than local files.  Web External tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.  
+	Type: `psql -f ext_web_tables.sql`
+
+ 9. Start the psql client, type: `psql`
+	 
+	 You can test the Web External Table by just querying some rows. Run the following query to test.  
+	 Type: `select * from ext_weather limit 10;`
 	
- 8. 
+	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800">
 		
+10. Now, we can load the data from the External Web Table into the Greenplum Database.  
+	Type: `insert into weather (select * from ext_weather)`  
+	This should report that 22384 rows were inserted.
 	
  
 
@@ -153,7 +158,6 @@ Start psql by typing:
 ----------
 
 
- to serve the 
 
 BIG Thanks to those who inspired this: Brad Ganas, Matt Neglay, Austin Rutherford, and 
 others!!others!!
