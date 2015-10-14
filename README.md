@@ -81,7 +81,6 @@ Interacting with the Sandbox via a new terminal is preferable, as it makes many 
 This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.   
 
 
-----------
 ****
 Lesson 1: Parallel Data Loading
 ----------
@@ -150,12 +149,19 @@ Start psql by typing:
 	Type: `insert into weather (select * from ext_weather)`  
 	This should report that 22384 rows were inserted.
 	
+This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.
+	
+****
+Lesson 2: Querying the Database
+----------	
  
+****
+Lesson 3: Partitioning Tables
+----------	
 
-----------
-
-
-----------
+****
+Lesson 4: Advanced Analytics with the Greenplum Database
+----------	
 
 
 
