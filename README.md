@@ -104,11 +104,11 @@ This tutorial will demonstrate how to load an external csv delimited file into t
 Type: `./start_all.sh`
 
  3. Type: `cd gpdb-sandbox-tutorials`
- 
  4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:  
-	 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VS0FZbDByU0s0QWc" width="500">  
+	 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">  
 	 Execute the DDL file and create the tables.  
 	 Type: `psql -f create_tables.sql`
+
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
 	First, start the **gpfdist** utility.  
@@ -118,7 +118,7 @@ Type: `./start_all.sh`
 		
 	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.  
 	
-	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VLXVIbkJwcnJJdjQ" width="800">
+	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VS0FZbDByU0s0QWc" width="800">
 	
 	Type: `psql -f ext_table.sql` to execute the DDL script.
  6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.  
