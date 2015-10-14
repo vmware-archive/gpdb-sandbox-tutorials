@@ -173,7 +173,16 @@ Lesson 2: Querying the Database with Apache Zeppelin
  	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  
 
  5. Click football to open the newly created notebook.
- 6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle and type: `%psql.sql select count(*) from weather;` 
+ 6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle and type: `%psql.sql select count(*) from playbyplay;`  
+ The result should look like the graphic below.
+ 
+ 7. Next, let's try a more compex query and try out some of the visualization features of Zepplin.
+    ```
+	%psql.sql  select p.offense,w.temperature,count(*) from weather w,playbyplay p where   
+	w.date=p.gamedate and (upper(w.hometeam) = p.offense OR upper(w.hometeam) = p.defense) and   
+	p.isinterception = true and p.offense similar to '[ABCD]%' group by p.offense,w.temperature  
+	order by p.offense;
+	```
   
 
 
