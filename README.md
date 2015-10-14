@@ -10,7 +10,7 @@
 About the Greenplum Architecture
 --------------------------------
 
-Pivotal Greenplum Database is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.
+[Pivotal Greenplum Database](http://greenplum.org) is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.
 
 MPP (also known as a shared nothing architecture) refers to systems with two or more processors that cooperate to carry out an operation, each processor with its own memory, operating system and disks. Greenplum uses this high-performance system architecture to distribute the load of multi-terabyte data warehouses, and can use all of a system's resources in parallel to process a query.
 
@@ -106,7 +106,9 @@ Type: `./start_all.sh`
  3. Type: `cd gpdb-sandbox-tutorials`
  
  4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:  
-	 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">
+	 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">  
+	 Execute the DDL file and create the tables.  
+	 Type: `psql -f create_tables.sql`
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
@@ -119,7 +121,7 @@ Type: `./start_all.sh`
 	
 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VLXVIbkJwcnJJdjQ" width="800">
 	
-	Type: `psql -f ext_table.sql` to run the shell-script.
+	Type: `psql -f ext_table.sql` to execute the DDL script.
  6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.  
 	Start psql by typing:  `psql`  
 	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  
@@ -128,7 +130,7 @@ Type: `./start_all.sh`
 	Type:  `select count(*) from ext_playbyplay;`  
 	This returns 47990 rows.  
  7. Load the data into Greenplum using a psql command.  
-    Type: `insert into playbyplay (select * from ext_ playbyplay);`  
+    Type: `insert into playbyplay (select * from ext_playbyplay);`  
 	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again.     
 	Type: `select count(*) from playbyplay;`    
 	Now, it should report 47990 rows, or the same number from our data file.  
@@ -145,16 +147,32 @@ Type: `./start_all.sh`
 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800">
 		
  10. Now, we can load the data from the External Web Table into the Greenplum Database.  
-	Type: `insert into weather (select * from ext_weather)`  
+	Type: `insert into weather (select * from ext_weather);`  
 	This should report that 22384 rows were inserted.
+	You can also query the newly loaded table to verify the table load.  
+	Type: `select * from weather limit 10;`
+	This should return a data set that resembles the one shown above for ext_weather.
 	
 This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.
 	
 ****
-Lesson 2: Querying the Database
+Lesson 2: Querying the Database with Apache Zeppelin
 ----------	
+[Apache Zeppelin (incubating)](https://zeppelin.incubator.apache.org/) is a web-based notebook that enables interactive data analytics.  A [PostgeSQL interpreter](https://issues.apache.org/jira/browse/ZEPPELIN-250) has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. 
+
+ 1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
+ Type: `ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132  
+ <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VR2Q2ZFBUU1BuZWc" width="800">
+ 2. If you haven't already started the Greenplum Database.  
+ Type: `./start_all.sh`
+ 3. Open a browser on your desktop and browse to `http://X.X.X.X:8080` using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.  
+ <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VRnlxcHprZ3JvVG8" width="500">  
  
-****
+
+ 
+ 
+ 
+ 
 Lesson 3: Partitioning Tables
 ----------	
 
@@ -162,5 +180,7 @@ Lesson 3: Partitioning Tables
 Lesson 4: Advanced Analytics with the Greenplum Database
 ----------	
 
-
+****
+Lesson 4: Advanced Analytics with the Greenplum Database
+----------	
 
