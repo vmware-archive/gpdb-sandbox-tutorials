@@ -97,13 +97,14 @@ Another Greenplum utility, gpload, runs a load task that you specify in a YAML-f
 
 This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the **gpfdist** parallel data load utility.
 
- 1. Open a terminal and ssh into the sandbox machine. 
- Type: `ssh gpadmin@X.X.X.X`
-
- 2. Start the Greeplum Database. 
-Type: `./start_all.sh`
-
- 3. Type: `cd gpdb-sandbox-tutorials`
+ 1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
+ Type: `ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132  
+ <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VR2Q2ZFBUU1BuZWc" width="800">
+ 2. If you haven't already started the Greenplum Database.  
+ Type: `./start_all.sh`  
+ 
+ 3. Type: `cd gpdb-sandbox-tutorials`  
+ 
  4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:  
 	 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">  
 	 Execute the DDL file and create the tables.  
@@ -160,15 +161,24 @@ Lesson 2: Querying the Database with Apache Zeppelin
 [Apache Zeppelin (incubating)](https://zeppelin.incubator.apache.org/) is a web-based notebook that enables interactive data analytics.  A [PostgeSQL interpreter](https://issues.apache.org/jira/browse/ZEPPELIN-250) has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. 
 
  1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
- Type: `ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132  
- <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VR2Q2ZFBUU1BuZWc" width="800">
- 2. If you haven't already started the Greenplum Database.  
- Type: `./start_all.sh`
- 3. Open a browser on your desktop and browse to `http://X.X.X.X:8080` using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.  
- <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VRnlxcHprZ3JvVG8" width="500">  
- 
+ Type: `ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132
+ 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VR2Q2ZFBUU1BuZWc" width="800">  
 
- 
+ 2. If you haven't already started the Greenplum Database.  
+ Type: `./start_all.sh`  
+ 3. Open a browser on your desktop and browse to `http://X.X.X.X:8080` using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.
+ 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VRnlxcHprZ3JvVG8" width="500">  
+  
+ 4. Click on Create new note underneath the Notebook heading and type: `football`
+ 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  
+
+ 5. Click football to open the newly created notebook.
+ 6. You are 
+  
+
+
+
+
  
  
  
