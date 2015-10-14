@@ -164,5 +164,3 @@ Lesson 4: Advanced Analytics with the Greenplum Database
 
 
 
-BIG Thanks to those who inspired this: Brad Ganas, Matt Neglay, Austin Rutherford, and 
-others!!others!!
