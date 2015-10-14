@@ -106,7 +106,7 @@ Type: `./start_all.sh`
 
  3. Type: `cd gpdb-sandbox-tutorials`
  
- 4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file: 
+ 4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:   
  <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
@@ -146,7 +146,7 @@ Start psql by typing:
 	
 	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800">
 		
-10. Now, we can load the data from the External Web Table into the Greenplum Database.  
+ 10. Now, we can load the data from the External Web Table into the Greenplum Database.  
 	Type: `insert into weather (select * from ext_weather)`  
 	This should report that 22384 rows were inserted.
 	
