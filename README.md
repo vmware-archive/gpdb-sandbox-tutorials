@@ -173,16 +173,21 @@ Lesson 2: Querying the Database with Apache Zeppelin
  	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  
 
  5. Click football to open the newly created notebook.
- 6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle and type: `%psql.sql select count(*) from playbyplay;`  
+ 6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: `%psql.sql select count(*) from playbyplay;`  
  The result should look like the graphic below.
  
- 7. Next, let's try a more compex query and try out some of the visualization features of Zepplin.
+ 7. Next, let's try a more compex query and try out some of the visualization features of Zepplin. In a new paragraph type:  
     ```
 	%psql.sql  select p.offense,w.temperature,count(*) from weather w,playbyplay p where   
 	w.date=p.gamedate and (upper(w.hometeam) = p.offense OR upper(w.hometeam) = p.defense) and   
 	p.isinterception = true and p.offense similar to '[ABCD]%' group by p.offense,w.temperature  
 	order by p.offense;
-	```
+	```  
+	This should return a data set showing team abbreviation, game temperature, and number of interceptions.   This query scans all the offensive plays in 2013 and returns any that were interceptions and the temperature of that game for teams that begin with A,B,C, or D.
+	
+ 8. There is a row of icons underneath the query.  The one on the far right is a scatter-plot, click that.  You will then be able to drag the fields of the query into the axis of the plot.  Drag offense to the xAxis, temperature to the yAxis, and count to size.  You should now see a scatter plot with the vertical axis showing the number of interceptions per team at a given temperature.  The size of the "dot" represents the relative number of interceptions.  
+  	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VdXJkd3lGZWhYck0" width="800">  
+
   
 
 
