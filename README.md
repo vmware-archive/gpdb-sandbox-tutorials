@@ -231,15 +231,15 @@ Now, that query execution has been explained, let's run some queries.
 
  
  
- 
+****
 Lesson 3: Partitioning Tables
 ----------	
-
+***COMING SOON!***
 ****
 Lesson 4: Advanced Analytics with the Greenplum Database
 ----------	
-
+***COMING SOON!***
 ****
 Lesson 5: Backup and Recovery 
 ----------	
-
+****
