@@ -199,7 +199,7 @@ Now, that query execution has been explained, let's run some queries.
  4. Click on Create new note underneath the Notebook heading and type: `tutorial`
  	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  
 
- 5. Click "tutorial" to open the newly created notebook.  Or, if you prefer, there is already a notebook created called football that has the queries and paragraphs pre-created.  
+ 5. Click "tutorial" to open the newly created notebook.  Or, if you prefer, there is already a notebook created called football that has the queries and paragraphs pre-created.  If you choose this option, the Interpretor Binding options will display at the top, scroll down and hit save to close this portion of the screen.
  6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: `%psql.sql select count(*) from playbyplay;`  
  The result should look like the graphic below.
  
