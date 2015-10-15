@@ -196,10 +196,10 @@ Now, that query execution has been explained, let's run some queries.
  3. Open a browser on your desktop and browse to `http://X.X.X.X:8080` using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.
  	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VRnlxcHprZ3JvVG8" width="500">  
   
- 4. Click on Create new note underneath the Notebook heading and type: `football`
+ 4. Click on Create new note underneath the Notebook heading and type: `tutorial`
  	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  
 
- 5. Click football to open the newly created notebook.
+ 5. Click "tutorial" to open the newly created notebook.  Or, if you prefer, there is already a notebook created called football that has the queries and paragraphs pre-created.  
  6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: `%psql.sql select count(*) from playbyplay;`  
  The result should look like the graphic below.
  
