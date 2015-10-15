@@ -216,7 +216,9 @@ Now, that query execution has been explained, let's run some queries.
   	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VdXJkd3lGZWhYck0" width="800">  
 
   
- 
+ ```
+ %psql.sql select home.team,home.homeint,road.roadint from (select p.offense as team,count(*) as roadint from weather w,playbyplay p where w.date=p.gamedate and (upper(w.hometeam) =  p.defense) and p.isinterception = true group by p.offense) road, (select p.offense as team ,count(*) as homeint from weather w,playbyplay p where w.date=p.gamedate and (upper(w.hometeam) =  p.offense) and p.isinterception = true group by p.offense) home where home.team = road.team and home.team similar to '[ABCD]%'
+ order by homeint;```
 
 
 
