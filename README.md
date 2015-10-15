@@ -242,4 +242,6 @@ Lesson 4: Advanced Analytics with the Greenplum Database
 ****
 Lesson 5: Backup and Recovery 
 ----------	
+***COMING SOON!***
+
 ****
