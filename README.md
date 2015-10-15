@@ -214,7 +214,7 @@ Now, that query execution has been explained, let's run some queries.
 	
  8. There is a row of icons underneath the query.  The one on the far right is a scatter-plot, click that.  You will then be able to drag the fields of the query into the axis of the plot.  Drag offense to the xAxis, temperature to the yAxis, and count to size.  You should now see a scatter plot with the vertical axis showing the number of interceptions per team at a given temperature.  The size of the "dot" represents the relative number of interceptions.  
   	<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VdXJkd3lGZWhYck0" width="800">  
- 9. The final query leverages subquerys to determine how many interceptions each team through at home versus on the road for the season.  Once again, for display purposes, the teams have been limited to those beginning with A-D.
+ 9. The final query leverages subquerys to determine how many interceptions each team threw at home versus on the road for the season.  Once again, for display purposes, the teams have been limited to those beginning with A-D.
   
 	 ```
 	 %psql.sql select home.team,home.homeint,road.roadint from (select p.offense as  
