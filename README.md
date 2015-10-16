@@ -5,7 +5,7 @@
 
 ****
 
-**Tutorials**
+<a name="tutorials"></a>Tutorials
 ------------
 
 * [Introduction to the Greenplum Database Architecture](#lesson0)
@@ -69,6 +69,7 @@ The Pivotal Query Optimizer brings a state of the art query optimization framewo
 
  - Performance.  The Pivotal Query Optimizer leverages a multi-core scheduler that can distribute individual optimization tasks across multiple cores to speed up the optimization process. This allows the Query Optimizer to apply all possible optimizations as the same time, which results in many more plan alternatives and a wider range of queries that can be optimized. For instance, when the Pivotal Query Optimizer was used with TPC-H Query 21 it generated 1.2 Billion possible plans in 250 ms. This is especially important in Big Data Analytics where performance challenges are magnified by the volume of data that needs to be processed. A suboptimal optimization choice could very well lead to a query that just runs forever.
 
+[Return to Tutorial List](#tutorials)  
 
 
 
@@ -172,11 +173,14 @@ This tutorial will demonstrate how to load an external csv delimited file into t
 	Type: `select * from weather limit 10;`
 	This should return a data set that resembles the one shown above for ext_weather.
 	
-This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.  
-	
+This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.   
+
+[Return to Tutorial List](#tutorials)  
+
 ****
+
 <a name="lesson2"></a>Lesson 2: Querying the Database
-----------	
+--------	
 
 This lesson provides an overview of how Greenplum Database processes queries. Understanding this process can be useful when writing and tuning queries.
  
@@ -245,7 +249,8 @@ Now, that query execution has been explained, let's run some queries.
 	 p.offense) home where home.team = road.team and home.team similar to '[ABCD]%'  
 	 order by homeint;  
 	 ```  
- 
+   
+[Return to Tutorial List](#tutorials)  
 
 
 ****
@@ -287,6 +292,8 @@ Launch psql:
 
 Then, type:  
 > `insert into players (select * from ext_players);`
+  
+[Return to Tutorial List](#tutorials)  
 
 ****
 <a name="lesson4"></a>Lesson 4: Advanced Analytics with the Greenplum Database
