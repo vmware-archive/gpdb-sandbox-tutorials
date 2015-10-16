@@ -1,36 +1,25 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset="UTF-8">
     <title>Greenplum DB Sandbox Tutorials by Pivotal-Open-Source-Hub</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Greenplum DB Sandbox Tutorials</h1>
-        <p class="header"></p>
+    <section class="page-header">
+      <h1 class="project-name">Greenplum DB Sandbox Tutorials</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials" class="btn">View on GitHub</a>
+      <a href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials">View On GitHub</a></li>
-        </ul>
-
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/Pivotal-Open-Source-Hub">Pivotal-Open-Source-Hub</a></p>
-
-
-      </header>
-      <section>
-        <p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VOU5MUmh3MzMydlk" width="750"></p>
+    <section class="main-content">
+      <p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VOU5MUmh3MzMydlk" width="750"></p>
 
 <h1 align="center">
 <a id="an-introduction-and-greenplum-db-tutorial" class="anchor" href="#an-introduction-and-greenplum-db-tutorial" aria-hidden="true"><span class="octicon octicon-link"></span></a>An Introduction and Greenplum DB Tutorial</h1>
@@ -44,7 +33,53 @@
 <hr>
 
 <h2>
-<a id="about-the-greenplum-architecture" class="anchor" href="#about-the-greenplum-architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a>About the Greenplum Architecture</h2>
+<a id="greenplum-database-tutorial" class="anchor" href="#greenplum-database-tutorial" aria-hidden="true"><span class="octicon octicon-link"></span></a>Greenplum Database Tutorial</h2>
+
+<p>These tutorials showcase how GPDB can address day-to-day tasks performed in typical DW/BI environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download.</p>
+
+<p>The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.</p>
+
+<ul>
+<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box</li>
+<li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
+<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VUUtkUERxbFNZd00" alt="">
+This screen provides you all the information you need to interact with the VM.
+
+<ul>
+<li>Username/Password combinations</li>
+<li>Managment URLs</li>
+<li>IP address for SSH Connection</li>
+</ul>
+</li>
+</ul>
+
+<p>Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  </p>
+
+<p><em>This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.</em></p>
+
+<h2>
+<a id="tutorials" class="anchor" href="#tutorials" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="tutorials"></a>Tutorials</h2>
+
+<ul>
+<li><a href="#lesson0">Introduction to the Greenplum Database Architecture</a></li>
+<li>
+<a href="#lesson1">Lesson 1: Parallel Data Loading</a><br>
+</li>
+<li>
+<a href="#lesson2">Lesson 2: Querying the Database</a><br>
+</li>
+<li>
+<a href="#lesson3">Lesson 3: Creating Partitioned Tables</a> </li>
+<li>
+<a href="#lesson4">Lesson 4: Advanced Analytics with the Greenplum Database</a> </li>
+<li>
+<a href="#lesson5">Lesson 5: Backup and Recovery Operations</a> </li>
+</ul>
+
+<hr>
+
+<h2>
+<a id="introduction-to-the-greenplum-database--architecture" class="anchor" href="#introduction-to-the-greenplum-database--architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson0"></a>Introduction to the Greenplum Database  Architecture</h2>
 
 <p><a href="http://greenplum.org">Pivotal Greenplum Database</a> is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.</p>
 
@@ -95,35 +130,12 @@ The Pivotal Query Optimizer brings a state of the art query optimization framewo
 <li><p>Performance.  The Pivotal Query Optimizer leverages a multi-core scheduler that can distribute individual optimization tasks across multiple cores to speed up the optimization process. This allows the Query Optimizer to apply all possible optimizations as the same time, which results in many more plan alternatives and a wider range of queries that can be optimized. For instance, when the Pivotal Query Optimizer was used with TPC-H Query 21 it generated 1.2 Billion possible plans in 250 ms. This is especially important in Big Data Analytics where performance challenges are magnified by the volume of data that needs to be processed. A suboptimal optimization choice could very well lead to a query that just runs forever.</p></li>
 </ul>
 
-<h2>
-<a id="greenplum-database-tutorial" class="anchor" href="#greenplum-database-tutorial" aria-hidden="true"><span class="octicon octicon-link"></span></a>Greenplum Database Tutorial</h2>
-
-<p>This tutorial showcases how GPDB can address day-to-day tasks performed in typical DW/BI environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download.</p>
-
-<p>The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.</p>
-
-<ul>
-<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box</li>
-<li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VUUtkUERxbFNZd00" alt="">
-This screen provides you all the information you need to interact with the VM.
-
-<ul>
-<li>Username/Password combinations</li>
-<li>Managment URLs</li>
-<li>IP address for SSH Connection</li>
-</ul>
-</li>
-</ul>
-
-<p>Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  </p>
-
-<p>This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.   </p>
+<p><a href="#tutorials">Return to Tutorial List</a>  </p>
 
 <hr>
 
 <h2>
-<a id="lesson-1-parallel-data-loading" class="anchor" href="#lesson-1-parallel-data-loading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 1: Parallel Data Loading</h2>
+<a id="lesson-1-parallel-data-loading" class="anchor" href="#lesson-1-parallel-data-loading" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson1"></a>Lesson 1: Parallel Data Loading</h2>
 
 <p>In a large scale, multi-terabyte data warehouse, large amounts of data must be loaded within a relatively small maintenance window. Greenplum supports fast, parallel data loading with its external tables feature. Administrators can also load external tables in single row error isolation mode to filter bad rows into a separate error table while continuing to load properly formatted rows. Administrators can specify an error threshold for a load operation to control how many improperly formatted rows cause Greenplum to abort the load operation.</p>
 
@@ -135,7 +147,8 @@ This screen provides you all the information you need to interact with the VM.
 
 <p>Another Greenplum utility, gpload, runs a load task that you specify in a YAML-formatted control file. You describe the source data locations, format, transformations required, participating hosts, database destinations, and other particulars in the control file and gpload executes the load. This allows you to describe a complex task and execute it in a controlled, repeatable fashion.</p>
 
-<p>This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the <strong>gpfdist</strong> parallel data load utility.</p>
+<p><strong>Exercises</strong><br>
+This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the <strong>gpfdist</strong> parallel data load utility.</p>
 
 <ol>
 <li>From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)<br>
@@ -148,7 +161,7 @@ Type: <code>./start_all.sh</code>  </p></li>
 <li><p>The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:<br>
  <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500"><br>
  Execute the DDL file and create the tables.<br>
- Type: <code>psql -f create_tables.sql</code></p></li>
+ Type: <code>psql -f create_tables.sql</code> -</p></li>
 <li>
 <p>Now, we need to setup <strong>gpfdist</strong> to serve the external data file.</p>
 
@@ -185,24 +198,53 @@ Type: <code>psql -f ext_web_tables.sql</code></p></li>
 <p>You can test the Web External Table by just querying some rows. Run the following query to test.<br>
  Type: <code>select * from ext_weather limit 10;</code></p>
 
-<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800"></p>
+<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800">  </p>
 </li>
-<li><p>Now, we can load the data from the External Web Table into the Greenplum Database.<br>
+<li>Now, we can load the data from the External Web Table into the Greenplum Database.<br>
 Type: <code>insert into weather (select * from ext_weather);</code><br>
 This should report that 22384 rows were inserted.
 You can also query the newly loaded table to verify the table load.<br>
 Type: <code>select * from weather limit 10;</code>
-This should return a data set that resembles the one shown above for ext_weather.</p></li>
+This should return a data set that resembles the one shown above for ext_weather.</li>
 </ol>
 
-<p>This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.</p>
+<p>This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.   </p>
+
+<p><a href="#tutorials">Return to Tutorial List</a>  </p>
 
 <hr>
 
 <h2>
-<a id="lesson-2-querying-the-database-with-apache-zeppelin" class="anchor" href="#lesson-2-querying-the-database-with-apache-zeppelin" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 2: Querying the Database with Apache Zeppelin</h2>
+<a id="lesson-2-querying-the-database" class="anchor" href="#lesson-2-querying-the-database" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson2"></a>Lesson 2: Querying the Database</h2>
 
-<p><a href="https://zeppelin.incubator.apache.org/">Apache Zeppelin (incubating)</a> is a web-based notebook that enables interactive data analytics.  A <a href="https://issues.apache.org/jira/browse/ZEPPELIN-250">PostgeSQL interpreter</a> has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. </p>
+<p>This lesson provides an overview of how Greenplum Database processes queries. Understanding this process can be useful when writing and tuning queries.</p>
+
+<p>Users issue queries to Greenplum Database as they would to any database management system. They connect to the database instance on the Greenplum master host using a client application such as psql and submit SQL statements.  In this lesson, you will use <a href="https://zeppelin.incubator.apache.org/">Apache Zeppelin (incubating)</a> to submit SQL statements to the Greenplum Database.  Apache Zeppelin is a web-based notebook that enables interactive data analytics.  A <a href="https://issues.apache.org/jira/browse/ZEPPELIN-250">PostgeSQL interpreter</a> has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. </p>
+
+<p><strong>Understanding Query Planning and Dispatch</strong><br>
+The master receives, parses, and optimizes the query. The resulting query plan is either parallel or targeted. The master dispatches parallel query plans to all segments, as shown in Figure 1. Each segment is responsible for executing local database operations on its own set of data.query plans.</p>
+
+<p>Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.</p>
+
+<p>Figure 1. Dispatching the Parallel Query Plan<br>
+<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VV2k2LXlqSHFIX0k" width="400"></p>
+
+<p><strong>Understanding Greenplum Query Plans</strong><br>
+A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and executed from bottom to top.</p>
+
+<p>In addition to common database operations such as tables scans, joins, and so on, Greenplum Database has an additional operation type called motion. A motion operation involves moving tuples between the segments during query processing.</p>
+
+<p>To achieve maximum parallelism during query execution, Greenplum divides the work of the query plan into slices. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan, with one slice on each side of the motion.</p>
+
+<p><strong>Understanding Parallel Query Execution</strong> 
+Greenplum creates a number of database processes to handle the work of a query. On the master, the query worker process is called the query dispatcher (QD). The QD is responsible for creating and dispatching the query plan. It also accumulates and presents the final results. On the segments, a query worker process is called a query executor (QE). A QE is responsible for completing its portion of work and communicating its intermediate results to the other worker processes.</p>
+
+<p>There is at least one worker process assigned to each slice of the query plan. A worker process works on its assigned portion of the query plan independently. During query execution, each segment will have a number of processes working on the query in parallel.</p>
+
+<p>Related processes that are working on the same slice of the query plan but on different segments are called gangs. As a portion of work is completed, tuples flow up the query plan from one gang of processes to the next. This inter-process communication between the segments is referred to as the interconnect component of Greenplum Database.  </p>
+
+<p><strong>Exercises</strong><br>
+Now, that query execution has been explained, let's run some queries.</p>
 
 <ol>
 <li><p>From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)<br>
@@ -212,9 +254,9 @@ Type: <code>ssh gpadmin@X.X.X.X</code>  In the example shown, this would be ssh 
 Type: <code>./start_all.sh</code>  </p></li>
 <li><p>Open a browser on your desktop and browse to <code>http://X.X.X.X:8080</code> using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VRnlxcHprZ3JvVG8" width="500">  </p></li>
-<li><p>Click on Create new note underneath the Notebook heading and type: <code>football</code>
+<li><p>Click on Create new note underneath the Notebook heading and type: <code>tutorial</code>
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  </p></li>
-<li><p>Click football to open the newly created notebook.</p></li>
+<li><p>Click "tutorial" to open the newly created notebook.  Or, if you prefer, there is already a notebook created called football that has the queries and paragraphs pre-created.  If you choose this option, the Interpretor Binding options will display at the top, scroll down and hit save to close this portion of the screen.</p></li>
 <li><p>You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: <code>%psql.sql select count(*) from playbyplay;</code><br>
 The result should look like the graphic below.</p></li>
 <li>
@@ -230,26 +272,103 @@ order by p.offense;
 </li>
 <li><p>There is a row of icons underneath the query.  The one on the far right is a scatter-plot, click that.  You will then be able to drag the fields of the query into the axis of the plot.  Drag offense to the xAxis, temperature to the yAxis, and count to size.  You should now see a scatter plot with the vertical axis showing the number of interceptions per team at a given temperature.  The size of the "dot" represents the relative number of interceptions.<br>
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VdXJkd3lGZWhYck0" width="800">  </p></li>
+<li>
+<p>The final query leverages subquerys to determine how many interceptions each team threw at home versus on the road for the season.  Once again, for display purposes, the teams have been limited to those beginning with A-D.</p>
+
+<pre><code> %psql.sql select home.team,home.homeint,road.roadint from (select p.offense as  
+ team,count(*) as roadint from weather w,playbyplay p where w.date=p.gamedate and  
+ (upper(w.hometeam) =  p.defense) and p.isinterception = true group by p.offense) road,  
+ (select p.offense as team ,count(*) as homeint from weather w,playbyplay p where  
+ w.date=p.gamedate and (upper(w.hometeam) =  p.offense) and p.isinterception = true group by
+ p.offense) home where home.team = road.team and home.team similar to '[ABCD]%'  
+ order by homeint;  
+</code></pre>
+</li>
 </ol>
 
-<h2>
-<a id="lesson-3-partitioning-tables" class="anchor" href="#lesson-3-partitioning-tables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 3: Partitioning Tables</h2>
+<p><a href="#tutorials">Return to Tutorial List</a>  </p>
 
 <hr>
 
 <h2>
-<a id="lesson-4-advanced-analytics-with-the-greenplum-database" class="anchor" href="#lesson-4-advanced-analytics-with-the-greenplum-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 4: Advanced Analytics with the Greenplum Database</h2>
+<a id="lesson-3-creating-partitioned-tables" class="anchor" href="#lesson-3-creating-partitioned-tables" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson3"></a>Lesson 3: Creating Partitioned Tables</h2>
+
+<p>Table partitioning enables supporting very large tables, such as fact tables, by logically dividing them into smaller, more manageable pieces. Partitioned tables can improve query performance by allowing the Greenplum Database query optimizer to scan only the data needed to satisfy a given query instead of scanning all the contents of a large table.</p>
+
+<p>Partitioning does not change the physical distribution of table data across the segments. Table distribution is physical: Greenplum Database physically divides partitioned tables and non-partitioned tables across segments to enable parallel query processing. Table partitioning is logical: Greenplum Database logically divides big tables to improve query performance and facilitate data warehouse maintenance tasks, such as rolling old data out of the data warehouse.</p>
+
+<p>Greenplum Database supports:</p>
+
+<ul>
+<li>Range partitioning: division of data based on a numerical range, such as date or price.<br>
+</li>
+<li>List partitioning: division of data based on a list of values, such as sales territory or product line.<br>
+</li>
+<li>A combination of both types.<br>
+</li>
+</ul>
+
+<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VVXhTSXRjaWhFUFE" width="400">  </p>
+
+<p><strong>Exercises</strong>  </p>
+
+<p>This exercise will demonstrate how to create a range partitioned table and loading it via external table.</p>
+
+<p>The DDL to create the partitioned table is in the file create_part.sql. This snapshot shows the relevant portion of the file.  </p>
+
+<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VYXJQdi1ldWFGRG8" width="600">  </p>
+
+<p>This statement defines a RANGE partition using the date the player was drafted as the partition key.   The START/END represent the high and low of the values in that column.  EVERY defines the partition granularity or how many of the values from the range will be within a single partition.   The DEFAULT PARTITION is the partition that values that don't match any of the defined partitions are inserted into.  </p>
+
+<p>First, create the partitioned table and the External Table use to query the data file:</p>
+
+<blockquote>
+<p><code>psql -f create_part.sql</code>  </p>
+</blockquote>
+
+<p>This is the output from that ddl.  You can see the partitions were created.  </p>
+
+<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VeXNha2RZRDktaEU" width="600">  </p>
+
+<p>Now, query the external data and insert data into the partitioned table.<br>
+Launch psql:  </p>
+
+<blockquote>
+<p><code>psql</code>  </p>
+</blockquote>
+
+<p>Then, type:  </p>
+
+<blockquote>
+<p><code>insert into players (select * from ext_players);</code></p>
+</blockquote>
+
+<p><a href="#tutorials">Return to Tutorial List</a>  </p>
 
 <hr>
 
 <h2>
-<a id="lesson-4-advanced-analytics-with-the-greenplum-database-1" class="anchor" href="#lesson-4-advanced-analytics-with-the-greenplum-database-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 4: Advanced Analytics with the Greenplum Database</h2>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+<a id="lesson-4-advanced-analytics-with-the-greenplum-database" class="anchor" href="#lesson-4-advanced-analytics-with-the-greenplum-database" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson4"></a>Lesson 4: Advanced Analytics with the Greenplum Database</h2>
+
+<p><strong><em>COMING SOON!</em></strong></p>
+
+<hr>
+
+<h2>
+<a id="lesson-5-backup-and-recovery-operations" class="anchor" href="#lesson-5-backup-and-recovery-operations" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson5"></a>Lesson 5: Backup and Recovery Operations</h2>
+
+<p><strong><em>COMING SOON!</em></strong></p>
+
+<hr>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials">Greenplum DB Sandbox Tutorials</a> is maintained by <a href="https://github.com/Pivotal-Open-Source-Hub">Pivotal-Open-Source-Hub</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
+
+    </section>
+
+  
   </body>
 </html>
