@@ -92,18 +92,7 @@ The Pivotal Query Optimizer brings a state of the art query optimization framewo
 
 [Return to Tutorial List](#tutorials)  
 
-
-
-
-  
-
-
-  
-***
-***
 ***  
-
-
 
 <a name="lesson1"></a>Lesson 1: Parallel Data Loading
 ------------
