@@ -5,6 +5,27 @@
 
 ****
 
+
+Greenplum Database Tutorial
+-----------------
+
+These tutorials showcase how GPDB can address day-to-day tasks performed in typical DW/BI environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download.
+
+The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.
+
+ - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box
+ - Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
+![](https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VUUtkUERxbFNZd00)
+This screen provides you all the information you need to interact with the VM.
+	 - Username/Password combinations
+	 - Managment URLs
+	 - IP address for SSH Connection
+
+Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  
+
+*This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.*
+ 
+
 <a name="tutorials"></a>Tutorials
 ------------
 
@@ -73,24 +94,6 @@ The Pivotal Query Optimizer brings a state of the art query optimization framewo
 
 
 
-Greenplum Database Tutorial
------------------
-
-This tutorial showcases how GPDB can address day-to-day tasks performed in typical DW/BI environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download.
-
-The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.
-
- - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box
- - Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
-![](https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VUUtkUERxbFNZd00)
-This screen provides you all the information you need to interact with the VM.
-	 - Username/Password combinations
-	 - Managment URLs
-	 - IP address for SSH Connection
-
-Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  
-
-This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.
 
   
 
