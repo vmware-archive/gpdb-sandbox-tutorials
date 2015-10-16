@@ -234,7 +234,41 @@ Now, that query execution has been explained, let's run some queries.
 ****
 Lesson 3: Partitioning Tables
 ----------	
-***COMING SOON!***
+Table partitioning enables supporting very large tables, such as fact tables, by logically dividing them into smaller, more manageable pieces. Partitioned tables can improve query performance by allowing the Greenplum Database query optimizer to scan only the data needed to satisfy a given query instead of scanning all the contents of a large table.
+
+Partitioning does not change the physical distribution of table data across the segments. Table distribution is physical: Greenplum Database physically divides partitioned tables and non-partitioned tables across segments to enable parallel query processing. Table partitioning is logical: Greenplum Database logically divides big tables to improve query performance and facilitate data warehouse maintenance tasks, such as rolling old data out of the data warehouse.
+
+Greenplum Database supports:
+
+* Range partitioning: division of data based on a numerical range, such as date or price.  
+* List partitioning: division of data based on a list of values, such as sales territory or product line.  
+* A combination of both types.  
+
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VVXhTSXRjaWhFUFE" width="400">  
+
+**Exercises**  
+
+This exercise will demonstrate how to create a range partitioned table and loading it via external table.
+
+The DDL to create the partitioned table is in the file create_part.sql. This snapshot shows the relevant portion of the file.  
+
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VYXJQdi1ldWFGRG8" width="600">  
+
+This statement defines a RANGE partition using the date the player was drafted as the partition key.   The START/END represent the high and low of the values in that column.  EVERY defines the partition granularity or how many of the values from the range will be within a single partition.   The DEFAULT PARTITION is the partition that values that don't match any of the defined partitions are inserted into.  
+
+First, create the partitioned table and the External Table use to query the data file:
+> `psql -f create_part.sql`  
+
+This is the output from that ddl.  You can see the partitions were created.  
+
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VeXNha2RZRDktaEU" width="500">  
+
+Now, query the external data and insert data into the partitioned table.    
+Launch psql:  
+> `psql`  
+Then, type:
+> `insert into players (select * from ext_players);`
+
 ****
 Lesson 4: Advanced Analytics with the Greenplum Database
 ----------	

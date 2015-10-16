@@ -23,7 +23,8 @@ deathcountry text,
 rookieyear smallint,
 finalyear smallint
 )
-distributed by (name);
+distributed by (name)
+partition by range (draftyear) (START (1936) END (2013) EVERY (5), DEFAULT PARTITION extra);
 
 drop external table if exists ext_players;
 create external table ext_players (like players) location ('gpfdist://localhost:8081/players_2013-12-12.csv') format 'csv' (header) LOG ERRORS INTO err_players SEGMENT REJECT LIMIT 1000 ROWS;
