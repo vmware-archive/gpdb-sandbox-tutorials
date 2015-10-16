@@ -261,12 +261,13 @@ First, create the partitioned table and the External Table use to query the data
 
 This is the output from that ddl.  You can see the partitions were created.  
 
-<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VeXNha2RZRDktaEU" width="500">  
+<img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VeXNha2RZRDktaEU" width="600">  
 
 Now, query the external data and insert data into the partitioned table.    
 Launch psql:  
 > `psql`  
-Then, type:
+
+Then, type:  
 > `insert into players (select * from ext_players);`
 
 ****
