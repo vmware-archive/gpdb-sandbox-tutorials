@@ -109,7 +109,7 @@ This tutorial will demonstrate how to load an external csv delimited file into t
  4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:  
 	 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500">  
 	 Execute the DDL file and create the tables.  
-	 Type: `psql -f create_tables.sql`
+	 Type: `psql -f create_tables.sql` -
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
