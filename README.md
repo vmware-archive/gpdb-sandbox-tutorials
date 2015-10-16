@@ -3,12 +3,22 @@
 <h1 align="center">using the</h1>
 <h1 align="center">Greenplum DB Sandbox VM</h1>
 
+****
+
+**Tutorials**
+------------
+
+* [Introduction to the Greenplum Database Architecture](#lesson0)
+* [Lesson 1: Parallel Data Loading](#lesson1)  
+* [Lesson 2: Querying the Database](#lesson2)   
+* [Lesson 3: Creating Partitioned Tables](#lesson3) 
+* [Lesson 4: Advanced Analytics with the Greenplum Database](#lesson4) 
+* [Lesson 5: Backup and Recovery Operations](#lesson5) 
 
 
 -----------------------------------
-
-About the Greenplum Architecture
---------------------------------
+<a name="lesson0"></a>Introduction to the Greenplum Database  Architecture
+------------
 
 [Pivotal Greenplum Database](http://greenplum.org) is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.
 
@@ -81,14 +91,7 @@ Interacting with the Sandbox via a new terminal is preferable, as it makes many 
 
 This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.
 
-**Available Lessons**
-------------
-
-* [Lesson 1: Parallel Data Loading](#lesson1)  
-* [Lesson 2: Querying the Database](#lesson2)   
-* [Lesson 3: Creating Partitioned Tables](#lesson3) 
-* [Lesson 4: Advanced Analytics with the Greenplum Database](#lesson4) 
-* [Lesson 5: Backup and Recovery Operations](#lesson5)   
+  
 
 
   
