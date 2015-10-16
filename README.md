@@ -61,6 +61,7 @@ The Pivotal Query Optimizer brings a state of the art query optimization framewo
 
 
 
+
 Greenplum Database Tutorial
 -----------------
 
@@ -78,12 +79,27 @@ This screen provides you all the information you need to interact with the VM.
 
 Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  
 
-This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.   
+This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.
+
+**Available Lessons**
+------------
+
+* [Lesson 1: Parallel Data Loading](#lesson1)  
+* [Lesson 2: Querying the Database](#lesson2)   
+* [Lesson 3: Creating Partitioned Tables](#lesson3) 
+* [Lesson 4: Advanced Analytics with the Greenplum Database](#lesson4) 
+* [Lesson 5: Backup and Recovery Operations](#lesson5)   
 
 
-****
-Lesson 1: Parallel Data Loading
-----------
+  
+***
+***
+***  
+
+
+
+<a name="lesson1"></a>Lesson 1: Parallel Data Loading
+------------
 
 In a large scale, multi-terabyte data warehouse, large amounts of data must be loaded within a relatively small maintenance window. Greenplum supports fast, parallel data loading with its external tables feature. Administrators can also load external tables in single row error isolation mode to filter bad rows into a separate error table while continuing to load properly formatted rows. Administrators can specify an error threshold for a load operation to control how many improperly formatted rows cause Greenplum to abort the load operation.
 
@@ -156,8 +172,9 @@ This tutorial will demonstrate how to load an external csv delimited file into t
 This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.  
 	
 ****
-Lesson 2: Querying the Database
+<a name="lesson2"></a>Lesson 2: Querying the Database
 ----------	
+
 This lesson provides an overview of how Greenplum Database processes queries. Understanding this process can be useful when writing and tuning queries.
  
 Users issue queries to Greenplum Database as they would to any database management system. They connect to the database instance on the Greenplum master host using a client application such as psql and submit SQL statements.  In this lesson, you will use [Apache Zeppelin (incubating)](https://zeppelin.incubator.apache.org/) to submit SQL statements to the Greenplum Database.  Apache Zeppelin is a web-based notebook that enables interactive data analytics.  A [PostgeSQL interpreter](https://issues.apache.org/jira/browse/ZEPPELIN-250) has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. 
@@ -228,12 +245,10 @@ Now, that query execution has been explained, let's run some queries.
  
 
 
-
- 
- 
 ****
-Lesson 3: Partitioning Tables
-----------	
+<a name="lesson3"></a>Lesson 3: Creating Partitioned Tables
+------
+
 Table partitioning enables supporting very large tables, such as fact tables, by logically dividing them into smaller, more manageable pieces. Partitioned tables can improve query performance by allowing the Greenplum Database query optimizer to scan only the data needed to satisfy a given query instead of scanning all the contents of a large table.
 
 Partitioning does not change the physical distribution of table data across the segments. Table distribution is physical: Greenplum Database physically divides partitioned tables and non-partitioned tables across segments to enable parallel query processing. Table partitioning is logical: Greenplum Database logically divides big tables to improve query performance and facilitate data warehouse maintenance tasks, such as rolling old data out of the data warehouse.
@@ -271,11 +286,11 @@ Then, type:
 > `insert into players (select * from ext_players);`
 
 ****
-Lesson 4: Advanced Analytics with the Greenplum Database
-----------	
+<a name="lesson4"></a>Lesson 4: Advanced Analytics with the Greenplum Database
+------	
 ***COMING SOON!***
 ****
-Lesson 5: Backup and Recovery 
+<a name="lesson5"></a>Lesson 5: Backup and Recovery Operations
 ----------	
 ***COMING SOON!***
 
