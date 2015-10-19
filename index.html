@@ -39,7 +39,7 @@
         <ul></ul>
       </nav>
       <section>
-        <p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VOU5MUmh3MzMydlk" width="750"></p>
+        <p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/GPDB.jpg" width="750"></p>
 
 <h1 align="center">
 <a id="an-introduction-and-greenplum-db-tutorial-using-the-gpdb-sandbox-vm" class="anchor" href="#an-introduction-and-greenplum-db-tutorial-using-the-gpdb-sandbox-vm" aria-hidden="true"><span class="octicon octicon-link"></span></a>An Introduction and Greenplum DB Tutorial using the GPDB Sandbox VM</h1>
@@ -53,7 +53,7 @@
 <ul>
 <li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box</li>
 <li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VUUtkUERxbFNZd00" alt="">
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg" alt="">
 This screen provides you all the information you need to interact with the VM.
 
 <ul>
@@ -105,7 +105,7 @@ This screen provides you all the information you need to interact with the VM.
 <p>Greenplum Database stores and processes large amounts of data by distributing the data and processing workload across several servers or hosts. Greenplum Database is an array of individual databases based upon PostgreSQL 8.2 working together to present a single database image. The master is the entry point to the Greenplum Database system. It is the database instance to which clients connect and submit SQL statements. The master coordinates its work with the other database instances in the system, called segments, which store and process the data.</p>
 
 <p>Figure 1. High-Level Greenplum Database Architecture<br>
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VM2Y2bjh1VUx1c3M" width="400">  </p>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/highlevel_arch.jpg" width="400">  </p>
 
 <p>The following topics describe the components that make up a Greenplum Database system and how they work together. </p>
 
@@ -154,7 +154,7 @@ The Pivotal Query Optimizer brings a state of the art query optimization framewo
 
 <p>Figure 1. External Tables Using Greenplum Parallel File Server (gpfdist) </p>
 
-<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VME5JMDZCNmE2cGs" width="500"></p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/ext_tables.jpg" width="500"></p>
 
 <p>Another Greenplum utility, gpload, runs a load task that you specify in a YAML-formatted control file. You describe the source data locations, format, transformations required, participating hosts, database destinations, and other particulars in the control file and gpload executes the load. This allows you to describe a complex task and execute it in a controlled, repeatable fashion.</p>
 
@@ -164,13 +164,13 @@ This tutorial will demonstrate how to load an external csv delimited file into t
 <ol>
 <li>From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)<br>
 Type: <code>ssh gpadmin@X.X.X.X</code>  In the example shown, this would be ssh gpadmin@192.168.9.132<br>
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VR2Q2ZFBUU1BuZWc" width="800">
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot_Image_HLjpg.jpg" width="800">
 </li>
 <li><p>If you haven't already started the Greenplum Database.<br>
 Type: <code>./start_all.sh</code>  </p></li>
 <li><p>Type: <code>cd gpdb-sandbox-tutorials</code>  </p></li>
 <li><p>The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:<br>
- <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500"><br>
+ <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/create.jpg" width="500"><br>
  Execute the DDL file and create the tables.<br>
  Type: <code>psql -f create_tables.sql</code> -</p></li>
 <li>
@@ -183,7 +183,7 @@ Type: <code>gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/data -p 8081 -l /hom
 
 <p>Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.  </p>
 
-<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VS0FZbDByU0s0QWc" width="800"></p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/exttable.jpg" width="800"></p>
 
 <p>Type: <code>psql -f ext_table.sql</code> to execute the DDL script.</p>
 </li>
@@ -209,7 +209,7 @@ Type: <code>psql -f ext_web_tables.sql</code></p></li>
 <p>You can test the Web External Table by just querying some rows. Run the following query to test.<br>
  Type: <code>select * from ext_weather limit 10;</code></p>
 
-<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VT0VuRGNEU2N5RkE" width="800">  </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/webtest.jpg" width="800">  </p>
 </li>
 <li>Now, we can load the data from the External Web Table into the Greenplum Database.<br>
 Type: <code>insert into weather (select * from ext_weather);</code><br>
@@ -238,7 +238,7 @@ The master receives, parses, and optimizes the query. The resulting query plan i
 <p>Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.</p>
 
 <p>Figure 1. Dispatching the Parallel Query Plan<br>
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VV2k2LXlqSHFIX0k" width="400"></p>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/dispatch.jpg" width="400"></p>
 
 <p><strong>Understanding Greenplum Query Plans</strong><br>
 A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and executed from bottom to top.</p>
@@ -260,13 +260,13 @@ Now, that query execution has been explained, let's run some queries.</p>
 <ol>
 <li><p>From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)<br>
 Type: <code>ssh gpadmin@X.X.X.X</code>  In the example shown, this would be ssh gpadmin@192.168.9.132
-  <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VR2Q2ZFBUU1BuZWc" width="800">  </p></li>
+  <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot_Image_HLjpg.jpg" width="800">  </p></li>
 <li><p>If you haven't already started the Greenplum Database.<br>
 Type: <code>./start_all.sh</code>  </p></li>
 <li><p>Open a browser on your desktop and browse to <code>http://X.X.X.X:8080</code> using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VRnlxcHprZ3JvVG8" width="500">  </p></li>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zepp.jpg" width="500">  </p></li>
 <li><p>Click on Create new note underneath the Notebook heading and type: <code>tutorial</code>
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  </p></li>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zep-create.jpg" width="500">  </p></li>
 <li><p>Click "tutorial" to open the newly created notebook.  Or, if you prefer, there is already a notebook created called football that has the queries and paragraphs pre-created.  If you choose this option, the Interpretor Binding options will display at the top, scroll down and hit save to close this portion of the screen.</p></li>
 <li><p>You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: <code>%psql.sql select count(*) from playbyplay;</code><br>
 The result should look like the graphic below.</p></li>
@@ -282,7 +282,7 @@ order by p.offense;
 <p>This should return a data set showing team abbreviation, game temperature, and number of interceptions.   This query scans all the offensive plays in 2013 and returns any that were interceptions and the temperature of that game for teams that begin with A,B,C, or D.</p>
 </li>
 <li><p>There is a row of icons underneath the query.  The one on the far right is a scatter-plot, click that.  You will then be able to drag the fields of the query into the axis of the plot.  Drag offense to the xAxis, temperature to the yAxis, and count to size.  You should now see a scatter plot with the vertical axis showing the number of interceptions per team at a given temperature.  The size of the "dot" represents the relative number of interceptions.<br>
-<img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VdXJkd3lGZWhYck0" width="800">  </p></li>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/scatter.jpg" width="800">  </p></li>
 <li>
 <p>The final query leverages subquerys to determine how many interceptions each team threw at home versus on the road for the season.  Once again, for display purposes, the teams have been limited to those beginning with A-D.</p>
 
@@ -319,7 +319,7 @@ order by p.offense;
 </li>
 </ul>
 
-<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VVXhTSXRjaWhFUFE" width="400">  </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/part.jpg" width="400">  </p>
 
 <p><strong>Exercises</strong>  </p>
 
@@ -327,7 +327,7 @@ order by p.offense;
 
 <p>The DDL to create the partitioned table is in the file create_part.sql. This snapshot shows the relevant portion of the file.  </p>
 
-<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VYXJQdi1ldWFGRG8" width="600">  </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/createpart.jpg" width="600">  </p>
 
 <p>This statement defines a RANGE partition using the date the player was drafted as the partition key.   The START/END represent the high and low of the values in that column.  EVERY defines the partition granularity or how many of the values from the range will be within a single partition.   The DEFAULT PARTITION is the partition that values that don't match any of the defined partitions are inserted into.  </p>
 
@@ -339,7 +339,7 @@ order by p.offense;
 
 <p>This is the output from that ddl.  You can see the partitions were created.  </p>
 
-<p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VeXNha2RZRDktaEU" width="600">  </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/part-output.jpg" width="600">  </p>
 
 <p>Now, query the external data and insert data into the partitioned table.<br>
 Launch psql:  </p>
