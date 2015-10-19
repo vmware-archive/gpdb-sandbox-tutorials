@@ -1,7 +1,5 @@
 <img src="https://drive.google.com/uc?export=&id=0B5ncp8FqIy8VOU5MUmh3MzMydlk" width="750">
-<h1 align="center">An Introduction and Greenplum DB Tutorial</h1>
-<h1 align="center">using the</h1>
-<h1 align="center">Greenplum DB Sandbox VM</h1>
+<h1 align="center">An Introduction and Greenplum DB Tutorial using the Greenplum DB Sandbox VM</h1>
 
 ****
 
