@@ -1,46 +1,25 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Greenplum DB Sandbox Tutorials by greenplum-db</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Greenplum DB Sandbox Tutorials</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials" class="btn">View on GitHub</a>
+      <a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-  
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1"><title>Greenplum DB Sandbox Tutorials by Pivotal-Open-Source-Hub</title>
-    
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-dark.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/main.js"></script><!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"></head><body>
-
-      <header>
-        </header><h1>Greenplum DB Sandbox Tutorials</h1>
-        <p></p>
-      
-
-      <div style="margin-top: 61px; height: 55px;" id="banner">
-        <span id="logo"></span>
-
-        <a href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials" class="button fork"><strong>View On GitHub</strong></a>
-        <div style="margin-left: 0px; width: 270px;" class="downloads">
-          <span>Downloads:</span>
-          <ul>
-            <li><a href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/zipball/master" class="button">ZIP</a></li>
-            
-  <li><a href="https://github.com/Pivotal-Open-Source-Hub/gpdb-sandbox-tutorials/tarball/master" class="button">TAR</a></li>
-  <li><a href="https://s3.amazonaws.com/gpdb/PivotalGPDB-Sandbox-Centos-6.7-x86_64.ova" class="button">VM</a></li>
-
-          </ul>
-        </div>
-      </div><!-- end banner -->
-
-    <div class="wrapper">
-      <nav>
-        </nav><ul></ul>
-      
-      <section>
-        </section>
+    <section class="main-content">
+      <p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VOU5MUmh3MzMydlk" width="750"></p>
 
 <h1 align="center">
 <a id="an-introduction-and-greenplum-db-tutorial" class="anchor" href="#an-introduction-and-greenplum-db-tutorial" aria-hidden="true"><span class="octicon octicon-link"></span></a>An Introduction and Greenplum DB Tutorial</h1>
@@ -53,14 +32,9 @@
 
 <hr>
 
-<p>These tutorials showcase how GPDB can address day-to-day tasks
-performed in typical DW/BI environments. It is designed to be used with
-the Greenplum Database Sandbox VM that is available for download.</p>
+<p>These tutorials showcase how GPDB can address day-to-day tasks performed in typical DW/BI environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download.</p>
 
-<p>The scripts/data for this tutorial are in the gpdb-sandbox virtual
-machine at /home/gpadmin. The repository is pre-cloned, but will update
-as the VM boots in order to provide the most recent version of these
-instructions.</p>
+<p>The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.</p>
 
 <ul>
 <li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box</li>
@@ -105,53 +79,17 @@ This screen provides you all the information you need to interact with the VM.
 <h2>
 <a id="introduction-to-the-greenplum-database--architecture" class="anchor" href="#introduction-to-the-greenplum-database--architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson0"></a>Introduction to the Greenplum Database  Architecture</h2>
 
-<p><a href="http://greenplum.org">Pivotal Greenplum Database</a> is a
-massively parallel processing (MPP) database server with an
-architecture specially designed to manage large-scale analytic data
-warehouses and business intelligence workloads.</p>
+<p><a href="http://greenplum.org">Pivotal Greenplum Database</a> is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.</p>
 
-<p>MPP (also known as a shared nothing architecture) refers to systems
-with two or more processors that cooperate to carry out an operation,
-each processor with its own memory, operating system and disks.
-Greenplum uses this high-performance system architecture to distribute
-the load of multi-terabyte data warehouses, and can use all of a
-system's resources in parallel to process a query.</p>
+<p>MPP (also known as a shared nothing architecture) refers to systems with two or more processors that cooperate to carry out an operation, each processor with its own memory, operating system and disks. Greenplum uses this high-performance system architecture to distribute the load of multi-terabyte data warehouses, and can use all of a system's resources in parallel to process a query.</p>
 
-<p>Greenplum Database is based on PostgreSQL open-source technology. It
-is essentially several PostgreSQL database instances acting together as
-one cohesive database management system (DBMS). It is based on
-PostgreSQL 8.2.15, and in most cases is very similar to PostgreSQL with
-regard to SQL support, features, configuration options, and end-user
-functionality. Database users interact with Greenplum Database as they
-would a regular PostgreSQL DBMS.</p>
+<p>Greenplum Database is based on PostgreSQL open-source technology. It is essentially several PostgreSQL database instances acting together as one cohesive database management system (DBMS). It is based on PostgreSQL 8.2.15, and in most cases is very similar to PostgreSQL with regard to SQL support, features, configuration options, and end-user functionality. Database users interact with Greenplum Database as they would a regular PostgreSQL DBMS.</p>
 
-<p>The internals of PostgreSQL have been modified or supplemented to
-support the parallel structure of Greenplum Database. For example, the
-system catalog, optimizer, query executor, and transaction manager
-components have been modified and enhanced to be able to execute
-queries simultaneously across all of the parallel PostgreSQL database
-instances. The Greenplum interconnect (the networking layer) enables
-communication between the distinct PostgreSQL instances and allows the
-system to behave as one logical database.</p>
+<p>The internals of PostgreSQL have been modified or supplemented to support the parallel structure of Greenplum Database. For example, the system catalog, optimizer, query executor, and transaction manager components have been modified and enhanced to be able to execute queries simultaneously across all of the parallel PostgreSQL database instances. The Greenplum interconnect (the networking layer) enables communication between the distinct PostgreSQL instances and allows the system to behave as one logical database.</p>
 
-<p>Greenplum Database also includes features designed to optimize
-PostgreSQL for business intelligence (BI) workloads. For example,
-Greenplum has added parallel data loading (external tables), resource
-management, query optimizations, and storage enhancements, which are
-not found in standard PostgreSQL. Many features and optimizations
-developed by Greenplum make their way into the PostgreSQL community.
-For example, table partitioning is a feature first developed by
-Greenplum, and it is now in standard PostgreSQL.</p>
+<p>Greenplum Database also includes features designed to optimize PostgreSQL for business intelligence (BI) workloads. For example, Greenplum has added parallel data loading (external tables), resource management, query optimizations, and storage enhancements, which are not found in standard PostgreSQL. Many features and optimizations developed by Greenplum make their way into the PostgreSQL community. For example, table partitioning is a feature first developed by Greenplum, and it is now in standard PostgreSQL.</p>
 
-<p>Greenplum Database stores and processes large amounts of data by
-distributing the data and processing workload across several servers or
-hosts. Greenplum Database is an array of individual databases based
-upon PostgreSQL 8.2 working together to present a single database
-image. The master is the entry point to the Greenplum Database system.
-It is the database instance to which clients connect and submit SQL
-statements. The master coordinates its work with the other database
-instances in the system, called segments, which store and process the
-data.</p>
+<p>Greenplum Database stores and processes large amounts of data by distributing the data and processing workload across several servers or hosts. Greenplum Database is an array of individual databases based upon PostgreSQL 8.2 working together to present a single database image. The master is the entry point to the Greenplum Database system. It is the database instance to which clients connect and submit SQL statements. The master coordinates its work with the other database instances in the system, called segments, which store and process the data.</p>
 
 <p>Figure 1. High-Level Greenplum Database Architecture<br>
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VM2Y2bjh1VUx1c3M" width="400">  </p>
@@ -159,99 +97,35 @@ data.</p>
 <p>The following topics describe the components that make up a Greenplum Database system and how they work together. </p>
 
 <p><strong>Greenplum Master</strong>
-The Greenplum Database master is the entry to the Greenplum Database
-system, accepting client connections and SQL queries, and distributing
-work to the segment instances.</p>
+The Greenplum Database master is the entry to the Greenplum Database system, accepting client connections and SQL queries, and distributing work to the segment instances.</p>
 
-<p>Greenplum Database end-users interact with Greenplum Database
-(through the master) as they would with a typical PostgreSQL database.
-They connect to the database using client programs such as psql or
-application programming interfaces (APIs) such as JDBC or ODBC.</p>
+<p>Greenplum Database end-users interact with Greenplum Database (through the master) as they would with a typical PostgreSQL database. They connect to the database using client programs such as psql or application programming interfaces (APIs) such as JDBC or ODBC.</p>
 
-<p>The master is where the global system catalog resides. The global
-system catalog is the set of system tables that contain metadata about
-the Greenplum Database system itself. The master does not contain any
-user data; data resides only on the segments. The master authenticates
-client connections, processes incoming SQL commands, distributes
-workloads among segments, coordinates the results returned by each
-segment, and presents the final results to the client program.</p>
+<p>The master is where the global system catalog resides. The global system catalog is the set of system tables that contain metadata about the Greenplum Database system itself. The master does not contain any user data; data resides only on the segments. The master authenticates client connections, processes incoming SQL commands, distributes workloads among segments, coordinates the results returned by each segment, and presents the final results to the client program.</p>
 
 <p><strong>Greenplum Segments</strong>
-Greenplum Database segment instances are independent PostgreSQL
-databases that each store a portion of the data and perform the
-majority of query processing.</p>
+Greenplum Database segment instances are independent PostgreSQL databases that each store a portion of the data and perform the majority of query processing.</p>
 
-<p>When a user connects to the database via the Greenplum master and
-issues a query, processes are created in each segment database to
-handle the work of that query. For more information about query
-processes, see About Greenplum Query Processing.</p>
+<p>When a user connects to the database via the Greenplum master and issues a query, processes are created in each segment database to handle the work of that query. For more information about query processes, see About Greenplum Query Processing.</p>
 
-<p>User-defined tables and their indexes are distributed across the
-available segments in a Greenplum Database system; each segment
-contains a distinct portion of data. The database server processes that
-serve segment data run under the corresponding segment instances. Users
-interact with segments in a Greenplum Database system through the
-master.</p>
+<p>User-defined tables and their indexes are distributed across the available segments in a Greenplum Database system; each segment contains a distinct portion of data. The database server processes that serve segment data run under the corresponding segment instances. Users interact with segments in a Greenplum Database system through the master.</p>
 
-<p>Segments run on a servers called segment hosts. A segment host
-typically executes from two to eight Greenplum segments, depending on
-the CPU cores, RAM, storage, network interfaces, and workloads. Segment
-hosts are expected to be identically configured. The key to obtaining
-the best performance from Greenplum Database is to distribute data and
-workloads evenly across a large number of equally capable segments so
-that all segments begin working on a task simultaneously and complete
-their work at the same time.</p>
+<p>Segments run on a servers called segment hosts. A segment host typically executes from two to eight Greenplum segments, depending on the CPU cores, RAM, storage, network interfaces, and workloads. Segment hosts are expected to be identically configured. The key to obtaining the best performance from Greenplum Database is to distribute data and workloads evenly across a large number of equally capable segments so that all segments begin working on a task simultaneously and complete their work at the same time.</p>
 
 <p><strong>Greenplum Interconnect</strong>
 The interconect is the networking layer of the Greenplum Database architecture.</p>
 
-<p>The interconnect refers to the inter-process communication between
-segments and the network infrastructure on which this communication
-relies. The Greenplum interconnect uses a standard 10-Gigabit Ethernet
-switching fabric.</p>
+<p>The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies. The Greenplum interconnect uses a standard 10-Gigabit Ethernet switching fabric.</p>
 
-<p>By default, the interconnect uses User Datagram Protocol (UDP) to
-send messages over the network. The Greenplum software performs packet
-verification beyond what is provided by UDP. This means the reliability
-is equivalent to Transmission Control Protocol (TCP), and the
-performance and scalability exceeds TCP. If the interconnect used TCP,
-Greenplum Database would have a scalability limit of 1000 segment
-instances. With UDP as the current default protocol for the
-interconnect, this limit is not applicable.</p>
+<p>By default, the interconnect uses User Datagram Protocol (UDP) to send messages over the network. The Greenplum software performs packet verification beyond what is provided by UDP. This means the reliability is equivalent to Transmission Control Protocol (TCP), and the performance and scalability exceeds TCP. If the interconnect used TCP, Greenplum Database would have a scalability limit of 1000 segment instances. With UDP as the current default protocol for the interconnect, this limit is not applicable.</p>
 
 <p><strong>Pivotal Query Optimizer</strong>
-The Pivotal Query Optimizer brings a state of the art query
-optimization framework to Greenplum Database that is distinguished from
-other optimizers in several ways:</p>
+The Pivotal Query Optimizer brings a state of the art query optimization framework to Greenplum Database that is distinguished from other optimizers in several ways:</p>
 
 <ul>
-<li><p>Modularity. Pivotal Query Optimizer is not confined inside a
-single RDBMS. It is currently leveraged in both Greenplum Database and
-Pivotal HAWQ, but it can also be run as a standalone component to allow
-greater flexibility in adopting new backend systems and using the
-optimizer as a service. This also enables elaborate testing of the
-optimizer without going through the other components of the database
-stack.</p></li>
-<li><p>Extensibility. The Pivotal Query Optimizer has been designed as
-a collection of independent components that can be replaced,
-configured, or extended separately. This significantly reduces the
-development costs of adding new features, and also allows rapid
-adoption of emerging technologies. Within the Query Optimizer, the
-representation of the elements of a query has been separated from how
-the query is optimized. This lets the optimizer treat all elements
-equally and avoids the issues with the imposed order of optimizations
-steps of multi-phase optimizers.</p></li>
-<li><p>Performance. The Pivotal Query Optimizer leverages a multi-core
-scheduler that can distribute individual optimization tasks across
-multiple cores to speed up the optimization process. This allows the
-Query Optimizer to apply all possible optimizations as the same time,
-which results in many more plan alternatives and a wider range of
-queries that can be optimized. For instance, when the Pivotal Query
-Optimizer was used with TPC-H Query 21 it generated 1.2 Billion
-possible plans in 250 ms. This is especially important in Big Data
-Analytics where performance challenges are magnified by the volume of
-data that needs to be processed. A suboptimal optimization choice could
-very well lead to a query that just runs forever.</p></li>
+<li><p>Modularity.  Pivotal Query Optimizer is not confined inside a single RDBMS. It is currently leveraged in both Greenplum Database and Pivotal HAWQ, but it can also be run as a standalone component to allow greater flexibility in adopting new backend systems and using the optimizer as a service. This also enables elaborate testing of the optimizer without going through the other components of the database stack.</p></li>
+<li><p>Extensibility.  The Pivotal Query Optimizer has been designed as a collection of independent components that can be replaced, configured, or extended separately. This significantly reduces the development costs of adding new features, and also allows rapid adoption of emerging technologies. Within the Query Optimizer, the representation of the elements of a query has been separated from how the query is optimized. This lets the optimizer treat all elements equally and avoids the issues with the imposed order of optimizations steps of multi-phase optimizers.</p></li>
+<li><p>Performance.  The Pivotal Query Optimizer leverages a multi-core scheduler that can distribute individual optimization tasks across multiple cores to speed up the optimization process. This allows the Query Optimizer to apply all possible optimizations as the same time, which results in many more plan alternatives and a wider range of queries that can be optimized. For instance, when the Pivotal Query Optimizer was used with TPC-H Query 21 it generated 1.2 Billion possible plans in 250 ms. This is especially important in Big Data Analytics where performance challenges are magnified by the volume of data that needs to be processed. A suboptimal optimization choice could very well lead to a query that just runs forever.</p></li>
 </ul>
 
 <p><a href="#tutorials">Return to Tutorial List</a>  </p>
@@ -261,29 +135,15 @@ very well lead to a query that just runs forever.</p></li>
 <h2>
 <a id="lesson-1-parallel-data-loading" class="anchor" href="#lesson-1-parallel-data-loading" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson1"></a>Lesson 1: Parallel Data Loading</h2>
 
-<p>In a large scale, multi-terabyte data warehouse, large amounts of
-data must be loaded within a relatively small maintenance window.
-Greenplum supports fast, parallel data loading with its external tables
-feature. Administrators can also load external tables in single row
-error isolation mode to filter bad rows into a separate error table
-while continuing to load properly formatted rows. Administrators can
-specify an error threshold for a load operation to control how many
-improperly formatted rows cause Greenplum to abort the load operation.</p>
+<p>In a large scale, multi-terabyte data warehouse, large amounts of data must be loaded within a relatively small maintenance window. Greenplum supports fast, parallel data loading with its external tables feature. Administrators can also load external tables in single row error isolation mode to filter bad rows into a separate error table while continuing to load properly formatted rows. Administrators can specify an error threshold for a load operation to control how many improperly formatted rows cause Greenplum to abort the load operation.</p>
 
-<p>By using external tables in conjunction with Greenplum Database's
-parallel file server (gpfdist), administrators can achieve maximum
-parallelism and load bandwidth from their Greenplum Database system.</p>
+<p>By using external tables in conjunction with Greenplum Database's parallel file server (gpfdist), administrators can achieve maximum parallelism and load bandwidth from their Greenplum Database system.</p>
 
 <p>Figure 1. External Tables Using Greenplum Parallel File Server (gpfdist) </p>
 
 <p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VME5JMDZCNmE2cGs" width="500"></p>
 
-<p>Another Greenplum utility, gpload, runs a load task that you specify
-in a YAML-formatted control file. You describe the source data
-locations, format, transformations required, participating hosts,
-database destinations, and other particulars in the control file and
-gpload executes the load. This allows you to describe a complex task
-and execute it in a controlled, repeatable fashion.</p>
+<p>Another Greenplum utility, gpload, runs a load task that you specify in a YAML-formatted control file. You describe the source data locations, format, transformations required, participating hosts, database destinations, and other particulars in the control file and gpload executes the load. This allows you to describe a complex task and execute it in a controlled, repeatable fashion.</p>
 
 <p><strong>Exercises</strong><br>
 This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the <strong>gpfdist</strong> parallel data load utility.</p>
@@ -296,10 +156,7 @@ Type: <code>ssh gpadmin@X.X.X.X</code>  In the example shown, this would be ssh 
 <li><p>If you haven't already started the Greenplum Database.<br>
 Type: <code>./start_all.sh</code>  </p></li>
 <li><p>Type: <code>cd gpdb-sandbox-tutorials</code>  </p></li>
-<li><p>The first step is to create the database and the associated
-tables for these demos. To make the process easier, a script has been
-provided that contains all the needed ddl statements. Here is a look
-inside the file:<br>
+<li><p>The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:<br>
  <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VNDlIeUsxdTVjM00" width="500"><br>
  Execute the DDL file and create the tables.<br>
  Type: <code>psql -f create_tables.sql</code> -</p></li>
@@ -309,50 +166,29 @@ inside the file:<br>
 <p>First, start the <strong>gpfdist</strong> utility.<br>
 Type: <code>gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/data -p 8081 -l /home/gpadmin/gpdb-sandbox-tutorials/gpfdist.log &amp;</code></p>
 
-<p>This will start the gpfdist server with the data directory as its
-source, so that any external tables built will be able to poin to any
-files there firectly or via a wildcard. In this example, we will point
-to the file directly.</p>
+<p>This will start the gpfdist server with the data directory as its source, so that any external tables built will be able to poin to any files there firectly or via a wildcard.  In this example, we will point to the file directly.</p>
 
-<p>Now, we can create an Greenplum External Table to point directly to
-the data file. There is a pre-created shell-script to do this. The
-script removes the tables if it already exists and the creates an
-external table in the image of the playbyplay table create in an
-earlier step. </p>
+<p>Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.  </p>
 
 <p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VS0FZbDByU0s0QWc" width="800"></p>
 
 <p>Type: <code>psql -f ext_table.sql</code> to execute the DDL script.</p>
 </li>
-<li>We can now load a native Greenplum table (playbyplay) by querying
-the external table directly and inserting the data. But first we will
-run a couple of quick tests to show a before and after look at the
-tables.<br>
+<li>We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.<br>
 Start psql by typing:  <code>psql</code><br>
 Now, let's generate a count of the rows in the playbyplay table that was created earlier.<br>
 At the psql prompt type:  <code>select count(*) from playbyplay;</code><br>
-This should return a count of 0 rows. If we run the same command
-against the external table we will get a count of the rows in our data
-file.<br>
+This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file.<br>
 Type:  <code>select count(*) from ext_playbyplay;</code><br>
 This returns 47990 rows.<br>
 </li>
 <li><p>Load the data into Greenplum using a psql command.<br>
 Type: <code>insert into playbyplay (select * from ext_playbyplay);</code><br>
-Since we are querying a file that is being accessed via gpfdist, the
-load happens in parallel across all segments of the Greenplum Database.
-Further scalability can be achieved by running multiple gpfdist
-instances and having multiple datafile. Once, the load is complete, we
-can check the count of rows in the playbyplay table again.<br>
+Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again.<br>
 Type: <code>select count(*) from playbyplay;</code><br>
 Now, it should report 47990 rows, or the same number from our data file.<br>
 Log out of psql by typing: <code>\q</code> then press enter.</p></li>
-<li><p>External Tables can also point at sources other than local
-files. Web External tables allow Greenplum Database to treat dynamic
-data sources like regular database tables. The sources can be either a
-linux command or a URL. In this example, we will read the weather
-information for 2013 directly from the GitHub site that this tutorial
-is stored.<br>
+<li><p>External Tables can also point at sources other than local files.  Web External tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.<br>
 Type: <code>psql -f ext_web_tables.sql</code></p></li>
 <li>
 <p>Start the psql client, type: <code>psql</code></p>
@@ -379,68 +215,31 @@ This should return a data set that resembles the one shown above for ext_weather
 <h2>
 <a id="lesson-2-querying-the-database" class="anchor" href="#lesson-2-querying-the-database" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson2"></a>Lesson 2: Querying the Database</h2>
 
-<p>This lesson provides an overview of how Greenplum Database processes
-queries. Understanding this process can be useful when writing and
-tuning queries.</p>
+<p>This lesson provides an overview of how Greenplum Database processes queries. Understanding this process can be useful when writing and tuning queries.</p>
 
-<p>Users issue queries to Greenplum Database as they would to any
-database management system. They connect to the database instance on
-the Greenplum master host using a client application such as psql and
-submit SQL statements. In this lesson, you will use <a href="https://zeppelin.incubator.apache.org/">Apache Zeppelin (incubating)</a>
-to submit SQL statements to the Greenplum Database. Apache Zeppelin is
-a web-based notebook that enables interactive data analytics. A <a href="https://issues.apache.org/jira/browse/ZEPPELIN-250">PostgeSQL interpreter</a> has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. </p>
+<p>Users issue queries to Greenplum Database as they would to any database management system. They connect to the database instance on the Greenplum master host using a client application such as psql and submit SQL statements.  In this lesson, you will use <a href="https://zeppelin.incubator.apache.org/">Apache Zeppelin (incubating)</a> to submit SQL statements to the Greenplum Database.  Apache Zeppelin is a web-based notebook that enables interactive data analytics.  A <a href="https://issues.apache.org/jira/browse/ZEPPELIN-250">PostgeSQL interpreter</a> has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. </p>
 
 <p><strong>Understanding Query Planning and Dispatch</strong><br>
-The master receives, parses, and optimizes the query. The resulting
-query plan is either parallel or targeted. The master dispatches
-parallel query plans to all segments, as shown in Figure 1. Each
-segment is responsible for executing local database operations on its
-own set of data.query plans.</p>
+The master receives, parses, and optimizes the query. The resulting query plan is either parallel or targeted. The master dispatches parallel query plans to all segments, as shown in Figure 1. Each segment is responsible for executing local database operations on its own set of data.query plans.</p>
 
-<p>Most database operations—such as table scans, joins, aggregations,
-and sorts—execute across all segments in parallel. Each operation is
-performed on a segment database independent of the data stored in the
-other segment databases.</p>
+<p>Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.</p>
 
 <p>Figure 1. Dispatching the Parallel Query Plan<br>
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VV2k2LXlqSHFIX0k" width="400"></p>
 
 <p><strong>Understanding Greenplum Query Plans</strong><br>
-A query plan is the set of operations Greenplum Database will perform
-to produce the answer to a query. Each node or step in the plan
-represents a database operation such as a table scan, join,
-aggregation, or sort. Plans are read and executed from bottom to top.</p>
+A query plan is the set of operations Greenplum Database will perform to produce the answer to a query. Each node or step in the plan represents a database operation such as a table scan, join, aggregation, or sort. Plans are read and executed from bottom to top.</p>
 
-<p>In addition to common database operations such as tables scans,
-joins, and so on, Greenplum Database has an additional operation type
-called motion. A motion operation involves moving tuples between the
-segments during query processing.</p>
+<p>In addition to common database operations such as tables scans, joins, and so on, Greenplum Database has an additional operation type called motion. A motion operation involves moving tuples between the segments during query processing.</p>
 
-<p>To achieve maximum parallelism during query execution, Greenplum
-divides the work of the query plan into slices. A slice is a portion of
-the plan that segments can work on independently. A query plan is
-sliced wherever a motion operation occurs in the plan, with one slice
-on each side of the motion.</p>
+<p>To achieve maximum parallelism during query execution, Greenplum divides the work of the query plan into slices. A slice is a portion of the plan that segments can work on independently. A query plan is sliced wherever a motion operation occurs in the plan, with one slice on each side of the motion.</p>
 
-<p><strong>Understanding Parallel Query Execution</strong> Greenplum
-creates a number of database processes to handle the work of a query.
-On the master, the query worker process is called the query dispatcher
-(QD). The QD is responsible for creating and dispatching the query
-plan. It also accumulates and presents the final results. On the
-segments, a query worker process is called a query executor (QE). A QE
-is responsible for completing its portion of work and communicating its
-intermediate results to the other worker processes.</p>
+<p><strong>Understanding Parallel Query Execution</strong> 
+Greenplum creates a number of database processes to handle the work of a query. On the master, the query worker process is called the query dispatcher (QD). The QD is responsible for creating and dispatching the query plan. It also accumulates and presents the final results. On the segments, a query worker process is called a query executor (QE). A QE is responsible for completing its portion of work and communicating its intermediate results to the other worker processes.</p>
 
-<p>There is at least one worker process assigned to each slice of the
-query plan. A worker process works on its assigned portion of the query
-plan independently. During query execution, each segment will have a
-number of processes working on the query in parallel.</p>
+<p>There is at least one worker process assigned to each slice of the query plan. A worker process works on its assigned portion of the query plan independently. During query execution, each segment will have a number of processes working on the query in parallel.</p>
 
-<p>Related processes that are working on the same slice of the query
-plan but on different segments are called gangs. As a portion of work
-is completed, tuples flow up the query plan from one gang of processes
-to the next. This inter-process communication between the segments is
-referred to as the interconnect component of Greenplum Database. </p>
+<p>Related processes that are working on the same slice of the query plan but on different segments are called gangs. As a portion of work is completed, tuples flow up the query plan from one gang of processes to the next. This inter-process communication between the segments is referred to as the interconnect component of Greenplum Database.  </p>
 
 <p><strong>Exercises</strong><br>
 Now, that query execution has been explained, let's run some queries.</p>
@@ -455,40 +254,33 @@ Type: <code>./start_all.sh</code>  </p></li>
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VRnlxcHprZ3JvVG8" width="500">  </p></li>
 <li><p>Click on Create new note underneath the Notebook heading and type: <code>tutorial</code>
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VVDE1eEtnN3d0TFk" width="500">  </p></li>
-<li><p>Click "tutorial" to open the newly created notebook. Or, if you
-prefer, there is already a notebook created called football that has
-the queries and paragraphs pre-created. If you choose this option, the
-Interpretor Binding options will display at the top, scroll down and
-hit save to close this portion of the screen.</p></li>
-<li><p>You should now see the the open notebook with a "paragraph"
-ready for input. Click in the the empty white rectangle (called
-paragraph) and type: <code>%psql.sql select count(*) from playbyplay;</code><br>
+<li><p>Click "tutorial" to open the newly created notebook.  Or, if you prefer, there is already a notebook created called football that has the queries and paragraphs pre-created.  If you choose this option, the Interpretor Binding options will display at the top, scroll down and hit save to close this portion of the screen.</p></li>
+<li><p>You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: <code>%psql.sql select count(*) from playbyplay;</code><br>
 The result should look like the graphic below.</p></li>
 <li>
 <p>Next, let's try a more compex query and try out some of the visualization features of Zepplin. In a new paragraph type:  </p>
 
-<pre><code>%psql.sql  select p.offense,w.temperature,count(*) from weather w,playbyplay p where   <br>w.date=p.gamedate and (upper(w.hometeam) = p.offense OR upper(w.hometeam) = p.defense) and   <br>p.isinterception = true and p.offense similar to '[ABCD]%' group by p.offense,w.temperature  <br>order by p.offense;<br></code></pre>
+<pre><code>%psql.sql  select p.offense,w.temperature,count(*) from weather w,playbyplay p where   
+w.date=p.gamedate and (upper(w.hometeam) = p.offense OR upper(w.hometeam) = p.defense) and   
+p.isinterception = true and p.offense similar to '[ABCD]%' group by p.offense,w.temperature  
+order by p.offense;
+</code></pre>
 
-<p>This should return a data set showing team abbreviation, game
-temperature, and number of interceptions. This query scans all the
-offensive plays in 2013 and returns any that were interceptions and the
-temperature of that game for teams that begin with A,B,C, or D.</p>
+<p>This should return a data set showing team abbreviation, game temperature, and number of interceptions.   This query scans all the offensive plays in 2013 and returns any that were interceptions and the temperature of that game for teams that begin with A,B,C, or D.</p>
 </li>
-<li><p>There is a row of icons underneath the query. The one on the far
-right is a scatter-plot, click that. You will then be able to drag the
-fields of the query into the axis of the plot. Drag offense to the
-xAxis, temperature to the yAxis, and count to size. You should now see
-a scatter plot with the vertical axis showing the number of
-interceptions per team at a given temperature. The size of the "dot"
-represents the relative number of interceptions.<br>
+<li><p>There is a row of icons underneath the query.  The one on the far right is a scatter-plot, click that.  You will then be able to drag the fields of the query into the axis of the plot.  Drag offense to the xAxis, temperature to the yAxis, and count to size.  You should now see a scatter plot with the vertical axis showing the number of interceptions per team at a given temperature.  The size of the "dot" represents the relative number of interceptions.<br>
 <img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VdXJkd3lGZWhYck0" width="800">  </p></li>
 <li>
-<p>The final query leverages subquerys to determine how many
-interceptions each team threw at home versus on the road for the
-season. Once again, for display purposes, the teams have been limited
-to those beginning with A-D.</p>
+<p>The final query leverages subquerys to determine how many interceptions each team threw at home versus on the road for the season.  Once again, for display purposes, the teams have been limited to those beginning with A-D.</p>
 
-<pre><code> %psql.sql select home.team,home.homeint,road.roadint from (select p.offense as  <br> team,count(*) as roadint from weather w,playbyplay p where w.date=p.gamedate and  <br> (upper(w.hometeam) =  p.defense) and p.isinterception = true group by p.offense) road,  <br> (select p.offense as team ,count(*) as homeint from weather w,playbyplay p where  <br> w.date=p.gamedate and (upper(w.hometeam) =  p.offense) and p.isinterception = true group by<br> p.offense) home where home.team = road.team and home.team similar to '[ABCD]%'  <br> order by homeint;  <br></code></pre>
+<pre><code> %psql.sql select home.team,home.homeint,road.roadint from (select p.offense as  
+ team,count(*) as roadint from weather w,playbyplay p where w.date=p.gamedate and  
+ (upper(w.hometeam) =  p.defense) and p.isinterception = true group by p.offense) road,  
+ (select p.offense as team ,count(*) as homeint from weather w,playbyplay p where  
+ w.date=p.gamedate and (upper(w.hometeam) =  p.offense) and p.isinterception = true group by
+ p.offense) home where home.team = road.team and home.team similar to '[ABCD]%'  
+ order by homeint;  
+</code></pre>
 </li>
 </ol>
 
@@ -499,20 +291,9 @@ to those beginning with A-D.</p>
 <h2>
 <a id="lesson-3-creating-partitioned-tables" class="anchor" href="#lesson-3-creating-partitioned-tables" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson3"></a>Lesson 3: Creating Partitioned Tables</h2>
 
-<p>Table partitioning enables supporting very large tables, such as
-fact tables, by logically dividing them into smaller, more manageable
-pieces. Partitioned tables can improve query performance by allowing
-the Greenplum Database query optimizer to scan only the data needed to
-satisfy a given query instead of scanning all the contents of a large
-table.</p>
+<p>Table partitioning enables supporting very large tables, such as fact tables, by logically dividing them into smaller, more manageable pieces. Partitioned tables can improve query performance by allowing the Greenplum Database query optimizer to scan only the data needed to satisfy a given query instead of scanning all the contents of a large table.</p>
 
-<p>Partitioning does not change the physical distribution of table data
-across the segments. Table distribution is physical: Greenplum Database
-physically divides partitioned tables and non-partitioned tables across
-segments to enable parallel query processing. Table partitioning is
-logical: Greenplum Database logically divides big tables to improve
-query performance and facilitate data warehouse maintenance tasks, such
-as rolling old data out of the data warehouse.</p>
+<p>Partitioning does not change the physical distribution of table data across the segments. Table distribution is physical: Greenplum Database physically divides partitioned tables and non-partitioned tables across segments to enable parallel query processing. Table partitioning is logical: Greenplum Database logically divides big tables to improve query performance and facilitate data warehouse maintenance tasks, such as rolling old data out of the data warehouse.</p>
 
 <p>Greenplum Database supports:</p>
 
@@ -535,12 +316,7 @@ as rolling old data out of the data warehouse.</p>
 
 <p><img src="https://drive.google.com/uc?export=&amp;id=0B5ncp8FqIy8VYXJQdi1ldWFGRG8" width="600">  </p>
 
-<p>This statement defines a RANGE partition using the date the player
-was drafted as the partition key. The START/END represent the high and
-low of the values in that column. EVERY defines the partition
-granularity or how many of the values from the range will be within a
-single partition. The DEFAULT PARTITION is the partition that values
-that don't match any of the defined partitions are inserted into. </p>
+<p>This statement defines a RANGE partition using the date the player was drafted as the partition key.   The START/END represent the high and low of the values in that column.  EVERY defines the partition granularity or how many of the values from the range will be within a single partition.   The DEFAULT PARTITION is the partition that values that don't match any of the defined partitions are inserted into.  </p>
 
 <p>First, create the partitioned table and the External Table use to query the data file:</p>
 
@@ -582,12 +358,15 @@ Launch psql:  </p>
 <p><strong><em>COMING SOON!</em></strong></p>
 
 <hr>
-      
-      <footer>
-        </footer><p>Project maintained by <a href="https://github.com/Pivotal-Open-Source-Hub">Pivotal-Open-Source-Hub</a></p>
-        <p><small>Hosted on GitHub Pages — Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
-      
-    </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
-  </body></html>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials">Greenplum DB Sandbox Tutorials</a> is maintained by <a href="https://github.com/greenplum-db">greenplum-db</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
