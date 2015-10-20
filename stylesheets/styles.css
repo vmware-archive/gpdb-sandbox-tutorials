@@ -690,7 +690,7 @@ header p {
   z-index: 100;
   left: 0;
   right: 50%;
-  height: 62px;
+  height: 55px;
   margin-right: -382px;
   position: fixed;
   top: 115px;
@@ -763,7 +763,7 @@ header p {
 }
 #banner .downloads span {
   float: left;
-  line-height: 52px;
+  line-height: 42px;
   font-size: 90%;
   color: #9d7f0d;
   text-transform: uppercase;
