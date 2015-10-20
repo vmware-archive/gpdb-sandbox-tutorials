@@ -328,7 +328,7 @@ header p {
   font-size: 18px;
 }
 #banner {
-  border: 1px solid #f0b500;
+  border: 1px solid #0F786E;
   background: #ffcc00 none repeat scroll 0%;
   z-index: 100;
   left: 0;
@@ -350,7 +350,7 @@ header p {
   -moz-border-radius-topright: 2px;
   -moz-border-radius-bottomright: 2px;
   -moz-border-radius-bottomleft: 2px;
-  background-color: #ffe788;
+  background-color: #A4A4A4;
   margin-left: 5px;
   margin-top: 6px;
   line-height: 14px;
@@ -360,7 +360,7 @@ header p {
   text-align: center;
 }
 #banner .button:hover {
-  background-color: #ffeca0;
+  background-color: #D8D8D8;
 }
 #banner .fork {
   padding: 10px 12px;
