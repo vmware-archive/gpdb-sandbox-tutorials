@@ -690,7 +690,7 @@ header p {
   z-index: 100;
   left: 0;
   right: 50%;
-  height: 50px;
+  height: 57px;
   margin-right: -382px;
   position: fixed;
   top: 115px;
@@ -726,7 +726,7 @@ header p {
   -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
   -o-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
-  background-color: #FFE788;
+  background-color: #848484;
   margin-left: 5px;
   padding: 10px 12px;
   margin-top: 6px;
@@ -744,7 +744,7 @@ header p {
   background: -o-linear-gradient(#ffe788, #ffe788);
   background: -ms-linear-gradient(#ffe788, #ffe788);
   background: linear-gradient(#ffe788, #ffe788);
-  background-color: #ffeca0;
+  background-color: #D8D8D8;
 }
 #banner .fork {
   position: fixed;
