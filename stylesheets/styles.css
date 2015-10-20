@@ -686,7 +686,7 @@ header p {
   margin: 0px;
 }
 
-banner {
+#banner {
   z-index: 100;
   left: 0;
   right: 50%;
@@ -759,6 +759,7 @@ banner {
 #banner .downloads {
   float: right;
   margin: 0 45px 0 0;
+  background-color: #0F786E;
 }
 #banner .downloads span {
   float: left;
