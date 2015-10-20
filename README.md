@@ -105,58 +105,74 @@ Another Greenplum utility, gpload, runs a load task that you specify in a YAML-f
 This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the **gpfdist** parallel data load utility.
 
  1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
- Type: `ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132  
- <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot_Image_HLjpg.jpg" width="800">
- 2. If you haven't already started the Greenplum Database.  
- Type: `./start_all.sh`  
  
- 3. Type: `cd gpdb-sandbox-tutorials`  
+	>`ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132 
+ 
+ <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot_Image_HLjpg.jpg" width="800">
+ 	
+ 2. If you haven't already started the Greenplum Database.  
+	>`./start_all.sh`  
+ 
+ 3. Change to the tutorials directory.
+	> `cd gpdb-sandbox-tutorials`  
  
  4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:  
 	 <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/create.jpg" width="500">  
 	 Execute the DDL file and create the tables.  
-	 Type: `psql -f create_tables.sql` -
+>`psql -f create_tables.sql` -
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
 	First, start the **gpfdist** utility.  
-	Type: `gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/data -p 8081 -l /home/gpadmin/gpdb-sandbox-tutorials/gpfdist.log &`
+>`gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/data -p 8081 -l /home/gpadmin/gpdb-sandbox-tutorials/gpfdist.log &`
 		
 	This will start the gpfdist server with the data directory as its source, so that any external tables built will be able to poin to any files there firectly or via a wildcard.  In this example, we will point to the file directly.
 		
 	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.  
 	
 	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/exttable.jpg" width="800">
-	
-	Type: `psql -f ext_table.sql` to execute the DDL script.
+Execute the DDL script to create the external table.
+>`psql -f ext_table.sql`   
  6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.  
-	Start psql by typing:  `psql`  
+	Start psql:
+>`psql` 
+ 
 	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  
-	At the psql prompt type:  `select count(*) from playbyplay;`  
-	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file.   
-	Type:  `select count(*) from ext_playbyplay;`  
+	At the psql prompt type:  
+>`select count(*) from playbyplay;`  
+
+	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file.  From the psql prompt type:
+>`select count(*) from ext_playbyplay;`  
+
 	This returns 47990 rows.  
- 7. Load the data into Greenplum using a psql command.  
-    Type: `insert into playbyplay (select * from ext_playbyplay);`  
-	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again.     
-	Type: `select count(*) from playbyplay;`    
+ 7. Now the data can be loaded into Greenplum using a psql command.  
+>`insert into playbyplay (select * from ext_playbyplay);`   
+
+	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again.  From the psql prompt type:  
+>`select count(*) from playbyplay;`    
+	
 	Now, it should report 47990 rows, or the same number from our data file.  
  Log out of psql by typing: `\q` then press enter.
  
- 8. External Tables can also point at sources other than local files.  Web External tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.  
-	Type: `psql -f ext_web_tables.sql`
+ 8. External Tables can also point at sources other than local files.  Web External tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.  Look inside the provided DDL script to see how the web external table is created.
+>`more ext_web_tables.sql`
+
+ To create the web external table, execute the following DDL script.
+>`psql -f ext_web_tables.sql`
 
  9. Start the psql client, type: `psql`
 	 
 	 You can test the Web External Table by just querying some rows. Run the following query to test.  
-	 Type: `select * from ext_weather limit 10;`
+>`select * from ext_weather limit 10;`
 	
 	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/webtest.jpg" width="800">  
- 10. Now, we can load the data from the External Web Table into the Greenplum Database.  
-	Type: `insert into weather (select * from ext_weather);`  
+ 10. Now, we can load the data from the External Web Table into the Greenplum Database.  From the psql prompt type:
+>`insert into weather (select * from ext_weather);`  
+
 	This should report that 22384 rows were inserted.
 	You can also query the newly loaded table to verify the table load.  
-	Type: `select * from weather limit 10;`
+>`select * from weather limit 10;`
+
 	This should return a data set that resembles the one shown above for ext_weather.
 	
 This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.   
@@ -198,11 +214,14 @@ Related processes that are working on the same slice of the query plan but on di
 Now, that query execution has been explained, let's run some queries.
 
  1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
- Type: `ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132
+>`ssh gpadmin@X.X.X.X`  
+
+	In the example shown, this would be ssh gpadmin@192.168.9.132
+
  	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot_Image_HLjpg.jpg" width="800">  
 
- 2. If you haven't already started the Greenplum Database.  
- Type: `./start_all.sh`  
+ 2. Start the Greenplum Database if you haven't already started it.
+>`./start_all.sh`  
  3. Open a browser on your desktop and browse to `http://X.X.X.X:8080` using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.
  	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zepp.jpg" width="500">  
   
@@ -210,31 +229,37 @@ Now, that query execution has been explained, let's run some queries.
  	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zep-create.jpg" width="500">  
 
  5. Click "tutorial" to open the newly created notebook.  Or, if you prefer, there is already a notebook created called football that has the queries and paragraphs pre-created.  If you choose this option, the Interpretor Binding options will display at the top, scroll down and hit save to close this portion of the screen.
- 6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: `%psql.sql select count(*) from playbyplay;`  
+ 6. You should now see the the open notebook with a "paragraph" ready for input.  Click in the the empty white rectangle (called paragraph) and type: 
+>`%psql.sql select count(*) from playbyplay;`  
+
  The result should look like the graphic below.
  
- 7. Next, let's try a more compex query and try out some of the visualization features of Zepplin. In a new paragraph type:  
-    ```
-	%psql.sql  select p.offense,w.temperature,count(*) from weather w,playbyplay p where   
-	w.date=p.gamedate and (upper(w.hometeam) = p.offense OR upper(w.hometeam) = p.defense) and   
-	p.isinterception = true and p.offense similar to '[ABCD]%' group by p.offense,w.temperature  
-	order by p.offense;
-	```  
-	This should return a data set showing team abbreviation, game temperature, and number of interceptions.   This query scans all the offensive plays in 2013 and returns any that were interceptions and the temperature of that game for teams that begin with A,B,C, or D.
+ 7. Next, let's try a more compex query and try out some of the visualization features of Zepplin. In a new paragraph type:
+   
+	>    ```
+	%psql.sql  SELECT p.offense,w.temperature,count(*) FROM weather w,
+	playbyplay p WHERE w.date=p.gamedate AND (upper(w.hometeam) = p.offense
+	OR upper(w.hometeam) = p.defense) AND p.isinterception = true
+	AND p.offense SIMILAR TO '[ABCD]%' GROUP BY p.offense,w.temperature  
+	ORDER BY p.offense;
 	
- 8. There is a row of icons underneath the query.  The one on the far right is a scatter-plot, click that.  You will then be able to drag the fields of the query into the axis of the plot.  Drag offense to the xAxis, temperature to the yAxis, and count to size.  You should now see a scatter plot with the vertical axis showing the number of interceptions per team at a given temperature.  The size of the "dot" represents the relative number of interceptions.  
+	This should return a data set showing team abbreviation, game temperature, and number of interceptions.   This query scans all the offensive plays in 2013 and returns any that were interceptions and the temperature of that game for teams that begin with A,B,C, or D.  
+
+8. There is a row of icons underneath the query.  The one on the far right is a scatter-plot, click that.  You will then be able to drag the fields of the query into the axis of the plot.  Drag offense to the xAxis, temperature to the yAxis, and count to size.  You should now see a scatter plot with the vertical axis showing the number of interceptions per team at a given temperature.  The size of the "dot" represents the relative number of interceptions.  
   	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/scatter.jpg" width="800">  
- 9. The final query leverages subquerys to determine how many interceptions each team threw at home versus on the road for the season.  Once again, for display purposes, the teams have been limited to those beginning with A-D.
+9. The final query leverages subquerys to determine how many interceptions each team threw at home versus on the road for the season.  Once again, for display purposes, the teams have been limited to those beginning with A-D.
   
-	 ```
-	 %psql.sql select home.team,home.homeint,road.roadint from (select p.offense as  
-	 team,count(*) as roadint from weather w,playbyplay p where w.date=p.gamedate and  
-	 (upper(w.hometeam) =  p.defense) and p.isinterception = true group by p.offense) road,  
-	 (select p.offense as team ,count(*) as homeint from weather w,playbyplay p where  
-	 w.date=p.gamedate and (upper(w.hometeam) =  p.offense) and p.isinterception = true group by
-	 p.offense) home where home.team = road.team and home.team similar to '[ABCD]%'  
-	 order by homeint;  
-	 ```  
+>```
+%psql.sql select home.team,home.homeint,road.roadint from (select p.offense
+as team,count(*) as roadint from weather w,playbyplay p 
+where w.date=p.gamedate and (upper(w.hometeam) =  p.defense) and 
+p.isinterception = true group by p.offense) road,
+(select p.offense as team ,count(*) as homeint from weather w,
+playbyplay p where w.date=p.gamedate and (upper(w.hometeam) =  p.offense)
+and p.isinterception = true group by p.offense) home 
+where home.team = road.team and home.team similar to '[ABCD]%'  
+order by homeint;  
+```  
    
 [Return to Tutorial List](#tutorials)  
 
@@ -288,6 +313,30 @@ Then, type:
 ****
 <a name="lesson5"></a>Lesson 5: Backup and Recovery Operations
 ----------	
-***COMING SOON!***
+The Greenplum Database parallel dump utility gpcrondump backs up the Greenplum master instance and each active segment instance at the same time.
 
-****
+By default, gpcrondump creates dump files in the gp_dump subdirectory.
+
+Several dump files are created for the master, containing database information such as DDL statements, the Greenplum system catalog tables, and metadata files. gpcrondump creates one dump file for each segment, which contains commands to recreate the data on that segment.
+
+You can perform full or incremental backups. To restore a database to its state when an incremental backup was made, you will need to restore the previous full backup and all subsequent incremental backups.
+
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/backup.jpg" width="600"> 
+
+Each file created for a backup begins with a 14-digit timestamp key that identifies the backup set the file belongs to.
+
+gpchrondump can be run directly in a terminal on the master host, or you can add it to crontab on the master host to schedule regular backups.
+
+**Exercises**
+
+These exercises will walk through how to create a full and incremental backup of the Greenplum Database, and then schedule that backup via cron
+ 
+1) To run a full backup, use "gpcrondump -x database -u /path/for/backup -a".   This will backup the entire database to the directory given without prompting the user.
+> `gpcrondump -x gpadmin -u /tmp -a`
+
+
+The Greenplum Database parallel restore utility gpdbrestore takes the timestamp key generated by gpcrondump, validates the backup set, and restores the database objects and data into a distributed database in parallel. Parallel restore operations require a complete backup set created by gpcrondump, a full backup and any required incremental backups. 
+
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/restore.jpg" width="600"> 
+
+The Greenplum Database gpdbrestore utility provides flexibility and verification options for use with the automated backup files produced by gpcrondump or with backup files moved from the Greenplum array to an alternate location. 
