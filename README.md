@@ -7,7 +7,7 @@ These tutorials showcase how GPDB can address day-to-day tasks performed in typi
 
 The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.
 
- - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box
+ - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box.  If you import into VMware Fusion and would like to install the VMware Tools, see Appendix 1 for installation details. 
  - Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
 ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg)
 This screen provides you all the information you need to interact with the VM.
@@ -29,6 +29,8 @@ Interacting with the Sandbox via a new terminal is preferable, as it makes many 
 * [Lesson 3: Creating Partitioned Tables](#lesson3) 
 * [Lesson 4: Advanced Analytics with the Greenplum Database](#lesson4) 
 * [Lesson 5: Backup and Recovery Operations](#lesson5) 
+* [Appendix 1: Importing into VMware Fusion](#appedix1) 
+
 
 
 -----------------------------------
@@ -309,7 +311,10 @@ Then, type:
 ****
 <a name="lesson4"></a>Lesson 4: Advanced Analytics with the Greenplum Database
 ------	
-***COMING SOON!***
+***COMING SOON!***  
+[PivotalR](https://cran.r-project.org/web/packages/PivotalR/vignettes/pivotalr.pdf)
+T
+
 ****
 <a name="lesson5"></a>Lesson 5: Backup and Recovery Operations
 ----------	
@@ -365,3 +370,38 @@ Once this is complete, launch the psql shell again: `psql` and then check the st
 
 The table should show 22384 rows again as it was prior to the truncate call.
 
+[Return to Tutorial List](#tutorials)  
+
+****
+<a name="appendix1"></a>Appendix 1: Importing into VMware Fusion
+------	
+
+These instructions will assist you in Importing this VM into VMware Fusion and then installing VMware Tools into the VM.
+
+1. Select File / Import then Choose the OVA File to import and hit Continue.
+2. Choose a Location to store the new VM and hit Save.  This will begin the Import process.   If you have any issues (older versions of Fusion sometimes stop), click relax the settings and Import the VM again.
+3. Click Customize Settings at the end of the Import process.  
+ ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import1.jpg)
+4. Click General  
+ ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import2.jpg)
+5. Then click the box next to OS, select Linux, and then Centos 64-bit. Then finally click Change. This will allow Fusion to select the proper Tools package to mount to the host. Close out the Settings Window and Start the VM.  
+ ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import3.jpg)
+6. The VM startup might ask about a Virtual IDE device, if so, select No.  This will keep the VM from asking this question on EVERY boot.
+7. Login to the VM as root
+8. In the VMware Fusion menus, Select Virtual Machine / Install VMware Tools and then choose Install.
+9. At the root prompt in the VM:  
+
+	>`mkdir /mnt/dvd`  
+	>`mount /dev/dvd2 /mnt/dvd -t iso9660`
+	>`tar xvfz /mnt/dvd/VMwareTools*.tar.gz -C /tmp`
+	>`/tmp/vmware-tools-distrib/vmware-install.pl`
+	
+10. Follow the prompts and finish the install of VMware Tools.
+11. In the VMware Fusion menus, Select Virtual Machine / Cancel VMware Tools Installation
+
+	
+
+ 
+
+
+[Return to Tutorial List](#tutorials)  
