@@ -29,7 +29,7 @@ Interacting with the Sandbox via a new terminal is preferable, as it makes many 
 * [Lesson 3: Creating Partitioned Tables](#lesson3) 
 * [Lesson 4: Advanced Analytics with the Greenplum Database](#lesson4) 
 * [Lesson 5: Backup and Recovery Operations](#lesson5) 
-* [Appendix 1: Importing into VMware Fusion](#appedix1) 
+* [Appendix 1: Importing into VMware Fusion](#appendix1) 
 
 
 
@@ -381,11 +381,16 @@ These instructions will assist you in Importing this VM into VMware Fusion and t
 1. Select File / Import then Choose the OVA File to import and hit Continue.
 2. Choose a Location to store the new VM and hit Save.  This will begin the Import process.   If you have any issues (older versions of Fusion sometimes stop), click relax the settings and Import the VM again.
 3. Click Customize Settings at the end of the Import process.  
- ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import1.jpg)
-4. Click General  
- ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import2.jpg)
+	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import1.jpg" width="400">  
+
+4. Click General Icon under System Settings
+  
+	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import2.jpg" width="400">   
+
 5. Then click the box next to OS, select Linux, and then Centos 64-bit. Then finally click Change. This will allow Fusion to select the proper Tools package to mount to the host. Close out the Settings Window and Start the VM.  
- ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import3.jpg)
+
+	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import3.jpg" width="400"> 
+
 6. The VM startup might ask about a Virtual IDE device, if so, select No.  This will keep the VM from asking this question on EVERY boot.
 7. Login to the VM as root
 8. In the VMware Fusion menus, Select Virtual Machine / Install VMware Tools and then choose Install.
