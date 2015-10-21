@@ -32,7 +32,7 @@ commands yourself or by executing a script in the faa directory.
 * [Lesson 1: Create Users and Roles](#lesson1)  
 * [Lesson 2: Create and Prepare Database](#lesson2)   
 * [Lesson 3: Create Tables](#lesson3) 
-* [Lesson X:  ](#lesson4) 
+* [Lesson 4: Parallel Data Loading](#lesson4) 
 * [Lesson X:  ](#lesson5) 
 * [Appendix 1: Importing into VMware Fusion](#appendix1) 
 
@@ -107,7 +107,7 @@ Permissions can be granted to users or groups. Initially, of course, only the gp
 
 1. Login to the GPDB Sandbox as the gpadmin user.  
 2. Enter the *createuser* command and reply to the prompts:  
->`$ createuser -P user11`  
+>`$ createuser -P user1`  
 
 	```
 	[gpadmin@gpdb-sandbox ~]$ createuser -P user1  
@@ -161,7 +161,12 @@ template1=# \du
  user1     | Create DB                         | {users}
  user2     |                                   | {users}
  users     | Cannot login                      |
- ```
+ ```  
+ 
+3. Exit out of the psql shell:  
+>`template1=# \q`
+
+[Return to Tutorial List](#tutorials)  
 
 
 <a name="lesson2"></a>Lesson 2: Create and Prepare Database
@@ -237,28 +242,89 @@ tutorial=# CREATE SCHEMA faa;
 >`tutorial=# SET SEARCH_PATH TO faa, public, pg_catalog, gp_toolkit;`  
 
 5. View the search path:
->`tutorial=# SHOW search_path;`
+>
+```
+tutorial=# SHOW search_path;
+             search_path
+-------------------------------------
+ faa, public, pg_catalog, gp_toolkit
+(1 row)
+```
 
 6. The search path you set above is not persistent; you have to set it each time you
 connect to the database. You can associate a search path with the user role by using the
 ALTER ROLE command, so that each time you connect to the database with that role, the search path is restored:  
 >`tutorial=# ALTER ROLE user1 SET search_path TO faa, public, pg_catalog, gp_toolkit;`
 
+7. Exit out of the psql shell:
+>`tutorial=# \q`
+
+[Return to Tutorial List](#tutorials)  
+
+
 <a name="lesson3"></a>Lesson 3: Create Tables
 ------------
+The CREATE TABLE SQL statement creates a table in the database.
+
+***About the distribution policy***
+
+The definition of a table includes the distribution policy for the data, which has great bearing on system performance. The goals for the distribution policy are to:  
+
+* distribute the volume of data and query execution work evenly among the
+segments, and to  
+* enable segments to accomplish the most expensive query processing steps locally.  
+
+The distribution policy determines how data is distributed among the segments. Defining an effective distribution policy requires an understanding of the data’s characteristics, the kinds of queries that will be run once the data is loaded into the database, and what distribution strategies best utilize the parallel execution capacity of the segments.
+
+Use the DISTRIBUTED clause of the CREATE TABLE statement to define the
+distribution policy for a table. Ideally, each segment will store an equal volume of data and perform an equal share of work when processing queries. There are two kinds of distribution policies:
+
+* DISTRIBUTED BY (column, ...) defines a distribution key from one or more columns. A hash function applied to the distribution key determines which segment stores the row. Rows that have the same distribution key are stored on the same segment. If the distribution keys are unique, the hash function ensures the data is distributed evenly. The default distribution policy is a hash on the primary key of the table, or the first column if no primary key is specified.
+* DISTRIBUTED RANDOMLY distributes rows in round-robin fashion among the
+segments.
+
+When different tables are joined on the same columns that comprise the distribution key, the join can be accomplished at the segments, which is much faster than joining rows across segments. The random distribution policy makes this impossible, so it is best practice to define a distribution key that will optimize joins.
+
+**Execute the CREATE TABLE script in psql**
+
+The CREATE TABLE statements for the faa database are in the faa create_dim_tables.sql script. 
+
+1. Change to the directory containing the FAA data and scripts:
+>`$ cd ~/gpdb-sandbox-tutorials/faa`
+
+2. Open the script in a text editor to see the text of the commands that will be executed when you run the script. 
+>
+```
+gpadmin@gpdb-sandbox faa]$ more create_dim_tables.sql   
+create table faa.d_airports (airport_code text, airport_desc text) distributed  by (airport_code);  
+create table faa.d_wac (wac smallint, area_desc text) distributed by (wac);  
+create table faa.d_airlines (airlineid integer, airline_desc text) distributed   by (airlineid);  
+create table faa.d_cancellation_codes (cancel_code text, cancel_desc text)   distributed by (cancel_code);  
+create table faa.d_delay_groups (delay_group_code text, delay_group_desc text)   distributed by (delay_group_code);  
+create table faa.d_distance_groups (distance_group_code text,   distance_group_desc text) distributed by (distance_group_code)  
+```
+
+
+3. Execute the create_dim_tables.sql script.  The psql \i command executes a script:    
+>`$ psql -U user1 tutorial`
+>
+```
+tutorial=# \i create_dim_tables.sql
+```
+
+4. List the tables that were created, using the psql \dt command.
+>`tutorial=# \dt `
+
+5. Exit the psql shell:
+>`tutorial=# \q`
 
 
 
+[Return to Tutorial List](#tutorials)  
 
 
 
-
-
-
-
-
-
-<a name="lesson2"></a>Lesson 2: Parallel Data Loading
+<a name="lesson4"></a>Lesson 4: Parallel Data Loading
 ------------
 
 In a large scale, multi-terabyte data warehouse, large amounts of data must be loaded within a relatively small maintenance window. Greenplum supports fast, parallel data loading with its external tables feature. Administrators can also load external tables in single row error isolation mode to filter bad rows into a separate error table while continuing to load properly formatted rows. Administrators can specify an error threshold for a load operation to control how many improperly formatted rows cause Greenplum to abort the load operation.
@@ -274,84 +340,63 @@ Another Greenplum utility, gpload, runs a load task that you specify in a YAML-f
 **Exercises**  
 For the FAA fact table, we will use an ETL (Extract, Transform, Load) process to load data from the source gzip files into a loading table, and then insert the data into a query and reporting table. For the best load speed, use the gpfdist Greenplum utility to distribute the rows to the segments. In a production system, gpfdist runs on the servers where the data is located. With a single-node Greenplum Database instance, there is only one host, and you run gpdist on it. Starting gpfdist is like starting a file server; there is no data movement until a request is made on the process.
 
-*Note: This exercise loads data using the Greenplum Database external table feature
-to move data from external data files into the database. Moving data between the
-database and external tables is a security consideration, so only superusers are
-permitted to use the feature. Therefore, you will run this exercise as the gpadmin
-database user.*
+*Note: This exercise loads data using the Greenplum Database external table feature to move data from external data files into the database. Moving data between the database and external tables is a security consideration, so only superusers are permitted to use the feature. Therefore, you will run this exercise as the gpadmin database user.*  
 
- 1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
- 
-	>`ssh gpadmin@X.X.X.X`  In the example shown, this would be ssh gpadmin@192.168.9.132 
- 
- <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot_Image_HLjpg.jpg" width="800">
- 	
- 2. If you haven't already started the Greenplum Database.  
-	>`./start_all.sh`  
- 
- 3. Change to the tutorials directory.
-	> `cd gpdb-sandbox-tutorials`  
- 
- 4. The first step is to create the database and the associated tables for these tutorials.  The CREATE TABLE statements for the faa database are in the faa/create_dim_tables.sql script. Open the script in a text editor to see the text  of the commands that will be executed when you run the script.
-	 <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/create.jpg" width="500">  
-	 Execute the DDL file and create the tables.  
->`psql -f faa/create_dim_tables.sql` 
+1. Execute *gpfdist*. Use the –d switch to set the “home” directory used to search for files in the faa directory. Use the –p switch to set the port and background the process.  
+>`$ gpfdist -d ~/gpdb-sandbox-tutorials/faa -p 8081 > /tmp/gpfdist.log 2>&1 & `  
 
- 5. Now, we need to setup **gpfdist** to serve the external data file.
-	
-	First, start the **gpfdist** utility.  
->`gpfdist -d /home/gpadmin/gpdb-sandbox-tutorials/data -p 8081 -l /home/gpadmin/gpdb-sandbox-tutorials/gpfdist.log &`
-		
-	This will start the gpfdist server with the data directory as its source, so that any external tables built will be able to poin to any files there firectly or via a wildcard.  In this example, we will point to the file directly.
-		
-	Now, we can create an Greenplum External Table to point directly to the data file.  There is a pre-created shell-script to do this.  The script removes the tables if it already exists and the creates an external table in the image of the playbyplay table create in an earlier step.  
-	
-	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/exttable.jpg" width="800">
-Execute the DDL script to create the external table.
->`psql -f ext_table.sql`   
- 6. We can now load a native Greenplum table (playbyplay) by querying the external table directly and inserting the data. But first we will run a couple of quick tests to show a before and after look at the tables.  
-	Start psql:
->`psql` 
- 
-	Now, let's generate a count of the rows in the playbyplay table that was created earlier.  
-	At the psql prompt type:  
->`select count(*) from playbyplay;`  
+2. Check that *gpfdist* is running with the ps command:
+>`$ ps -A | grep gpfdist`  
 
-	This should return a count of 0 rows.  If we run the same command against the external table we will get a count of the rows in our data file.  From the psql prompt type:
->`select count(*) from ext_playbyplay;`  
+3. View the contents of the gpfdist log.
+>`more /tmp/gpfdist.log`  
 
-	This returns 47990 rows.  
- 7. Now the data can be loaded into Greenplum using a psql command.  
->`insert into playbyplay (select * from ext_playbyplay);`   
+4. Start a psql session as gpadmin and execute the
+create_load_tables.sql script.  This script creates two tables: the faa_otp_load table, into which gpdist will load the data, and the faa_load_errors table, where load errors will be logged. (The faa_load_errors table may already exist. Ignore the error message.) The faa_otp_load table is structured to match the format of the input data from the FAA Web site.  
+>`$ psql -U gpadmin tutorial` 
+>
+```
+tutorial=# \i create_load_tables.sql   
+CREATE TABLE    
+CREATE TABLE    
+```
 
-	Since we are querying a file that is being accessed via gpfdist, the load happens in parallel across all segments of the Greenplum Database.  Further scalability can be achieved by running multiple gpfdist instances and having multiple datafile.   Once, the load is complete, we can check the count of rows in the playbyplay table again.  From the psql prompt type:  
->`select count(*) from playbyplay;`    
-	
-	Now, it should report 47990 rows, or the same number from our data file.  
- Log out of psql by typing: `\q` then press enter.
- 
- 8. External Tables can also point at sources other than local files.  Web External tables allow Greenplum Database to treat dynamic data sources like regular database tables. The sources can be either a linux command or a URL.  In this example, we will read the weather information for 2013 directly from the GitHub site that this tutorial is stored.  Look inside the provided DDL script to see how the web external table is created.
->`more ext_web_tables.sql`
+5. Create an external table definition with the same structure as the faa_otp_load table.  
+>
+```
+tutorial=# \i create_ext_table.sql
+psql:create_ext_table.sql:5: NOTICE:  HEADER means that each one  
+of the data files has a header row.
+CREATE EXTERNAL TABLE
+```  
 
- To create the web external table, execute the following DDL script.
->`psql -f ext_web_tables.sql`
+	This is a pure metadata operation. No data has moved from the data files on the host to the database yet. The external table definition references files in the faa directory that match the pattern otp*.gz. There are two matching files, one containing data for December 2009, the other for January 2010. 
 
- 9. Start the psql client, type: `psql`
-	 
-	 You can test the Web External Table by just querying some rows. Run the following query to test.  
->`select * from ext_weather limit 10;`
-	
-	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/webtest.jpg" width="800">  
- 10. Now, we can load the data from the External Web Table into the Greenplum Database.  From the psql prompt type:
->`insert into weather (select * from ext_weather);`  
 
-	This should report that 22384 rows were inserted.
-	You can also query the newly loaded table to verify the table load.  
->`select * from weather limit 10;`
+6. Move data from the external table to the faa_otp_load table.  
+>
+```
+tutorial=#  INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;
+NOTICE:  Found 26526 data formatting errors (26526 or more input rows).  
+Rejected related input data.
+INSERT 0 1024552
+```
 
-	This should return a data set that resembles the one shown above for ext_weather.
-	
-This concludes the lesson on Loading Data into the Greenplum Database.  The next lesson will cover querying the database.   
+	Greenplum moves data from the gzip files into the load table in the database. In a production environment, you could have many gpfdist processes running, one on each host or several on one host, each on a separate port number. 
+
+7. Examine the errors briefly. (The \x on psql meta-command changes the display of the results to one line per column, which is easier to read for some result sets.)
+>
+```
+tutorial=# \x
+Expanded display is on.
+tutorial=# SELECT DISTINCT relname, errmsg, count(*) 
+           FROM faa.faa_load_errors GROUP BY 1,2;
+-[ RECORD 1 ]-------------------------------------------------
+relname | ext_load_otp
+errmsg  | invalid input syntax for integer: "", column deptime
+count   | 26526
+```
+
 
 [Return to Tutorial List](#tutorials)  
 
