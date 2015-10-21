@@ -129,39 +129,39 @@ NOTICE:  resource queue required -- using default resource queue "pg_default"
 
 3. Display a list of roles:  
 >
-```
-template1=# \du
-                       List of roles
- Role name |            Attributes             | Member of
------------+-----------------------------------+-----------
- gpadmin   | Superuser, Create role, Create DB |
- gpmon     | Superuser, Create DB              |
- user1     | Create DB                         |
- user2     |                                   |
- ``` 
+	```
+	template1=# \du
+	                       List of roles
+	 Role name |            Attributes             | Member of
+	-----------+-----------------------------------+-----------
+	 gpadmin   | Superuser, Create role, Create DB |
+	 gpmon     | Superuser, Create DB              |
+	 user1     | Create DB                         |
+	 user2     |                                   |
+	 ``` 
 
 **Create a users group and add the users to it**
 
 1. While connected to the template1 database as gpadmin enter the following SQL commands:
 >
-```  
-	template1=# CREATE ROLE users;  
-	template1=# GRANT users TO user1, user2;  
-```
+	```  
+		template1=# CREATE ROLE users;  
+		template1=# GRANT users TO user1, user2;  
+	```
 
 2. Display the list of roles again:
 >
-```
-template1=# \du
-                       List of roles
- Role name |            Attributes             | Member of
------------+-----------------------------------+-----------
- gpadmin   | Superuser, Create role, Create DB |
- gpmon     | Superuser, Create DB              |
- user1     | Create DB                         | {users}
- user2     |                                   | {users}
- users     | Cannot login                      |
- ```  
+	```
+	template1=# \du
+	                       List of roles
+	 Role name |            Attributes             | Member of
+	-----------+-----------------------------------+-----------
+	 gpadmin   | Superuser, Create role, Create DB |
+	 gpmon     | Superuser, Create DB              |
+	 user1     | Create DB                         | {users}
+	 user2     |                                   | {users}
+	 users     | Cannot login                      |
+	 ```  
  
 3. Exit out of the psql shell:  
 >`template1=# \q`
