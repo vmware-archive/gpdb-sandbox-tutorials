@@ -361,13 +361,13 @@ CREATE TABLE
 CREATE TABLE    
 ```
 
-5. Create an external table definition with the same structure as the faa_otp_load table.  
+5. Create an external table definition with the same structure as the faa_otp_load table.   
 >
 ```
-tutorial=# \i create_ext_table.sql
-psql:create_ext_table.sql:5: NOTICE:  HEADER means that each one  
-of the data files has a header row.
-CREATE EXTERNAL TABLE
+tutorial=# \i create_ext_table.sql  
+psql:create_ext_table.sql:5: NOTICE:  HEADER means that each one    
+of the data files has a header row.  
+CREATE EXTERNAL TABLE  
 ```  
 
 	This is a pure metadata operation. No data has moved from the data files on the host to the database yet. The external table definition references files in the faa directory that match the pattern otp*.gz. There are two matching files, one containing data for December 2009, the other for January 2010. 
@@ -376,10 +376,10 @@ CREATE EXTERNAL TABLE
 6. Move data from the external table to the faa_otp_load table.  
 >
 ```
-tutorial=#  INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;
-NOTICE:  Found 26526 data formatting errors (26526 or more input rows).  
-Rejected related input data.
-INSERT 0 1024552
+tutorial=#  INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;  
+NOTICE:  Found 26526 data formatting errors (26526 or more input rows).    
+Rejected related input data.  
+INSERT 0 1024552  
 ```
 
 	Greenplum moves data from the gzip files into the load table in the database. In a production environment, you could have many gpfdist processes running, one on each host or several on one host, each on a separate port number. 
