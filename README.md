@@ -7,7 +7,8 @@ These tutorials showcase how GPDB can address day-to-day tasks performed in typi
 
 The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.
 
- - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box.  If you import into VMware Fusion and would like to install the VMware Tools, see Appendix 1 for installation details. 
+ - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box.  If you import into VMware Fusion and would like to install the VMware Tools, see [Appendix 1](#appendix1) 
+ for installation details. 
  - Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
 ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg)
 This screen provides you all the information you need to interact with the VM.
@@ -17,7 +18,11 @@ This screen provides you all the information you need to interact with the VM.
 
 Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  
 
-*This tutorial is based on a freely-available datasets with statistics from the 2013 NFL Football Season.*
+To introduce Greenplum Database, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at http://www.transstats.bts.gov/.  The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. Data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010.  The FAA uses the data to calculate statistics such as the percent of flights that depart or arrive on time by origin, destination, and airline. 
+
+You are encouraged to review the SQL scripts in the faa directory as you work
+through this introduction. You can run most of the exercises by entering the
+commands yourself or by executing a script in the faa directory.
  
 
 <a name="tutorials"></a>Tutorials
@@ -90,7 +95,161 @@ The Pivotal Query Optimizer brings a state of the art query optimization framewo
 
 ***  
 
-<a name="lesson1"></a>Lesson 1: Parallel Data Loading
+<a name="lesson1"></a>Lesson 1: Create Users and Roles
+------------
+Greenplum Database manages database access using roles. Initially, there is one superuser role—the role associated with the OS user who initialized the database instance, usually gpadmin. This user owns all of the Greenplum Database files and OS processes, so it is important to reserve the gpadmin role for system tasks only.  
+
+A role can be a user or a group. A user role can log in to a database; that is, it has the LOGIN attribute. A user or group role can become a member of a group.
+
+Permissions can be granted to users or groups. Initially, of course, only the gpadmin role is able to create roles. You can add roles with the createuser utility command, CREATE ROLE SQL command, or the CREATE USER SQL command. The CREATE USER command is the same as the CREATE ROLE command except that it automatically assigns the role the LOGIN attribute. 
+
+**Create a user with the createuser utility command**
+
+1. Login to the GPDB Sandbox as the gpadmin user.  
+2. Enter the *createuser* command and reply to the prompts:  
+>`$ createuser -P user11`  
+
+	```
+	[gpadmin@gpdb-sandbox ~]$ createuser -P user1  
+Enter password for new role:  
+Enter it again:  
+Shall the new role be a superuser? (y/n) n  
+Shall the new role be allowed to create databases? (y/n) y  
+Shall the new role be allowed to create more new roles? (y/n) n  
+NOTICE:  resource queue required -- using default resource queue "pg_default"  
+	```
+	
+**Create a user with the CREATE USER command**  
+
+1. Connect to the template1 database as gpadmin:  
+>`$ psql template1`
+
+2. Create a user with the name user2:  
+>`template1=#  CREATE USER user2 WITH PASSWORD 'pivotal' NOSUPERUSER;`  
+
+3. Display a list of roles:  
+>
+```
+template1=# \du
+                       List of roles
+ Role name |            Attributes             | Member of
+-----------+-----------------------------------+-----------
+ gpadmin   | Superuser, Create role, Create DB |
+ gpmon     | Superuser, Create DB              |
+ user1     | Create DB                         |
+ user2     |                                   |
+ ``` 
+
+**Create a users group and add the users to it**
+
+1. While connected to the template1 database as gpadmin enter the following SQL commands:
+>
+```  
+	template1=# CREATE ROLE users;  
+	template1=# GRANT users TO user1, user2;  
+```
+
+2. Display the list of roles again:
+>
+```
+template1=# \du
+                       List of roles
+ Role name |            Attributes             | Member of
+-----------+-----------------------------------+-----------
+ gpadmin   | Superuser, Create role, Create DB |
+ gpmon     | Superuser, Create DB              |
+ user1     | Create DB                         | {users}
+ user2     |                                   | {users}
+ users     | Cannot login                      |
+ ```
+ 
+**Grant database privileges to users**  
+In a production database, you should grant users the minimum permissions required to do their work. For example, a user may need SELECT permissions on a table to view data, but not UPDATE, INSERT, or DELETE to modify the data.  To complete the exercises in this guide, the database users will require permissions to create and manipulate objects in the tutorial database.  
+
+1. Connect to the tutorial database as gpadmin.  
+>`$ psql -U gpadmin tutorial`
+
+2. Grant user1 and user2 all privileges on the tutorial database.    
+>`tutorial=# GRANT ALL PRIVILEGES ON DATABASE tutorial TO user1, user2;`  
+
+3. Log out of psql and perform the next steps as the user1 role.  
+>`tutorial=# \q`
+
+**Create a schema and set a search path**  
+A database schema is a named container for a set of database objects, including tables, data types, and functions. A database can have multiple schemas. Objects within the schema are referenced by prefixing the object name with the schema name, separated with a period. For example, the person table in the employee schema is written employee.person.
+
+The schema provides a namespace for the objects it contains. If the database is used for multiple applications, each with its own schema, the same table name can be used in each schema employee.person is a different table than customer.person. Both tables could be accessed in the same query as long as they are qualified with the schema name.
+
+The database contains a schema search path, which is a list of schemas to search for objects names that are not qualified with a schema name. The first schema in the search path is also the schema where new objects are created when no schema is specified. The default search path is user,public, so by default, each object you create belongs to a schema associated with your login name.  In this exercise, you create an faa schema and set the search path so that it is the default schema.
+
+1. Change to the directory containing the FAA data and scripts:
+>`$ cd ~/gpdb-sandbox-tutorials/faa`
+
+2. Connect to the tutorial database with psql:
+>`$ psql -U user1 tutorial`  
+
+3. Create the faa schema:
+>
+```
+tutorial=# DROP SCHEMA IF EXISTS faa CASCADE;  
+tutorial=# CREATE SCHEMA faa;  
+```
+
+4. Add the faa schema to the search path:
+>`tutorial=# SET SEARCH_PATH TO faa, public, pg_catalog, gp_toolkit;`  
+
+5. View the search path:
+>`tutorial=# SHOW search_path;`
+
+6. The search path you set above is not persistent; you have to set it each time you
+connect to the database. You can associate a search path with the user role by using the
+ALTER ROLE command, so that each time you connect to the database with that role, the search path is restored:  
+>`tutorial=# ALTER ROLE user1 SET search_path TO faa, public, pg_catalog, gp_toolkit;`
+
+
+
+
+
+<a name="lesson1"></a>Lesson 1: Create and Prepare Database
+------------
+Create a new database with the CREATE DATABASE SQL command in psql or the createdb utility command in a terminal. The new database is a copy of the template1 database, unless you specify a different template.
+To use the CREATE DATABASE command, you must be connected to a database. With a newly installed Greenplum Database system, you can connect to the template1 database to create your first user database. The createdb utility, entered at a shell prompt, is a wrapper around the CREATE DATABASE command. In this exercise you will drop the tutorial database if it exists and then create it new with the createdb utility.  
+
+1. Enter these commands to drop the tutorial database if it exists:  
+>`$ dropdb tutorial`  
+
+2. Enter the createdb command to create the tutorial database, with the defaults:
+>`$ createdb tutorial`
+
+3. Verify that the database was created using the *psql -l* command:  
+>
+```
+[gpadmin@gpdb-sandbox ~]$ psql -l
+                  List of databases
+   Name    |  Owner  | Encoding |  Access privileges
+-----------+---------+----------+---------------------
+ gpadmin   | gpadmin | UTF8     |
+ gpperfmon | gpadmin | UTF8     | gpadmin=CTc/gpadmin
+                                : =c/gpadmin
+ postgres  | gpadmin | UTF8     |
+ template0 | gpadmin | UTF8     | =c/gpadmin
+                                : gpadmin=CTc/gpadmin
+ template1 | gpadmin | UTF8     | =c/gpadmin
+                                : gpadmin=CTc/gpadmin
+ tutorial  | gpadmin | UTF8     |
+(6 rows) 
+```  
+4. Connect to the tutorial database as user1, entering the password you created
+for user1 when prompted:  
+>`psql -U user1 tutorial`
+
+
+
+
+
+
+
+<a name="lesson2"></a>Lesson 2: Parallel Data Loading
 ------------
 
 In a large scale, multi-terabyte data warehouse, large amounts of data must be loaded within a relatively small maintenance window. Greenplum supports fast, parallel data loading with its external tables feature. Administrators can also load external tables in single row error isolation mode to filter bad rows into a separate error table while continuing to load properly formatted rows. Administrators can specify an error threshold for a load operation to control how many improperly formatted rows cause Greenplum to abort the load operation.
@@ -104,7 +263,13 @@ Figure 1. External Tables Using Greenplum Parallel File Server (gpfdist)
 Another Greenplum utility, gpload, runs a load task that you specify in a YAML-formatted control file. You describe the source data locations, format, transformations required, participating hosts, database destinations, and other particulars in the control file and gpload executes the load. This allows you to describe a complex task and execute it in a controlled, repeatable fashion.
 
 **Exercises**  
-This tutorial will demonstrate how to load an external csv delimited file into the Greenplum Database using the **gpfdist** parallel data load utility.
+For the FAA fact table, we will use an ETL (Extract, Transform, Load) process to load data from the source gzip files into a loading table, and then insert the data into a query and reporting table. For the best load speed, use the gpfdist Greenplum utility to distribute the rows to the segments. In a production system, gpfdist runs on the servers where the data is located. With a single-node Greenplum Database instance, there is only one host, and you run gpdist on it. Starting gpfdist is like starting a file server; there is no data movement until a request is made on the process.
+
+*Note: This exercise loads data using the Greenplum Database external table feature
+to move data from external data files into the database. Moving data between the
+database and external tables is a security consideration, so only superusers are
+permitted to use the feature. Therefore, you will run this exercise as the gpadmin
+database user.*
 
  1. From a terminal, ssh to the Sandbox VM as gpadmin using the IP Address found in the boot-up screen (as seen below)  
  
@@ -118,10 +283,10 @@ This tutorial will demonstrate how to load an external csv delimited file into t
  3. Change to the tutorials directory.
 	> `cd gpdb-sandbox-tutorials`  
  
- 4. The first step is to create the database and the associated tables for these demos.  To make the process easier, a script has been provided that contains all the needed ddl statements.  Here is a look inside the file:  
+ 4. The first step is to create the database and the associated tables for these tutorials.  The CREATE TABLE statements for the faa database are in the faa/create_dim_tables.sql script. Open the script in a text editor to see the text  of the commands that will be executed when you run the script.
 	 <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/create.jpg" width="500">  
 	 Execute the DDL file and create the tables.  
->`psql -f create_tables.sql` -
+>`psql -f faa/create_dim_tables.sql` 
 
  5. Now, we need to setup **gpfdist** to serve the external data file.
 	
@@ -403,6 +568,9 @@ These instructions will assist you in Importing this VM into VMware Fusion and t
 	
 10. Follow the prompts and finish the install of VMware Tools.
 11. In the VMware Fusion menus, Select Virtual Machine / Cancel VMware Tools Installation
+* Note:  X-Windows System is not installed.  To install:
+>`yum groupinstall 'X Window System'`
+
 
 	
 
