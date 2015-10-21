@@ -387,16 +387,18 @@ INSERT 0 1024552
 7. Examine the errors briefly. (The \x on psql meta-command changes the display of the results to one line per column, which is easier to read for some result sets.)
 >
 ```
-tutorial=# \x
-Expanded display is on.
-tutorial=# SELECT DISTINCT relname, errmsg, count(*) 
-           FROM faa.faa_load_errors GROUP BY 1,2;
--[ RECORD 1 ]-------------------------------------------------
-relname | ext_load_otp
-errmsg  | invalid input syntax for integer: "", column deptime
-count   | 26526
+tutorial=# \x  
+Expanded display is on.  
+tutorial=# SELECT DISTINCT relname, errmsg, count(*)  
+           FROM faa.faa_load_errors GROUP BY 1,2;  
+-[ RECORD 1 ]-------------------------------------------------  
+relname | ext_load_otp  
+errmsg  | invalid input syntax for integer: "", column deptime  
+count   | 26526  
 ```
 
+8. Exit the psql shell:
+>`tutorial=# \q`
 
 [Return to Tutorial List](#tutorials)  
 
