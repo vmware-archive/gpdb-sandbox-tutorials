@@ -29,11 +29,11 @@ commands yourself or by executing a script in the faa directory.
 ------------
 
 * [Introduction to the Greenplum Database Architecture](#lesson0)
-* [Lesson 1: Parallel Data Loading](#lesson1)  
-* [Lesson 2: Querying the Database](#lesson2)   
-* [Lesson 3: Creating Partitioned Tables](#lesson3) 
-* [Lesson 4: Advanced Analytics with the Greenplum Database](#lesson4) 
-* [Lesson 5: Backup and Recovery Operations](#lesson5) 
+* [Lesson 1: Create Users and Roles](#lesson1)  
+* [Lesson 2: Create and Prepare Database](#lesson2)   
+* [Lesson 3: Create Tables](#lesson3) 
+* [Lesson X:  ](#lesson4) 
+* [Lesson X:  ](#lesson5) 
 * [Appendix 1: Importing into VMware Fusion](#appendix1) 
 
 
@@ -162,8 +162,45 @@ template1=# \du
  user2     |                                   | {users}
  users     | Cannot login                      |
  ```
- 
+
+
+<a name="lesson2"></a>Lesson 2: Create and Prepare Database
+------------
+Create a new database with the CREATE DATABASE SQL command in psql or the createdb utility command in a terminal. The new database is a copy of the template1 database, unless you specify a different template.
+To use the CREATE DATABASE command, you must be connected to a database. With a newly installed Greenplum Database system, you can connect to the template1 database to create your first user database. The createdb utility, entered at a shell prompt, is a wrapper around the CREATE DATABASE command. In this exercise you will drop the tutorial database if it exists and then create it new with the createdb utility.  
+
+**Create Database**   
+
+1. Enter these commands to drop the tutorial database if it exists:  
+>`$ dropdb tutorial`  
+
+2. Enter the createdb command to create the tutorial database, with the defaults:  
+>`$ createdb tutorial`
+
+3. Verify that the database was created using the *psql -l* command:  
+>
+```
+[gpadmin@gpdb-sandbox ~]$ psql -l
+                  List of databases
+   Name    |  Owner  | Encoding |  Access privileges
+-----------+---------+----------+---------------------
+ gpadmin   | gpadmin | UTF8     |
+ gpperfmon | gpadmin | UTF8     | gpadmin=CTc/gpadmin
+                                : =c/gpadmin
+ postgres  | gpadmin | UTF8     |
+ template0 | gpadmin | UTF8     | =c/gpadmin
+                                : gpadmin=CTc/gpadmin
+ template1 | gpadmin | UTF8     | =c/gpadmin
+                                : gpadmin=CTc/gpadmin
+ tutorial  | gpadmin | UTF8     |
+(6 rows) 
+```  
+4. Connect to the tutorial database as user1, entering the password you created
+for user1 when prompted:  
+>`psql -U user1 tutorial` 
+
 **Grant database privileges to users**  
+
 In a production database, you should grant users the minimum permissions required to do their work. For example, a user may need SELECT permissions on a table to view data, but not UPDATE, INSERT, or DELETE to modify the data.  To complete the exercises in this guide, the database users will require permissions to create and manipulate objects in the tutorial database.  
 
 1. Connect to the tutorial database as gpadmin.  
@@ -176,6 +213,7 @@ In a production database, you should grant users the minimum permissions require
 >`tutorial=# \q`
 
 **Create a schema and set a search path**  
+
 A database schema is a named container for a set of database objects, including tables, data types, and functions. A database can have multiple schemas. Objects within the schema are referenced by prefixing the object name with the schema name, separated with a period. For example, the person table in the employee schema is written employee.person.
 
 The schema provides a namespace for the objects it contains. If the database is used for multiple applications, each with its own schema, the same table name can be used in each schema employee.person is a different table than customer.person. Both tables could be accessed in the same query as long as they are qualified with the schema name.
@@ -206,42 +244,13 @@ connect to the database. You can associate a search path with the user role by u
 ALTER ROLE command, so that each time you connect to the database with that role, the search path is restored:  
 >`tutorial=# ALTER ROLE user1 SET search_path TO faa, public, pg_catalog, gp_toolkit;`
 
-
-
-
-
-<a name="lesson1"></a>Lesson 1: Create and Prepare Database
+<a name="lesson3"></a>Lesson 3: Create Tables
 ------------
-Create a new database with the CREATE DATABASE SQL command in psql or the createdb utility command in a terminal. The new database is a copy of the template1 database, unless you specify a different template.
-To use the CREATE DATABASE command, you must be connected to a database. With a newly installed Greenplum Database system, you can connect to the template1 database to create your first user database. The createdb utility, entered at a shell prompt, is a wrapper around the CREATE DATABASE command. In this exercise you will drop the tutorial database if it exists and then create it new with the createdb utility.  
 
-1. Enter these commands to drop the tutorial database if it exists:  
->`$ dropdb tutorial`  
 
-2. Enter the createdb command to create the tutorial database, with the defaults:
->`$ createdb tutorial`
 
-3. Verify that the database was created using the *psql -l* command:  
->
-```
-[gpadmin@gpdb-sandbox ~]$ psql -l
-                  List of databases
-   Name    |  Owner  | Encoding |  Access privileges
------------+---------+----------+---------------------
- gpadmin   | gpadmin | UTF8     |
- gpperfmon | gpadmin | UTF8     | gpadmin=CTc/gpadmin
-                                : =c/gpadmin
- postgres  | gpadmin | UTF8     |
- template0 | gpadmin | UTF8     | =c/gpadmin
-                                : gpadmin=CTc/gpadmin
- template1 | gpadmin | UTF8     | =c/gpadmin
-                                : gpadmin=CTc/gpadmin
- tutorial  | gpadmin | UTF8     |
-(6 rows) 
-```  
-4. Connect to the tutorial database as user1, entering the password you created
-for user1 when prompted:  
->`psql -U user1 tutorial`
+
+
 
 
 
