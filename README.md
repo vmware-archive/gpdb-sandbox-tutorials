@@ -184,22 +184,22 @@ To use the CREATE DATABASE command, you must be connected to a database. With a 
 
 3. Verify that the database was created using the *psql -l* command:  
 >
-```
-[gpadmin@gpdb-sandbox ~]$ psql -l
-                  List of databases
-   Name    |  Owner  | Encoding |  Access privileges
------------+---------+----------+---------------------
- gpadmin   | gpadmin | UTF8     |
- gpperfmon | gpadmin | UTF8     | gpadmin=CTc/gpadmin
-                                : =c/gpadmin
- postgres  | gpadmin | UTF8     |
- template0 | gpadmin | UTF8     | =c/gpadmin
-                                : gpadmin=CTc/gpadmin
- template1 | gpadmin | UTF8     | =c/gpadmin
-                                : gpadmin=CTc/gpadmin
- tutorial  | gpadmin | UTF8     |
-(6 rows) 
-```  
+	```
+	[gpadmin@gpdb-sandbox ~]$ psql -l
+	                  List of databases
+	   Name    |  Owner  | Encoding |  Access privileges
+	-----------+---------+----------+---------------------
+	 gpadmin   | gpadmin | UTF8     |
+	 gpperfmon | gpadmin | UTF8     | gpadmin=CTc/gpadmin
+	                                : =c/gpadmin
+	 postgres  | gpadmin | UTF8     |
+	 template0 | gpadmin | UTF8     | =c/gpadmin
+	                                : gpadmin=CTc/gpadmin
+	 template1 | gpadmin | UTF8     | =c/gpadmin
+	                                : gpadmin=CTc/gpadmin
+	 tutorial  | gpadmin | UTF8     |
+	(6 rows) 
+	```  
 4. Connect to the tutorial database as user1, entering the password you created
 for user1 when prompted:  
 >`psql -U user1 tutorial` 
@@ -233,23 +233,23 @@ The database contains a schema search path, which is a list of schemas to search
 
 3. Create the faa schema:
 >
-```
-tutorial=# DROP SCHEMA IF EXISTS faa CASCADE;  
-tutorial=# CREATE SCHEMA faa;  
-```
+	```
+	tutorial=# DROP SCHEMA IF EXISTS faa CASCADE;  
+	tutorial=# CREATE SCHEMA faa;  
+	```
 
 4. Add the faa schema to the search path:
 >`tutorial=# SET SEARCH_PATH TO faa, public, pg_catalog, gp_toolkit;`  
 
 5. View the search path:
 >
-```
-tutorial=# SHOW search_path;
-             search_path
--------------------------------------
- faa, public, pg_catalog, gp_toolkit
-(1 row)
-```
+	```
+	tutorial=# SHOW search_path;
+	             search_path
+	-------------------------------------
+	 faa, public, pg_catalog, gp_toolkit
+	(1 row)
+	```
 
 6. The search path you set above is not persistent; you have to set it each time you
 connect to the database. You can associate a search path with the user role by using the
@@ -294,23 +294,22 @@ The CREATE TABLE statements for the faa database are in the faa create_dim_table
 
 2. Open the script in a text editor to see the text of the commands that will be executed when you run the script. 
 >
-```
-gpadmin@gpdb-sandbox faa]$ more create_dim_tables.sql   
-create table faa.d_airports (airport_code text, airport_desc text) distributed  by (airport_code);  
-create table faa.d_wac (wac smallint, area_desc text) distributed by (wac);  
-create table faa.d_airlines (airlineid integer, airline_desc text) distributed   by (airlineid);  
-create table faa.d_cancellation_codes (cancel_code text, cancel_desc text)   distributed by (cancel_code);  
-create table faa.d_delay_groups (delay_group_code text, delay_group_desc text)   distributed by (delay_group_code);  
-create table faa.d_distance_groups (distance_group_code text,   distance_group_desc text) distributed by (distance_group_code)  
-```
+	```
+	gpadmin@gpdb-sandbox faa]$ more create_dim_tables.sql   
+	create table faa.d_airports (airport_code text, airport_desc text) distributed  by (airport_code);  
+	create table faa.d_wac (wac smallint, area_desc text) distributed by (wac);  
+	create table faa.d_airlines (airlineid integer, airline_desc text) distributed   by (airlineid);  
+	create table faa.d_cancellation_codes (cancel_code text, cancel_desc text)   distributed by (cancel_code);  
+	create table faa.d_delay_groups (delay_group_code text, delay_group_desc text)   distributed by (delay_group_code);  
+	create table faa.d_distance_groups (distance_group_code text,   distance_group_desc text) distributed by (distance_group_code)  
+	```
 
 
 3. Execute the create_dim_tables.sql script.  The psql \i command executes a script:    
 >`$ psql -U user1 tutorial`
->
-```
-tutorial=# \i create_dim_tables.sql
-```
+	```
+	tutorial=# \i create_dim_tables.sql
+	```
 
 4. List the tables that were created, using the psql \dt command.
 >`tutorial=# \dt `
@@ -355,47 +354,47 @@ For the FAA fact table, we will use an ETL (Extract, Transform, Load) process to
 create_load_tables.sql script.  This script creates two tables: the faa_otp_load table, into which gpdist will load the data, and the faa_load_errors table, where load errors will be logged. (The faa_load_errors table may already exist. Ignore the error message.) The faa_otp_load table is structured to match the format of the input data from the FAA Web site.  
 >`$ psql -U gpadmin tutorial` 
 >
-```
-tutorial=# \i create_load_tables.sql   
-CREATE TABLE    
-CREATE TABLE    
-```
+	```
+	tutorial=# \i create_load_tables.sql   
+	CREATE TABLE    
+	CREATE TABLE    
+	```
 
 5. Create an external table definition with the same structure as the faa_otp_load table.   
 >
-```
-tutorial=# \i create_ext_table.sql  
-psql:create_ext_table.sql:5: NOTICE:  HEADER means that each one    
-of the data files has a header row.  
-CREATE EXTERNAL TABLE  
-```  
+	```
+	tutorial=# \i create_ext_table.sql  
+	psql:create_ext_table.sql:5: NOTICE:  HEADER means that each one    
+	of the data files has a header row.  
+	CREATE EXTERNAL TABLE  
+	```  
 
 	This is a pure metadata operation. No data has moved from the data files on the host to the database yet. The external table definition references files in the faa directory that match the pattern otp*.gz. There are two matching files, one containing data for December 2009, the other for January 2010. 
 
 
 6. Move data from the external table to the faa_otp_load table.  
 >
-```
-tutorial=#  INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;  
-NOTICE:  Found 26526 data formatting errors (26526 or more input rows).    
-Rejected related input data.  
-INSERT 0 1024552  
-```
+	```
+	tutorial=#  INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;  
+	NOTICE:  Found 26526 data formatting errors (26526 or more input rows).    
+	Rejected related input data.  
+	INSERT 0 1024552  
+	```
 
 	Greenplum moves data from the gzip files into the load table in the database. In a production environment, you could have many gpfdist processes running, one on each host or several on one host, each on a separate port number. 
 
 7. Examine the errors briefly. (The \x on psql meta-command changes the display of the results to one line per column, which is easier to read for some result sets.)
 >
-```
-tutorial=# \x  
-Expanded display is on.  
-tutorial=# SELECT DISTINCT relname, errmsg, count(*)  
-           FROM faa.faa_load_errors GROUP BY 1,2;  
--[ RECORD 1 ]-------------------------------------------------  
-relname | ext_load_otp  
-errmsg  | invalid input syntax for integer: "", column deptime  
-count   | 26526  
-```
+	```
+	tutorial=# \x  
+	Expanded display is on.  
+	tutorial=# SELECT DISTINCT relname, errmsg, count(*)  
+	           FROM faa.faa_load_errors GROUP BY 1,2;  
+	-[ RECORD 1 ]-------------------------------------------------  
+	relname | ext_load_otp  
+	errmsg  | invalid input syntax for integer: "", column deptime  
+	count   | 26526  
+	```
 
 8. Exit the psql shell:
 >`tutorial=# \q`
