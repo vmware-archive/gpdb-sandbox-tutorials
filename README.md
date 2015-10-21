@@ -393,7 +393,12 @@ These instructions will assist you in Importing this VM into VMware Fusion and t
 
 	>`mkdir /mnt/dvd`  
 	>`mount /dev/dvd2 /mnt/dvd -t iso9660`
-	>`tar xvfz /mnt/dvd/VMwareTools*.tar.gz -
+	>`tar xvfz /mnt/dvd/VMwareTools*.tar.gz -C /tmp`
+	>`/tmp/vmware-tools-distrib/vmware-install.pl`
+	
+10. Follow the prompts and finish the install of VMware Tools.
+11. In the VMware Fusion menus, Select Virtual Machine / Cancel VMware Tools Installation
+
 	
 
  
