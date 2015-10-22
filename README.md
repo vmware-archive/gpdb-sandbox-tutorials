@@ -973,18 +973,22 @@ In this exercise, you will create a column-oriented version of the fact table an
 The faa.otp_r and faa.otp_c tables are distributed with a hash function on UniqueCarrier and FlightNum. These two columns were selected because they produce an even distribution of the data onto the segments. Also, with frequent joins expected on the fact table and dimension tables on these two columns, less data moves between segments, reducing query execution time.  When there is no advantage to co-locating data from different tables on the segments, a distribution based on a unique column ensures even distribution. Distributing on a column with low cardinality, such as Diverted, which has only two values, will yield a poor distribution.
 
 1. One of the goals of distribution is to ensure that there is approximately the same amount of data in each segment. The query below shows one way of determining this. Since the column-oriented and row-oriented tables are distributed by the same columns, the counts should be the same for each.
->
+	>
 	```
 	tutorial=# SELECT gp_segment_id, COUNT(*) FROM faa.otp_c GROUP BY  
-	gp_segment_id ORDER BY gp_segment_id;    
+	gp_segment_id ORDER BY gp_segment_id;
 	```
+	
+	>
+	```    
+	gp_segment_id |  count  
+	---------------+---------   
+	         0 | 1028144   
+	         1 | 1020960   
+	(2 rows)   
 	```
-	 gp_segment_id |  count
----------------+---------
-             0 | 1028144
-             1 | 1020960
-(2 rows)
-	```
+
+
 	
 ####About partitioning
 Partitioning a table can improve query performance and simplify data administration. The table is divided into smaller child files using a range or a list value, such as a date range or a country code.
@@ -1069,9 +1073,13 @@ The exercises in this chapter introduce using MADlib with Greenplum Database, us
 
 	>`%psql.sql select count(*) from faa.otp.c;` 
 
-Then press the play button.
+Then press the play button.  
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/play.jpg" width="200">
 
- The result should look like the graphic below.
+
+ The result should look like the graphic below.  
+ 
+ <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/count.jpg" width="600">
  
 ####Run PostgreSQL built-in aggregates
 PostgreSQL has built-in aggregate functions to get standard statistics on database columns—minimum, maximum, average, and standard deviation, for example. The functions take advantage of the Greenplum Database MPP architecture, aggregating data on the segments and then assembling results on the master.
