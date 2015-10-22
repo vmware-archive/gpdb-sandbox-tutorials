@@ -110,16 +110,17 @@ Permissions can be granted to users or groups. Initially, of course, only the gp
 
 1. Login to the GPDB Sandbox as the gpadmin user.  
 2. Enter the *createuser* command and reply to the prompts:  
->`$ createuser -P user1`  
 
+	>`$ createuser -P user1`
+	>
 	```
-	[gpadmin@gpdb-sandbox ~]$ createuser -P user1  
-Enter password for new role:  
-Enter it again:  
-Shall the new role be a superuser? (y/n) n  
-Shall the new role be allowed to create databases? (y/n) y  
-Shall the new role be allowed to create more new roles? (y/n) n  
-NOTICE:  resource queue required -- using default resource queue "pg_default"  
+	Enter password for new role:  
+	Enter it again:  
+   Shall the new role be a superuser? (y/n) n  
+   Shall the new role be allowed to create databases? (y/n) y  
+   Shall the new role be allowed to create more new roles? (y/n) n  
+   NOTICE:  resource queue required -- using default resource queue
+   "pg_default"  
 	```
 	
 ####Create a user with the CREATE USER command 
