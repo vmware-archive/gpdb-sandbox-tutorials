@@ -792,7 +792,8 @@ rows=1 width=12)
 	
 6. View the following explain plans to compare plans for some other common types
 of queries.
->```
+>
+```
 tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345;  
 tutorial=# EXPLAIN SELECT * FROM sample WHERE big > 12345;  
 tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;  
