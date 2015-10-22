@@ -497,7 +497,7 @@ started in the previous exercise.
 
 2. Edit and customize the gpload.yaml input file. Be sure to set the correct path to the faa directory. Notice the TRUNCATE: true preload instruction ensures that the data loaded in the previous exercise will be removed before the load in this exercise starts. 
 >`vi gpload.yaml`  
-
+>
 	```  
 	---
 	VERSION: 1.0.0.1  
@@ -530,7 +530,7 @@ started in the previous exercise.
 3. Execute gpload with the gpload.yaml input file. (Include the -v flag if you
 want to see details of the loading process.)
 >`$ gpload -f gpload.yaml -l gpload.log`  
-
+>
 	```
 	2015-10-21 15:05:39|INFO|gpload session started 2015-10-21 15:05:39  
 	2015-10-21 15:05:39|INFO|started gpfdist -p 8081 -P 8082 -f "/home/gpadmin/gpdb-sandbox-tutorials/faa/otp*.gz" -t 30  
@@ -616,26 +616,27 @@ Greenplum uses Multiversion Concurrency Control (MVCC) to guarantee isolation, o
 	The VACUUM FULL command behaves much differently than VACUUM, and its use is not recommended in Greenplum databases. It can be expensive in CPU and I/O, cause bloat in indexes, and lock data for long periods of time.
 	The ANALYZE command generates statistics about the distribution of data in a table. In particular it stores histograms about the values in each of the columns. The query optimizer depends on these statistics to select the best plan for executing a query. For example, the optimizer can use distribution data to decide on join orders. One of the optimizer’s goals in a join is to minimize the volume of data that must be analyzed and potententially moved between segments by using the statistics to choose the smallest result set to work with first.
 
-1. Run the ANALYZE command on each of the tables:
->`$ psql -U gpadmin tutorial`
->
-	```  
-	tutorial=# ANALYZE faa.d_airports;  
-	ANALYZE  
-	tutorial=# ANALYZE faa.d_airlines;  
-	ANALYZE  
-	tutorial=# ANALYZE faa.d_wac;  
-	ANALYZE  
-	tutorial=# ANALYZE faa.d_cancellation_codes;  
-	ANALYZE  
-	tutorial=# ANALYZE faa.faa_otp_load;  
-	ANALYZE  
-	tutorial=# ANALYZE faa.otp_r;  
-	ANALYZE  
-	tutorial=# ANALYZE faa.otp_c;   
-	ANALYZE  
-	``` 
-	
+1. Run the ANALYZE command on each of the tables:  
+
+	>`$ psql -U gpadmin tutorial` 
+	>
+		```	
+		tutorial=# ANALYZE faa.d_airports;
+		ANALYZE  
+		tutorial=# ANALYZE faa.d_airlines;  
+		ANALYZE  
+		tutorial=# ANALYZE faa.d_wac;  
+		ANALYZE  
+		tutorial=# ANALYZE faa.d_cancellation_codes;  
+		ANALYZE  
+		tutorial=# ANALYZE faa.faa_otp_load;  
+		ANALYZE  
+		tutorial=# ANALYZE faa.otp_r;  
+		ANALYZE  
+		tutorial=# ANALYZE faa.otp_c;   
+		ANALYZE  
+		``` 
+		
 ####View explain plans
  
 An explain plan explains the method the optimizer has chosen to produce a result set.  Depending on the query, there can be a variety of methods to produce a result set. The optimizer calculates the cost for each method and chooses the one with the lowest cost. In large queries, cost is generally measured by the amount of I/O to be performed.
@@ -744,7 +745,8 @@ In this exercise, you first run a single row lookup on the sample table without 
 >
 	```
 	                                  QUERY PLAN
-	-----------------------------------------------------------------------	 Gather Motion 2:1  (slice1; segments: 2)  (cost=0.00..459.04
+	-----------------------------------------------------------------------
+Gather Motion 2:1  (slice1; segments: 2)  (cost=0.00..459.04
 rows=2 width=12)
 	   ->  Table Scan on sample  (cost=0.00..459.04 rows=1 width=12)
 	         Filter: big = 12345
@@ -795,13 +797,13 @@ rows=1 width=12)
 6. View the following explain plans to compare plans for some other common types
 of queries.
 >
-```
-tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345;  
-tutorial=# EXPLAIN SELECT * FROM sample WHERE big > 12345;  
-tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;  
-tutorial=# DROP INDEX sample_big_index;  
-tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;  
-```
+	```
+	tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345;  
+	tutorial=# EXPLAIN SELECT * FROM sample WHERE big > 12345;  
+	tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;  
+	tutorial=# DROP INDEX sample_big_index;  
+	tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;  
+	```
 
 ####Row vs. column orientation
 
@@ -1033,7 +1035,7 @@ do not use a partitioned column.
 	Time: 641.574 ms
 	```
 2. Execute a query that filters on flightdate, the partitioned column. 
->`tutorial=# SELECT MAX(depdelay) FROM faa.otp_c WHERE flightdate ='2009-11-01'; 
+>`tutorial=# SELECT MAX(depdelay) FROM faa.otp_c WHERE flightdate ='2009-11-01';` 
 >
 	```
 	 max
@@ -1214,12 +1216,12 @@ From these ANOVA analyses we have learned the following:
 * Delays from O’Hare seem to be significantly different than from Atlanta
 * There is a large difference between delays at the three Delta hubs
 * There is no significant difference in delays from Atlanta between United and Delta.  
-	>
+	
 ####Perform Linear Regression
 Linear regression shows the relationship between variables. A classic example is the linear relationship between height and weight of adult males in a particular country or ethnic group. MADlib includes modules to perform linear regression with one or multiple independent variables. 
-	>	
+		
 The r2 statistic measures the proportion of the total variability in the dependent variable that can be explained by the independent variable. 
-	>
+	
 1. Perform a linear regression to see if there is any relationship between distance and arrival delay. This tests the hypothesis that longer flights are  more likely to be on time because the flight crew can make up delays by flying faster over longer periods of time. Test this by running a regression on arrival time as the dependent variable and distance as the independent variable. 
 
 	Click a new white rectangle and enter:
@@ -1281,13 +1283,20 @@ You can perform full or incremental backups. To restore a database to its state 
 
 Each file created for a backup begins with a 14-digit timestamp key that identifies the backup set the file belongs to.
 
-gpchrondump can be run directly in a terminal on the master host, or you can add it to crontab on the master host to schedule regular backups.
+gpcrondump can be run directly in a terminal on the master host, or you can add it to crontab on the master host to schedule regular backups.
+
+The Greenplum Database parallel restore utility gpdbrestore takes the timestamp key generated by gpcrondump, validates the backup set, and restores the database objects and data into a distributed database in parallel. Parallel restore operations require a complete backup set created by gpcrondump, a full backup and any required incremental backups. 
+
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/restore.jpg" width="400"> 
+
+The Greenplum Database gpdbrestore utility provides flexibility and verification options for use with the automated backup files produced by gpcrondump or with backup files moved from the Greenplum array to an alternate location. 
+
 
 **Exercises**
 
 These exercises will walk through how to create a full backup of your database and then restore a table.
  
-1) To run a full backup, use "gpcrondump -x database -u /path/for/backup -a".   This will backup the entire database to the directory given without prompting the user.
+1. To run a full backup, use "gpcrondump -x database -u /path/for/backup -a".   This will backup the entire database to the directory given without prompting the user.
 > `$ gpcrondump -x tutorial -u /tmp -a -r`
 > 
 	```
@@ -1323,26 +1332,23 @@ These exercises will walk through how to create a full backup of your database a
 	20151021:18:15:30:068072 gpcrondump:gpdb-sandbox:gpadmin-[INFO]:-To enable email notification, create /usr/local/greenplum-db/./bin/mail_contacts or /home/gpadmin/mail_contacts containing required email addresses
 	```
 
-This runs a full backup of the database created during the previous exercises.  To view the backups:
-> `ls -al /tmp/db_dumps`  
+	This runs a full backup of the database created during the previous exercises.  
 
+2. To view the backups:  
+>`ls -al /tmp/db_dumps`  
 
-The Greenplum Database parallel restore utility gpdbrestore takes the timestamp key generated by gpcrondump, validates the backup set, and restores the database objects and data into a distributed database in parallel. Parallel restore operations require a complete backup set created by gpcrondump, a full backup and any required incremental backups. 
-
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/restore.jpg" width="400"> 
-
-The Greenplum Database gpdbrestore utility provides flexibility and verification options for use with the automated backup files produced by gpcrondump or with backup files moved from the Greenplum array to an alternate location. 
-
-Now, that we have a full backup let's remove data from a table to simulate a failure.  Type `psql` to bring up a psql prompt:
+3. Now, that we have a full backup let's remove data from a table to simulate a failure. 
 >`$ psql -U gpadmin tutorial`  
 >`tutorial=# select count(*) from otp_r;`
 
-This should return 2049104 rows in the table.  Let's truncate the table and then check the row count:
+	This should return 2049104 rows in the table.  Let's truncate the table and then check the row count:
 >```
 tutorial=# truncate table otp_r;
 tutorial=# select count(*) from otp_r;
 
-The report should now show 0 rows in the table. So, let's restore the data. First, exit from the psql shell by typing `\q` then issue the gpdbrestore command:
+	The report should now show 0 rows in the table.
+	
+4. Let's restore the data that was lost. First, exit from the psql shell by typing `\q` then issue the gpdbrestore command:
 >`$ gpdbrestore -T faa.otp_r -s tutorial -u /tmp -a`  
 >
 ```
@@ -1378,6 +1384,7 @@ The report should now show 0 rows in the table. So, let's restore the data. Firs
 	20151021:18:21:39:069135 gpdbrestore:gpdb-sandbox:gpadmin-[INFO]:-'Analyze' of restored tables in 'tutorial' database completed without error
 ```
 
+5. Finally, verify the row count
 >`$ psql -U gpadmin tutorial`  
 >`tutorial=# select count(*) from otp_r;`
 
