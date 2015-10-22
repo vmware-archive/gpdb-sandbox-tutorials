@@ -206,9 +206,10 @@ To use the CREATE DATABASE command, you must be connected to a database. With a 
 	 tutorial  | gpadmin | UTF8     |
 	(6 rows) 
 	```  
+			
 4. Connect to the tutorial database as user1, entering the password you created
-for user1 when prompted:  
->`psql -U user1 tutorial` 
+for user1 when prompted:
+>`psql -U user1 tutorial`  
 
 ####Grant database privileges to users  
 
