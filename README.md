@@ -39,8 +39,6 @@ commands yourself or by executing a script in the faa directory.
 * [Lesson 4: Data Loading](#lesson4) 
 * [Lesson 5: Queries and Performance Tuning](#lesson5) 
 * [Lesson 6: Introduction to Greenplum In-Database Analytics](#lesson6) 
-* [Appendix 1: Importing into VMware Fusion](#appendix1) 
-
 
 
 -----------------------------------
@@ -1397,40 +1395,6 @@ tutorial=# select count(*) from otp_r;
 The table should show 2049104 rows again as it was prior to the truncate call.
 
 [Return to Tutorial List](#tutorials)  
-
-****
-<a name="appendix1"></a>Appendix 1: Importing into VMware Fusion
-------	
-
-These instructions will assist you in Importing this VM into VMware Fusion and then installing VMware Tools into the VM.
-
-1. Select File / Import then Choose the OVA File to import and hit Continue.
-2. Choose a Location to store the new VM and hit Save.  This will begin the Import process.   If you have any issues (older versions of Fusion sometimes stop), click relax the settings and Import the VM again.
-3. Click Customize Settings at the end of the Import process.  
-	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import1.jpg" width="400">  
-
-4. Click General Icon under System Settings
-  
-	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import2.jpg" width="400">   
-
-5. Then click the box next to OS, select Linux, and then Centos 64-bit. Then finally click Change. This will allow Fusion to select the proper Tools package to mount to the host. Close out the Settings Window and Start the VM.  
-
-	<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import3.jpg" width="400"> 
-
-6. The VM startup might ask about a Virtual IDE device, if so, select No.  This will keep the VM from asking this question on EVERY boot.
-7. Login to the VM as root
-8. In the VMware Fusion menus, Select Virtual Machine / Install VMware Tools and then choose Install.
-9. At the root prompt in the VM:  
-
-	>`mkdir /mnt/dvd`  
-	>`mount /dev/dvd2 /mnt/dvd -t iso9660`
-	>`tar xvfz /mnt/dvd/VMwareTools*.tar.gz -C /tmp`
-	>`/tmp/vmware-tools-distrib/vmware-install.pl`
-	
-10. Follow the prompts and finish the install of VMware Tools.
-11. In the VMware Fusion menus, Select Virtual Machine / Cancel VMware Tools Installation
-* Note:  X-Windows System is not installed.  To install:
->`yum groupinstall 'X Window System'`
 
 
 	
