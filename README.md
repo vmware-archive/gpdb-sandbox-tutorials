@@ -5,10 +5,14 @@
 
 These tutorials showcase how GPDB can address day-to-day tasks performed in typical DW/BI environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download.
 
+* Virtual Box OVA: [PivotalGPDB-Sandbox-Centos-6.7-x86_64-vbox.ova](https://s3.amazonaws.com/gpdb/PivotalGPDB-Sandbox-Centos-6.7-x86_64-vbox.ova)  
+* VMware ZIP: [PivotalGPDB-Sandbox-Centos-6.7-x86_64-vmware.zip](https://s3.amazonaws.com/gpdb/PivotalGPDB-Sandbox-Centos-6.7-x86_64-vmware.zip)
+
+	**Note: Change the VirtualBox NIC to Bridged after Import. Otherwise, you will need to access the tools at localhost:port instead of the IP address shown**
+
 The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.
 
- - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box.  If you import into VMware Fusion and would like to install the VMware Tools, see [Appendix 1](#appendix1) 
- for installation details. 
+ - Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box.   
  - Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
 ![](https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg)
 This screen provides you all the information you need to interact with the VM.
