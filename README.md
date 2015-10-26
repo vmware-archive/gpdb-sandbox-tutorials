@@ -213,6 +213,9 @@ To use the CREATE DATABASE command, you must be connected to a database. With a 
 for user1 when prompted:
 >`psql -U user1 tutorial`  
 
+5. Exit out of the psql shell:
+>`tutorial=# \q`
+
 ####Grant database privileges to users  
 
 In a production database, you should grant users the minimum permissions required to do their work. For example, a user may need SELECT permissions on a table to view data, but not UPDATE, INSERT, or DELETE to modify the data.  To complete the exercises in this guide, the database users will require permissions to create and manipulate objects in the tutorial database.  
@@ -238,7 +241,7 @@ The database contains a schema search path, which is a list of schemas to search
 >`$ cd ~/gpdb-sandbox-tutorials/faa`
 
 2. Connect to the tutorial database with psql:
->`$ psql -U user1 tutorial`  
+>`$ psql -U gpadmin tutorial`  
 
 3. Create the faa schema:
 >
@@ -261,7 +264,7 @@ The database contains a schema search path, which is a list of schemas to search
 	```
 
 6. The search path you set above is not persistent; you have to set it each time you connect to the database. You can associate a search path with the user role by using the ALTER ROLE command, so that each time you connect to the database with that role, the search path is restored:  
->`tutorial=# ALTER ROLE user1 SET search_path TO faa, public, pg_catalog, gp_toolkit;`
+>`tutorial=# ALTER ROLE gpadmin SET search_path TO faa, public, pg_catalog, gp_toolkit;`
 
 7. Exit out of the psql shell:
 >`tutorial=# \q`
@@ -315,7 +318,7 @@ The CREATE TABLE statements for the faa database are in the faa create\_dim\_tab
 
 
 3. Execute the create\_dim\_tables.sql script.  The psql \i command executes a script:    
->`$ psql -U user1 tutorial`
+>`$ psql -U gpadmin tutorial`
 	```
 	tutorial=# \i create_dim_tables.sql
 	```
@@ -360,7 +363,10 @@ The faa.d_cancellation_codes table is a simple two-column look-up table, easily 
 1. Change to the directory containing the FAA data and scripts:
 >`$ cd ~/gpdb-sandbox-tutorials/faa`
 
-2. Use the \d psql meta-command to describe the faa.d_cancellation_codes table:  
+2. Connect to the tutorial database with psql:
+>`$ psql -U gpadmin tutorial`  
+
+3. Use the \d psql meta-command to describe the faa.d\_cancellation\_codes table:  
 >
 	```
 	tutorial=# \d d_cancellation_codes
@@ -372,15 +378,12 @@ The faa.d_cancellation_codes table is a simple two-column look-up table, easily 
 	Distributed by: (cancel_code)
 	```
 
-3. Load the data into the table with a multirow INSERT statement (alternatively issue \i insert\_into\_cancellation_codes.sql):  
+4. Load the data into the table with a multirow INSERT statement (alternatively issue \i insert\_into\_cancellation_codes.sql):  
 >
 	```
 	tutorial=# INSERT INTO faa.d_cancellation_codes
-	tutorial-# VALUES ('A', 'Carrier'),
-	tutorial-# ('B', 'Weather'),
-	tutorial-# ('C', 'NAS'),
-	tutorial-# ('D', 'Security'),
-	tutorial-# ('', 'none');
+	VALUES ('A', 'Carrier'),('B', 'Weather'),('C', 'NAS'),
+	('D', 'Security'),('', 'none');
 	INSERT 0 5
 	```
 
@@ -413,6 +416,8 @@ The COPY statement moves data between the file system and database tables. Data 
 	tutorial-# =# \i copy_into_distance_groups.sql  
 	tutorial-# =# \i copy_into_wac.sql  
 	```
+4. Exit the psql shell:
+>`tutorial=# \q`
 	
 ####Load data with gpdist
 
@@ -486,16 +491,17 @@ of the work of setting up the external table and the data movement.  In this exe
 started in the previous exercise. 
 >
 	```
-	[gpadmin@gpdb-sandbox faa]$ ps -A | grep gpfdist  
+	$ ps -A | grep gpfdist  
   4035 pts/0    00:00:02 gpfdist  
 	```
 	
 	Your process id will not be the same, so kill the appropriate one with the kill command, or just use the simpler killall command:
-	
+>	
 	```
-	gpadmin@gpdb-sandbox faa]$ killall gpfdist  
+	$ killall gpfdist  
 	[1]+  Exit 1    gpfdist -d $HOME/gpdb-sandbox-tutorials/faa -p   8081 > /tmp/  gpfdist.log 2>&1  
 	```
+	
 
 2. Edit and customize the gpload.yaml input file. Be sure to set the correct path to the faa directory. Notice the TRUNCATE: true preload instruction ensures that the data loaded in the previous exercise will be removed before the load in this exercise starts. 
 >`vi gpload.yaml`  
@@ -517,7 +523,7 @@ started in the previous exercise.
 	           - gpdb-sandbox  
 	         PORT: 8081  
 	         FILE:  
-	           - /Users/gpadmin/gpdb-sandbox-tutorials/faa/otp*.gz  
+	           - /home/gpadmin/gpdb-sandbox-tutorials/faa/otp*.gz  
 	    - FORMAT: csv  
 	    - QUOTE: '"'  
 	    - ERROR_LIMIT: 50000  
@@ -547,10 +553,10 @@ want to see details of the loading process.)
 ####Create and Load fact tables
 The final step of the ELT process is to move data from the load table to the fact table.  For the FAA example, you create two fact tables. The faa.otp\_r table is a row-oriented table, which will be loaded with data from the faa.faa_otp_load table. The faa.otp\_c table has the same structure as the faa.otp\_r table, but is column-oriented and partitioned. You will load it with data from the faa.otp\_r table.  The two tables will contain identical data and allow you to experiment with a column-oriented and partioned table in addition to a traditional row-oriented table. 
 
-1. Create the faa.otp_r and faa.otp_c tables by executing the create_fact_tables.sql script.
+1. Create the faa.otp_r and faa.otp\_c tables by executing the create_fact_tables.sql script.
 >`$ psql -U gpadmin tutorial`   
-	`tutorial=#  \i create_fact_tables.sql`
-	Review the create_fact_tables.sql script and note that some columns are excluded from the fact table and the data types of some columns are cast to a different datatype. The MADlib routines usually require float8 values, so the numeric columns are cast to float8 as part of the transform step.
+> `tutorial=#  \i create_fact_tables.sql`  
+	Review the create\_fact\_tables.sql script and note that some columns are excluded from the fact table and the data types of some columns are cast to a different datatype. The MADlib routines usually require float8 values, so the numeric columns are cast to float8 as part of the transform step.
 
 2. Load the data from the faa_otp_load table into the faa.otp\_r table using the SQL INSERT FROM statement. Load the faa.otp\_c table from the faa.otp\_r table. Both of these loads can be accomplished by running the load\_into\_fact\_table.sql script.
 >`tutorial=#  load_into_fact_table.sql`
@@ -1042,7 +1048,7 @@ do not use a partitioned column.
 	```
 	 max
 	-----
-	1201
+	'
 	(1 row)
 	Time: 30.658 ms
 	```
@@ -1144,7 +1150,10 @@ ANOVA is a general linear model. To determine whether statistical data samples a
 
 From statistical theory you can determine the probability distribution of the F statistic if the groups were identical given sampling error. This is given by the p-value. A p-value close to zero indicates it is very likely that the groups are different. A p-value close to one indicates that it is very likely the groups are the same. 
 
-1. Run an ANOVA analysis on the average delay minutes between USAir and Delta airlines. The CASE clause assigns USAir flights to group 1 and Delta flights to group 2.  
+1. As gpadmin, install the MADlib packages into the tutorial database.
+>	`$ $GPHOME/madlib/bin/madpack -p greenplum -c gpadmin@localhost/tutorial  install`
+
+2. Run an ANOVA analysis on the average delay minutes between USAir and Delta airlines. The CASE clause assigns USAir flights to group 1 and Delta flights to group 2.  
 
 	Click a new white rectangle and enter:
 
@@ -1161,7 +1170,7 @@ From statistical theory you can determine the probability distribution of the F 
 	
   	Then press the Play button to execute the query.  
   	
-2. Run an ANOVA analysis to determine if the average delays for flights from Chicago and Atlanta are statistically different.  
+3. Run an ANOVA analysis to determine if the average delays for flights from Chicago and Atlanta are statistically different.  
 
 	Click a new white rectangle and enter:
 
@@ -1178,7 +1187,7 @@ From statistical theory you can determine the probability distribution of the F 
 	
   	Then press the Play button to execute the query.    
   	
-3. Run an ANOVA analysis to determine if the differences in average delay minutes from three Delta hubs are significant.  
+4. Run an ANOVA analysis to determine if the differences in average delay minutes from three Delta hubs are significant.  
 
 	Click a new white rectangle and enter:
 
@@ -1196,7 +1205,7 @@ From statistical theory you can determine the probability distribution of the F 
 	
   	Then press the Play button to execute the query.     
   		
-4. Run an ANOVA analysis to determine if the differences in average delay minutes between Delta and USAir flights from Atlanta are significant.   
+5. Run an ANOVA analysis to determine if the differences in average delay minutes between Delta and USAir flights from Atlanta are significant.   
 
 	Click a new white rectangle and enter:
 
