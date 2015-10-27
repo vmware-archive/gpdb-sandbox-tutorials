@@ -7,7 +7,7 @@ These tutorials showcase how GPDB can address day-to-day tasks performed in typi
 
 * [4.3.6.1 Greenplum Database Sandbox Virtual Machines](https://network.pivotal.io/products/pivotal-gpdb#/releases/567/file_groups/337)  
 
-	***Note: These VMs contains the commercially supported version of Greenplum Database and Greenplum Command Center***
+	***Note: These VMs contain the commercially supported versions of Greenplum Database and Greenplum Command Center***
 
 
 The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.
