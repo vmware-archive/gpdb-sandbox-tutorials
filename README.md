@@ -419,7 +419,7 @@ The COPY statement moves data between the file system and database tables. Data 
 4. Exit the psql shell:
 >`tutorial=# \q`
 	
-####Load data with gpdist
+####Load data with gpfdist
 
 For the FAA fact table, we will use an ETL (Extract, Transform, Load) process to load data from the source gzip files into a loading table, and then insert the data into a query and reporting table. For the best load speed, use the gpfdist Greenplum utility to distribute the rows to the segments. In a production system, gpfdist runs on the servers where the data is located. With a single-node Greenplum Database instance, there is only one host, and you run gpdist on it. Starting gpfdist is like starting a file server; there is no data movement until a request is made on the process.
 
