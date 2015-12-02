@@ -559,7 +559,7 @@ The final step of the ELT process is to move data from the load table to the fac
 	Review the create\_fact\_tables.sql script and note that some columns are excluded from the fact table and the data types of some columns are cast to a different datatype. The MADlib routines usually require float8 values, so the numeric columns are cast to float8 as part of the transform step.
 
 2. Load the data from the faa_otp_load table into the faa.otp\_r table using the SQL INSERT FROM statement. Load the faa.otp\_c table from the faa.otp\_r table. Both of these loads can be accomplished by running the load\_into\_fact\_table.sql script.
->`tutorial=#  load_into_fact_table.sql`
+>`tutorial=#  \i load_into_fact_table.sql`
 
 
 ###Data loading summary
