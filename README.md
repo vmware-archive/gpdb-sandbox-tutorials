@@ -738,23 +738,25 @@ Optimizer and you may see "legacy query optimizer" listed in the
 EXPLAIN output under "Optimizer status."
 
 1. Check whether the Pivotal Query Optimizer is enabled.
-   >`$ gpconfig -s optimizer`
-   >
-   ```Values on all segments are consistent
+>`$ gpconfig -s optimizer`
+>
+   ```
+   Values on all segments are consistent
    GUC          : optimizer
    Master  value: off
    Segment value: off
    ```
 
 2. Enable the Pivotal Query Optimizer
-   >`$ gpconfig -c optimizer -v on --masteronly`
-   >
-   ```20151201:09:08:31:172854 gpconfig:gpdb-sandbox:gpadmin-[INFO]:-completed successfully
+>`$ gpconfig -c optimizer -v on --masteronly`
+>
+   ```
+    20151201:09:08:31:172854 gpconfig:gpdb-sandbox:gpadmin-[INFO]:-completed successfully
    ```
 
 3. Reload the configuration on master and segment instances.
-   >`$ gpstop -u`
-   >
+>`$ gpstop -u`
+>
    ```
    20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Starting gpstop with args: -u
    20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Gathering information and validating the environment...
