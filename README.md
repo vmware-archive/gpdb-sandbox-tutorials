@@ -732,6 +732,39 @@ width=1)
 	(17 rows)
 	```
 
+####Changing optimizers
+By default, the sandbox instance disables the Pivotal Query
+Optimizer and you may see "legacy query optimizer" listed in the
+EXPLAIN output under "Optimizer status."
+
+1. Check whether the Pivotal Query Optimizer is enabled.
+   >`$ gpconfig -s optimizer`
+   >
+   ```Values on all segments are consistent
+   GUC          : optimizer
+   Master  value: off
+   Segment value: off
+   ```
+
+2. Enable the Pivotal Query Optimizer
+   >`$ gpconfig -c optimizer -v on --masteronly`
+   >
+   ```20151201:09:08:31:172854 gpconfig:gpdb-sandbox:gpadmin-[INFO]:-completed successfully
+   ```
+
+3. Reload the configuration on master and segment instances.
+   >`$ gpstop -u`
+   >
+   ```
+   20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Starting gpstop with args: -u
+   20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Gathering information and validating the environment...
+   20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Obtaining Greenplum Master catalog information
+   20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Obtaining Segment details from master...
+   20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Greenplum Version: 'postgres (Greenplum Database) 4.3.6.1 build 2'
+   20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Signalling all postmaster processes to reload
+   .
+   ```
+
 ####Indexes and performance
 Greenplum Database does not depend upon indexes to the same degree as conventional data warehouse systems. Because the segments execute table scans in parallel, each segment scanning a small segment of the table, the traditional performance advantage from indexes is diminished. Indexes consume large amounts of space and require considerable CPU time to compute during data loads. There are, however, times when indexes are useful, especially for highly selective queries. When a query looks up a single row, an index can dramatically improve performance.
 
