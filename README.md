@@ -39,6 +39,10 @@ commands yourself or by executing a script in the faa directory.
 * [Lesson 4: Data Loading](#lesson4) 
 * [Lesson 5: Queries and Performance Tuning](#lesson5) 
 * [Lesson 6: Introduction to Greenplum In-Database Analytics](#lesson6) 
+* [Lesson 7: Lesson 7: Backup and Recovery Operations](#lesson7) 
+
+
+
 
 
 -----------------------------------
