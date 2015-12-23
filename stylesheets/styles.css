@@ -2,45 +2,6 @@
 Leap Day for GitHub Pages
 by Matt Graham
 */
-@font-face {
-  font-family: 'Quattrocento Sans';
-  src: url("../fonts/quattrocentosans-bold-webfont.eot");
-  src: url("../fonts/quattrocentosans-bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/quattrocentosans-bold-webfont.woff") format("woff"), url("../fonts/quattrocentosans-bold-webfont.ttf") format("truetype"), url("../fonts/quattrocentosans-bold-webfont.svg#QuattrocentoSansBold") format("svg");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Quattrocento Sans';
-  src: url("../fonts/quattrocentosans-bolditalic-webfont.eot");
-  src: url("../fonts/quattrocentosans-bolditalic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/quattrocentosans-bolditalic-webfont.woff") format("woff"), url("../fonts/quattrocentosans-bolditalic-webfont.ttf") format("truetype"), url("../fonts/quattrocentosans-bolditalic-webfont.svg#QuattrocentoSansBoldItalic") format("svg");
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Quattrocento Sans';
-  src: url("../fonts/quattrocentosans-italic-webfont.eot");
-  src: url("../fonts/quattrocentosans-italic-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/quattrocentosans-italic-webfont.woff") format("woff"), url("../fonts/quattrocentosans-italic-webfont.ttf") format("truetype"), url("../fonts/quattrocentosans-italic-webfont.svg#QuattrocentoSansItalic") format("svg");
-  font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Quattrocento Sans';
-  src: url("../fonts/quattrocentosans-regular-webfont.eot");
-  src: url("../fonts/quattrocentosans-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/quattrocentosans-regular-webfont.woff") format("woff"), url("../fonts/quattrocentosans-regular-webfont.ttf") format("truetype"), url("../fonts/quattrocentosans-regular-webfont.svg#QuattrocentoSansRegular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Copse';
-  src: url("../fonts/copse-regular-webfont.eot");
-  src: url("../fonts/copse-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/copse-regular-webfont.woff") format("woff"), url("../fonts/copse-regular-webfont.ttf") format("truetype"), url("../fonts/copse-regular-webfont.svg#CopseRegular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
 
 /* normalize.css 2012-02-07T12:37 UTC - https://github.com/necolas/normalize.css */
 /* =============================================================================
@@ -364,7 +325,7 @@ fieldset {
 
 /*
  * 1. Corrects color not being inherited in IE6/7/8/9
- * 2. Corrects text not wrapping in FF3 
+ * 2. Corrects text not wrapping in FF3
  * 3. Corrects alignment displayed oddly in IE6/7
  */
 legend {
@@ -503,21 +464,24 @@ table {
 }
 
 body {
-  font: 14px/22px "Quattrocento Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 14px/22px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #666;
   font-weight: 300;
   margin: 0px;
   padding: 0px 0 20px 0px;
-  background: url(../images/body-background.png) #eae6d1;
+  background: #f7f7f7;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
   color: #333;
   margin: 0 0 10px;
 }
 
 p, ul, ol, table, pre, dl {
   margin: 0 0 20px;
+  color: #AEAEAE;
 }
 
 h1, h2, h3 {
@@ -525,16 +489,20 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 22px;
 }
 
 h2 {
-  font-size: 24px;
-  color: #393939;
+  font-size: 18px;
 }
 
-h3, h4, h5, h6 {
-  color: #666666;
+h3{
+  font-size: 14px;
+  color: #333;
+}
+
+h4, h5, h6 {
+  color: #8c8c8c;
 }
 
 h3 {
@@ -543,7 +511,7 @@ h3 {
 }
 
 a {
-  color: #3399cc;
+  color: #389AFD;
   font-weight: 400;
   text-decoration: none;
 }
@@ -556,12 +524,12 @@ a small {
 }
 
 ul {
-  list-style-image: url("../images/bullet.png");
+   list-style-image: url("../images/bullet.png");
 }
 
 strong {
   font-weight: bold;
-  color: #333;
+  color: #8c8c8c;
 }
 
 .wrapper {
@@ -575,7 +543,7 @@ section img {
 }
 
 blockquote {
-  border-left: 1px solid #ffcc00;
+  border-left: 2px solid #82be37;
   margin: 0;
   padding: 0 0 0 20px;
   font-style: italic;
@@ -641,7 +609,7 @@ hr {
   border: 0;
   outline: none;
   height: 11px;
-  background: transparent url("../images/hr.gif") center center repeat-x;
+  background: none;
   margin: 0 0 20px;
 }
 
@@ -651,7 +619,7 @@ dt {
 }
 
 header {
-  padding: 25px 20px 40px 20px;
+  padding: 25px 20px 20px 20px;
   margin: 0;
   position: fixed;
   top: 0;
@@ -659,31 +627,21 @@ header {
   right: 0;
   width: 100%;
   text-align: center;
-  background: url(../images/background.png) #4276b6;
-  -moz-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.75);
-  -o-box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.75);
-  box-shadow: 1px 0px 2px rgba(0, 0, 0, 0.75);
+
+  background: url(../images/bg_header.png) bottom center / cover;
   z-index: 99;
   -webkit-font-smoothing: antialiased;
   min-height: 76px;
 }
 header h1 {
-  font: 40px/48px "Copse", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #f3f3f3;
-  text-shadow: 0px 2px 0px #235796;
+  font: normal 38px/48px "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333333;
   margin: 0px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -o-text-overflow: ellipsis;
-  -ms-text-overflow: ellipsis;
 }
 header p {
-  color: #d8d8d8;
-  text-shadow: rgba(0, 0, 0, 0.2) 0 1px 0;
+  color: #333333;
   font-size: 18px;
-  margin: 0px;
+  margin: 0 0 40px 0;
 }
 
 #banner {
@@ -693,42 +651,21 @@ header p {
   height: 50px;
   margin-right: -382px;
   position: fixed;
-  top: 115px;
-  background: #ffcc00;
-  border: 1px solid #f0b500;
-  -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  -o-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
-  -moz-border-radius: 0px 2px 2px 0px;
-  -webkit-border-radius: 0px 2px 2px 0px;
-  -o-border-radius: 0px 2px 2px 0px;
-  -ms-border-radius: 0px 2px 2px 0px;
-  -khtml-border-radius: 0px 2px 2px 0px;
-  border-radius: 0px 2px 2px 0px;
+  top: 125px;
+  background: #98CD48;
   padding-right: 10px;
 }
 #banner .button {
-  border: 1px solid #dba500;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffe788), color-stop(100%, #ffce38));
-  background: -webkit-linear-gradient(#ffe788, #ffce38);
-  background: -moz-linear-gradient(#ffe788, #ffce38);
-  background: -o-linear-gradient(#ffe788, #ffce38);
-  background: -ms-linear-gradient(#ffe788, #ffce38);
-  background: linear-gradient(#ffe788, #ffce38);
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -o-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -khtml-border-radius: 2px;
-  border-radius: 2px;
-  -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
-  -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
-  -o-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
-  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.4), 0px 1px 1px rgba(0, 0, 0, 0.1);
-  background-color: #FFE788;
+  border: none;
+  background: #F7F7F7;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -o-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -khtml-border-radius: 12px;
+  border-radius: 12px;
   margin-left: 5px;
-  padding: 10px 12px;
+  padding: 10px 18px;
   margin-top: 6px;
   line-height: 14px;
   font-size: 14px;
@@ -738,35 +675,32 @@ header p {
   text-align: center;
 }
 #banner .button:hover {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffe788), color-stop(100%, #ffe788));
-  background: -webkit-linear-gradient(#ffe788, #ffe788);
-  background: -moz-linear-gradient(#ffe788, #ffe788);
-  background: -o-linear-gradient(#ffe788, #ffe788);
-  background: -ms-linear-gradient(#ffe788, #ffe788);
-  background: linear-gradient(#ffe788, #ffe788);
-  background-color: #ffeca0;
+  background: #333;
+  color: #F7F7F7;
 }
 #banner .fork {
   position: fixed;
   left: 50%;
   margin-left: -325px;
-  padding: 10px 12px;
-  margin-top: 6px;
+  padding: 10px 15px;
+  margin-top: 8px;
   line-height: 14px;
   font-size: 14px;
-  background-color: #FFE788;
+  background: #F7F7F7;
+  color: #333;
+  border: none;
+  border-radius: 12px;
 }
 #banner .downloads {
   float: right;
-  margin: 0 45px 0 0;
+  margin: 2px 45px 0 0;
 }
 #banner .downloads span {
   float: left;
   line-height: 52px;
   font-size: 90%;
-  color: #9d7f0d;
+  color: #fff;
   text-transform: uppercase;
-  text-shadow: rgba(255, 255, 255, 0.2) 0 1px 0;
 }
 #banner ul {
   list-style: none;
@@ -779,7 +713,9 @@ header p {
   display: inline;
 }
 #banner ul li a.button {
-  background-color: #FFE788;
+  background: #F7F7F7;
+  border: none;
+  border-radius: 12px;
 }
 #banner #logo {
   position: absolute;
@@ -804,11 +740,6 @@ section {
   -ms-border-radius: 3px;
   -khtml-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #cbcbcb;
-  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
-  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
-  -o-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.09), inset 0px 0px 2px 2px rgba(255, 255, 255, 0.5), inset 0 0 5px 5px rgba(255, 255, 255, 0.4);
 }
 
 small {
@@ -816,22 +747,24 @@ small {
 }
 
 nav {
-  width: 230px;
+  width: 240px;
   position: fixed;
   top: 220px;
   left: 50%;
-  margin-left: -580px;
+  margin-left: -590px;
   text-align: right;
+  /* font-size: 18px; */
 }
 nav ul {
   list-style: none;
   list-style-image: none;
   font-size: 14px;
   line-height: 24px;
+  padding: 0;
 }
 nav ul li {
-  padding: 5px 0px;
-  line-height: 16px;
+  padding: 7px 0px;
+  line-height: 23px;
 }
 nav ul li.tag-h1 {
   font-size: 1.2em;
@@ -844,7 +777,9 @@ nav ul li.tag-h2 + .tag-h1 {
   margin-top: 10px;
 }
 nav ul a {
-  color: #666;
+  color: #389AFD;
+  font-weight: bold;
+  font-size: 16px;
 }
 nav ul a:hover {
   color: #999;
@@ -858,6 +793,24 @@ footer {
   bottom: 20px;
   text-align: right;
   line-height: 16px;
+}
+
+
+@media print, screen and (max-width: 1200px) {
+
+  nav {
+    width: 180px;
+    margin-left: -520px;
+  }
+}
+
+@media print, screen and (max-width: 1060px) {
+
+  nav {
+    width: 180px;
+    margin-left: -520px;
+  }
+
 }
 
 @media print, screen and (max-width: 1060px) {
@@ -874,11 +827,7 @@ footer {
     float: none;
   }
   header h1, section h1, footer h1 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
+    white-space: wrap;
   }
 
   #banner {
@@ -892,7 +841,6 @@ footer {
   }
 
   section {
-    border: 1px solid #e5e5e5;
     border-width: 1px 0;
     padding: 20px auto;
     margin: 190px auto 20px;
@@ -919,11 +867,7 @@ footer {
   }
   header h1 {
     font-size: 32px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
+    white-space: wrap;
   }
   header p {
     display: none;
@@ -958,11 +902,7 @@ footer {
   }
   header h1 {
     font-size: 24px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    -ms-text-overflow: ellipsis;
+    white-space: wrap;
   }
 
   section {

@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Greenplum DB Tutorials by greenplum-db</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-dark.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -24,7 +26,7 @@
       <div id="banner">
         <span id="logo"></span>
 
-        <a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials" class="button fork"><strong>View On GitHub</strong></a>
+        <a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials" class="button fork">View On GitHub</a>
         <div class="downloads">
           <span>Downloads:</span>
           <ul>
@@ -39,7 +41,7 @@
         <ul></ul>
       </nav>
       <section>
-        <p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/GPDB.jpg" width="750"></p>
+       <!--  <p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/GPDB.jpg" width="750"></p> -->
 
 <h1 align="center">
 <a id="an-introduction-and-greenplum-db-tutorial-using-the-gpdb-sandbox-vm" class="anchor" href="#an-introduction-and-greenplum-db-tutorial-using-the-gpdb-sandbox-vm" aria-hidden="true"><span class="octicon octicon-link"></span></a>An Introduction and Greenplum DB Tutorial using the GPDB Sandbox VM</h1>
@@ -51,7 +53,7 @@
 <p>The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.</p>
 
 <ul>
-<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box.  If you import into VMware Fusion and would like to install the VMware Tools, see <a href="#appendix1">Appendix 1</a> 
+<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virutal Box.  If you import into VMware Fusion and would like to install the VMware Tools, see <a href="#appendix1">Appendix 1</a>
 for installation details. </li>
 <li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
 <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg" alt="">
@@ -186,13 +188,13 @@ commands yourself or by executing a script in the faa directory.</p>
 <blockquote>
 <p><code>$ createuser -P user1</code></p>
 
-<pre><code>Enter password for new role:  
-Enter it again:  
-Shall the new role be a superuser? (y/n) n  
-Shall the new role be allowed to create databases? (y/n) y  
-Shall the new role be allowed to create more new roles? (y/n) n  
+<pre><code>Enter password for new role:
+Enter it again:
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) y
+Shall the new role be allowed to create more new roles? (y/n) n
 NOTICE:  resource queue required -- using default resource queue
-"pg_default"  
+"pg_default"
 </code></pre>
 </blockquote>
 </li>
@@ -241,8 +243,8 @@ NOTICE:  resource queue required -- using default resource queue
 <p>While connected to the template1 database as gpadmin enter the following SQL commands:</p>
 
 <blockquote>
-<pre><code>    template1=# CREATE ROLE users;  
-    template1=# GRANT users TO user1, user2;  
+<pre><code>    template1=# CREATE ROLE users;
+    template1=# GRANT users TO user1, user2;
 </code></pre>
 </blockquote>
 </li>
@@ -317,7 +319,7 @@ To use the CREATE DATABASE command, you must be connected to a database. With a 
  template1 | gpadmin | UTF8     | =c/gpadmin
                                 : gpadmin=CTc/gpadmin
  tutorial  | gpadmin | UTF8     |
-(6 rows) 
+(6 rows)
 </code></pre>
 </blockquote>
 </li>
@@ -388,8 +390,8 @@ for user1 when prompted:</p>
 <p>Create the faa schema:</p>
 
 <blockquote>
-<pre><code>tutorial=# DROP SCHEMA IF EXISTS faa CASCADE;  
-tutorial=# CREATE SCHEMA faa;  
+<pre><code>tutorial=# DROP SCHEMA IF EXISTS faa CASCADE;
+tutorial=# CREATE SCHEMA faa;
 </code></pre>
 </blockquote>
 </li>
@@ -481,13 +483,13 @@ segments.</li>
 <p>Open the script in a text editor to see the text of the commands that will be executed when you run the script. </p>
 
 <blockquote>
-<pre><code>gpadmin@gpdb-sandbox faa]$ more create_dim_tables.sql   
-create table faa.d_airports (airport_code text, airport_desc text) distributed  by (airport_code);  
-create table faa.d_wac (wac smallint, area_desc text) distributed by (wac);  
-create table faa.d_airlines (airlineid integer, airline_desc text) distributed   by (airlineid);  
-create table faa.d_cancellation_codes (cancel_code text, cancel_desc text)   distributed by (cancel_code);  
-create table faa.d_delay_groups (delay_group_code text, delay_group_desc text)   distributed by (delay_group_code);  
-create table faa.d_distance_groups (distance_group_code text,   distance_group_desc text) distributed by (distance_group_code)  
+<pre><code>gpadmin@gpdb-sandbox faa]$ more create_dim_tables.sql
+create table faa.d_airports (airport_code text, airport_desc text) distributed  by (airport_code);
+create table faa.d_wac (wac smallint, area_desc text) distributed by (wac);
+create table faa.d_airlines (airlineid integer, airline_desc text) distributed   by (airlineid);
+create table faa.d_cancellation_codes (cancel_code text, cancel_desc text)   distributed by (cancel_code);
+create table faa.d_delay_groups (delay_group_code text, delay_group_desc text)   distributed by (delay_group_code);
+create table faa.d_distance_groups (distance_group_code text,   distance_group_desc text) distributed by (distance_group_code)
 </code></pre>
 </blockquote>
 </li>
@@ -624,11 +626,11 @@ names as data. </li>
 <p>Run the following scripts to load the data:  </p>
 
 <blockquote>
-<pre><code>tutorial-# =# \i copy_into_airlines.sql  
-tutorial-# =# \i copy_into_airports.sql  
-tutorial-# =# \i copy_into_delay_groups.sql  
-tutorial-# =# \i copy_into_distance_groups.sql  
-tutorial-# =# \i copy_into_wac.sql  
+<pre><code>tutorial-# =# \i copy_into_airlines.sql
+tutorial-# =# \i copy_into_airports.sql
+tutorial-# =# \i copy_into_delay_groups.sql
+tutorial-# =# \i copy_into_distance_groups.sql
+tutorial-# =# \i copy_into_wac.sql
 </code></pre>
 </blockquote>
 </li>
@@ -669,9 +671,9 @@ tutorial-# =# \i copy_into_wac.sql
 <blockquote>
 <p><code>$ psql -U gpadmin tutorial</code> </p>
 
-<pre><code>tutorial=# \i create_load_tables.sql   
-CREATE TABLE    
-CREATE TABLE    
+<pre><code>tutorial=# \i create_load_tables.sql
+CREATE TABLE
+CREATE TABLE
 </code></pre>
 </blockquote>
 </li>
@@ -679,10 +681,10 @@ CREATE TABLE
 <p>Create an external table definition with the same structure as the faa_otp_load table.   </p>
 
 <blockquote>
-<pre><code>tutorial=# \i create_ext_table.sql  
-psql:create_ext_table.sql:5: NOTICE:  HEADER means that each one    
-of the data files has a header row.  
-CREATE EXTERNAL TABLE  
+<pre><code>tutorial=# \i create_ext_table.sql
+psql:create_ext_table.sql:5: NOTICE:  HEADER means that each one
+of the data files has a header row.
+CREATE EXTERNAL TABLE
 </code></pre>
 </blockquote>
 
@@ -692,10 +694,10 @@ CREATE EXTERNAL TABLE
 <p>Move data from the external table to the faa_otp_load table.  </p>
 
 <blockquote>
-<pre><code>tutorial=#  INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;  
-NOTICE:  Found 26526 data formatting errors (26526 or more input rows).    
-Rejected related input data.  
-INSERT 0 1024552  
+<pre><code>tutorial=#  INSERT INTO faa.faa_otp_load SELECT * FROM faa.ext_load_otp;
+NOTICE:  Found 26526 data formatting errors (26526 or more input rows).
+Rejected related input data.
+INSERT 0 1024552
 </code></pre>
 </blockquote>
 
@@ -705,14 +707,14 @@ INSERT 0 1024552
 <p>Examine the errors briefly. (The \x on psql meta-command changes the display of the results to one line per column, which is easier to read for some result sets.)</p>
 
 <blockquote>
-<pre><code>tutorial=# \x  
-Expanded display is on.  
-tutorial=# SELECT DISTINCT relname, errmsg, count(*)  
-           FROM faa.faa_load_errors GROUP BY 1,2;  
--[ RECORD 1 ]-------------------------------------------------  
-relname | ext_load_otp  
-errmsg  | invalid input syntax for integer: "", column deptime  
-count   | 26526  
+<pre><code>tutorial=# \x
+Expanded display is on.
+tutorial=# SELECT DISTINCT relname, errmsg, count(*)
+           FROM faa.faa_load_errors GROUP BY 1,2;
+-[ RECORD 1 ]-------------------------------------------------
+relname | ext_load_otp
+errmsg  | invalid input syntax for integer: "", column deptime
+count   | 26526
 </code></pre>
 </blockquote>
 </li>
@@ -737,15 +739,15 @@ of the work of setting up the external table and the data movement.  In this exe
 started in the previous exercise. </p>
 
 <blockquote>
-<pre><code>[gpadmin@gpdb-sandbox faa]$ ps -A | grep gpfdist  
-4035 pts/0    00:00:02 gpfdist  
+<pre><code>[gpadmin@gpdb-sandbox faa]$ ps -A | grep gpfdist
+4035 pts/0    00:00:02 gpfdist
 </code></pre>
 </blockquote>
 
 <p>Your process id will not be the same, so kill the appropriate one with the kill command, or just use the simpler killall command:</p>
 
-<pre><code>  gpadmin@gpdb-sandbox faa]$ killall gpfdist  
-  [1]+  Exit 1    gpfdist -d $HOME/gpdb-sandbox-tutorials/faa -p   8081 &gt; /tmp/  gpfdist.log 2&gt;&amp;1  
+<pre><code>  gpadmin@gpdb-sandbox faa]$ killall gpfdist
+  [1]+  Exit 1    gpfdist -d $HOME/gpdb-sandbox-tutorials/faa -p   8081 &gt; /tmp/  gpfdist.log 2&gt;&amp;1
 </code></pre>
 </li>
 <li>
@@ -755,31 +757,31 @@ started in the previous exercise. </p>
 <p><code>vi gpload.yaml</code>  </p>
 
 <pre><code>---
-VERSION: 1.0.0.1  
-# describe the Greenplum database parameters  
-DATABASE: tutorial  
-USER: gpadmin  
-HOST: localhost  
-PORT: 5432  
-# describe the location of the source files  
-# in this example, the database master lives on the same host as the source files  
-GPLOAD:  
-   INPUT:  
-    - SOURCE:  
-         LOCAL_HOSTNAME:  
-           - gpdb-sandbox  
-         PORT: 8081  
-         FILE:  
-           - /Users/gpadmin/gpdb-sandbox-tutorials/faa/otp*.gz  
-    - FORMAT: csv  
-    - QUOTE: '"'  
-    - ERROR_LIMIT: 50000  
-    - ERROR_TABLE: faa.faa_load_errors  
-   OUTPUT:  
-    - TABLE: faa.faa_otp_load  
-    - MODE: INSERT  
-   PRELOAD:  
-    - TRUNCATE: true  
+VERSION: 1.0.0.1
+# describe the Greenplum database parameters
+DATABASE: tutorial
+USER: gpadmin
+HOST: localhost
+PORT: 5432
+# describe the location of the source files
+# in this example, the database master lives on the same host as the source files
+GPLOAD:
+   INPUT:
+    - SOURCE:
+         LOCAL_HOSTNAME:
+           - gpdb-sandbox
+         PORT: 8081
+         FILE:
+           - /Users/gpadmin/gpdb-sandbox-tutorials/faa/otp*.gz
+    - FORMAT: csv
+    - QUOTE: '"'
+    - ERROR_LIMIT: 50000
+    - ERROR_TABLE: faa.faa_load_errors
+   OUTPUT:
+    - TABLE: faa.faa_otp_load
+    - MODE: INSERT
+   PRELOAD:
+    - TRUNCATE: true
 </code></pre>
 </blockquote>
 </li>
@@ -790,14 +792,14 @@ want to see details of the loading process.)</p>
 <blockquote>
 <p><code>$ gpload -f gpload.yaml -l gpload.log</code>  </p>
 
-<pre><code>2015-10-21 15:05:39|INFO|gpload session started 2015-10-21 15:05:39  
-2015-10-21 15:05:39|INFO|started gpfdist -p 8081 -P 8082 -f "/home/gpadmin/gpdb-sandbox-tutorials/faa/otp*.gz" -t 30  
-2015-10-21 15:05:58|WARN|26528 bad rows  
-2015-10-21 15:05:58|INFO|running time: 18.64 seconds  
-2015-10-21 15:05:58|INFO|rows Inserted          = 1024552  
-2015-10-21 15:05:58|INFO|rows Updated           = 0  
-2015-10-21 15:05:58|INFO|data formatting errors = 0   
-2015-10-21 15:05:58|INFO|gpload succeeded with warnings  
+<pre><code>2015-10-21 15:05:39|INFO|gpload session started 2015-10-21 15:05:39
+2015-10-21 15:05:39|INFO|started gpfdist -p 8081 -P 8082 -f "/home/gpadmin/gpdb-sandbox-tutorials/faa/otp*.gz" -t 30
+2015-10-21 15:05:58|WARN|26528 bad rows
+2015-10-21 15:05:58|INFO|running time: 18.64 seconds
+2015-10-21 15:05:58|INFO|rows Inserted          = 1024552
+2015-10-21 15:05:58|INFO|rows Updated           = 0
+2015-10-21 15:05:58|INFO|data formatting errors = 0
+2015-10-21 15:05:58|INFO|gpload succeeded with warnings
 </code></pre>
 </blockquote>
 </li>
@@ -911,22 +913,22 @@ Review the create_fact_tables.sql script and note that some columns are excluded
 <blockquote>
 <p><code>$ psql -U gpadmin tutorial</code> </p>
 
-<pre><code>``` 
+<pre><code>```
 tutorial=# ANALYZE faa.d_airports;
-ANALYZE  
-tutorial=# ANALYZE faa.d_airlines;  
-ANALYZE  
-tutorial=# ANALYZE faa.d_wac;  
-ANALYZE  
-tutorial=# ANALYZE faa.d_cancellation_codes;  
-ANALYZE  
-tutorial=# ANALYZE faa.faa_otp_load;  
-ANALYZE  
-tutorial=# ANALYZE faa.otp_r;  
-ANALYZE  
-tutorial=# ANALYZE faa.otp_c;   
-ANALYZE  
-``` 
+ANALYZE
+tutorial=# ANALYZE faa.d_airlines;
+ANALYZE
+tutorial=# ANALYZE faa.d_wac;
+ANALYZE
+tutorial=# ANALYZE faa.d_cancellation_codes;
+ANALYZE
+tutorial=# ANALYZE faa.faa_otp_load;
+ANALYZE
+tutorial=# ANALYZE faa.otp_r;
+ANALYZE
+tutorial=# ANALYZE faa.otp_c;
+ANALYZE
+```
 </code></pre>
 </blockquote>
 </li>
@@ -955,22 +957,22 @@ ANALYZE
 <blockquote>
 <p><code>tutorial=# \i create_sample_table.sql</code></p>
 
-<pre><code>DROP TABLE  
-Time: 15.901 ms  
-SET  
-Time: 3.174 ms  
-psql:create_sample_table.sql:3: NOTICE:  CREATE TABLE will create implicit   
-sequence "sample_id_seq" for serial column "sample.id"  
-CREATE TABLE  
-Time: 24.421 ms   
-INSERT 0 1000000  
-Time: 14624.516 ms  
-UPDATE 1000000  
-Time: 1241.156 ms  
-UPDATE 50000  
-Time: 190.210 ms  
-UPDATE 1000000  
-Time: 1111.454 ms  
+<pre><code>DROP TABLE
+Time: 15.901 ms
+SET
+Time: 3.174 ms
+psql:create_sample_table.sql:3: NOTICE:  CREATE TABLE will create implicit
+sequence "sample_id_seq" for serial column "sample.id"
+CREATE TABLE
+Time: 24.421 ms
+INSERT 0 1000000
+Time: 14624.516 ms
+UPDATE 1000000
+Time: 1241.156 ms
+UPDATE 50000
+Time: 190.210 ms
+UPDATE 1000000
+Time: 1111.454 ms
 </code></pre>
 </blockquote>
 </li>
@@ -980,17 +982,17 @@ Time: 1111.454 ms
 <blockquote>
 <p><code>tutorial=#  EXPLAIN SELECT COUNT(*) FROM sample WHERE id &gt; 100;</code></p>
 
-<pre><code>                               QUERY PLAN  
----------------------------------------------------------------------------  
-Aggregate  (cost=0.00..462.77 rows=1 width=8)  
- -&gt;  Gather Motion 2:1  (slice1; segments: 2)  (cost=0.00..462.77  
-  rows=1 width=8)  
-   -&gt;  Aggregate  (cost=0.00..462.76 rows=1 width=8)  
-     -&gt;  Table Scan on sample  (cost=0.00..462.76 rows=500687 width=1)  
-              Filter: id &gt; 100  
-Settings:  optimizer=on   
-Optimizer status: PQO version 1.597  
-(7 rows)  
+<pre><code>                               QUERY PLAN
+---------------------------------------------------------------------------
+Aggregate  (cost=0.00..462.77 rows=1 width=8)
+ -&gt;  Gather Motion 2:1  (slice1; segments: 2)  (cost=0.00..462.77
+  rows=1 width=8)
+   -&gt;  Aggregate  (cost=0.00..462.76 rows=1 width=8)
+     -&gt;  Table Scan on sample  (cost=0.00..462.76 rows=500687 width=1)
+              Filter: id &gt; 100
+Settings:  optimizer=on
+Optimizer status: PQO version 1.597
+(7 rows)
 </code></pre>
 </blockquote>
 
@@ -1050,11 +1052,11 @@ width=1)
 <blockquote>
 <p><code>tutorial=# SELECT * from sample WHERE big = 12345;</code></p>
 
-<pre><code>  id   |  big  | wee | stuff  
--------+-------+-----+-------  
- 12345 | 12345 |   0 |  
-(1 row)  
-Time: 197.640 ms  
+<pre><code>  id   |  big  | wee | stuff
+-------+-------+-----+-------
+ 12345 | 12345 |   0 |
+(1 row)
+Time: 197.640 ms
 </code></pre>
 </blockquote>
 </li>
@@ -1083,8 +1085,8 @@ Time: 19.719 ms
 <blockquote>
 <p><code>tutorial=# CREATE INDEX sample_big_index ON sample(big);</code></p>
 
-<pre><code>CREATE INDEX  
-Time: 1106.467 ms   
+<pre><code>CREATE INDEX
+Time: 1106.467 ms
 </code></pre>
 </blockquote>
 </li>
@@ -1117,11 +1119,11 @@ rows=1 width=12)
 <blockquote>
 <p><code>tutorial=# SELECT * FROM sample WHERE big = 12345;</code></p>
 
-<pre><code>  id   |  big  | wee | stuff  
--------+-------+-----+-------  
- 12345 | 12345 |   0 |  
-(1 row)   
-Time: 29.421 ms  
+<pre><code>  id   |  big  | wee | stuff
+-------+-------+-----+-------
+ 12345 | 12345 |   0 |
+(1 row)
+Time: 29.421 ms
 </code></pre>
 
 <p>Notice the difference in timing between the single-row SELECT with and without the index. The difference would have been much greater for a larger table. Not that even when there is a index, the optimizer can choose not to use it if it calculates a more efficient plan.</p>
@@ -1132,11 +1134,11 @@ Time: 29.421 ms
 of queries.</p>
 
 <blockquote>
-<pre><code>tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345;  
-tutorial=# EXPLAIN SELECT * FROM sample WHERE big &gt; 12345;  
-tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;  
-tutorial=# DROP INDEX sample_big_index;  
-tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;  
+<pre><code>tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345;
+tutorial=# EXPLAIN SELECT * FROM sample WHERE big &gt; 12345;
+tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;
+tutorial=# DROP INDEX sample_big_index;
+tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;
 </code></pre>
 </blockquote>
 </li>
@@ -1157,9 +1159,9 @@ tutorial=# EXPLAIN SELECT * FROM sample WHERE big = 12345 OR big = 12355;
 
 <blockquote>
 <pre><code>tutorial=# CREATE TABLE FAA.OTP_C (LIKE faa.otp_r) WITH (appendonly=true,
-orientation=column)  
-DISTRIBUTED BY (UniqueCarrier, FlightNum) PARTITION BY RANGE(FlightDate)  
-( PARTITION mth START('2009-06-01'::date) END ('2010-10-31'::date)  
+orientation=column)
+DISTRIBUTED BY (UniqueCarrier, FlightNum) PARTITION BY RANGE(FlightDate)
+( PARTITION mth START('2009-06-01'::date) END ('2010-10-31'::date)
 EVERY ('1 mon'::interval));
 </code></pre>
 
@@ -1225,7 +1227,7 @@ EVERY ('1 mon'::interval));
 Distributed by: (uniquecarrier, flightnum)
 </code></pre>
 
-<p>Notice that the column-oriented version is append-only and partitioned. It has seventeen child files for the partitions, one for each month from June 2009 through October 2010. 
+<p>Notice that the column-oriented version is append-only and partitioned. It has seventeen child files for the partitions, one for each month from June 2009 through October 2010.
 <code>tutorial=# \d faa.otp_c</code></p>
 
 <pre><code>       Append-Only Columnar Table "faa.otp_c"
@@ -1289,10 +1291,10 @@ Distributed by: (uniquecarrier, flightnum)
 <blockquote>
 <p><code>tutorial=# SELECT pg_size_pretty(pg_relation_size('faa.otp_r'));</code></p>
 
-<pre><code>pg_size_pretty  
-----------------  
- 256 MB  
-(1 row)  
+<pre><code>pg_size_pretty
+----------------
+ 256 MB
+(1 row)
 </code></pre>
 
 <p><code>tutorial=# SELECT pg_size_pretty(pg_total_relation_size('faa.otp_r'));</code></p>
@@ -1332,15 +1334,15 @@ Distributed by: (uniquecarrier, flightnum)
 <p>One of the goals of distribution is to ensure that there is approximately the same amount of data in each segment. The query below shows one way of determining this. Since the column-oriented and row-oriented tables are distributed by the same columns, the counts should be the same for each.</p>
 
 <blockquote>
-<pre><code>tutorial=# SELECT gp_segment_id, COUNT(*) FROM faa.otp_c GROUP BY  
+<pre><code>tutorial=# SELECT gp_segment_id, COUNT(*) FROM faa.otp_c GROUP BY
 gp_segment_id ORDER BY gp_segment_id;
 </code></pre>
 
-<pre><code>gp_segment_id |  count  
----------------+---------   
-         0 | 1028144   
-         1 | 1020960   
-(2 rows)   
+<pre><code>gp_segment_id |  count
+---------------+---------
+         0 | 1028144
+         1 | 1020960
+(2 rows)
 </code></pre>
 </blockquote>
 </li>
@@ -1478,9 +1480,9 @@ Time: 30.658 ms
 <p>Get average delay, standard deviation, and number of flights for USAir and Delta airlines.  Click a new white rectangle and enter:</p>
 
 <blockquote>
-<pre><code>%psql.sql SELECT carrier, AVG(arrdelayminutes),STDDEV(arrdelayminutes),  
-COUNT(*) FROM faa.otp_c WHERE carrier = 'US' OR carrier = 'DL'     
-GROUP BY carrier;      
+<pre><code>%psql.sql SELECT carrier, AVG(arrdelayminutes),STDDEV(arrdelayminutes),
+COUNT(*) FROM faa.otp_c WHERE carrier = 'US' OR carrier = 'DL'
+GROUP BY carrier;
 </code></pre>
 </blockquote>
 
@@ -1490,9 +1492,9 @@ GROUP BY carrier;
 <p>Get average delay, standard deviation, and number of flights originating from Chicago O’Hare or Atlanta Hartsfield airports.  Click a new white rectangle and enter:</p>
 
 <blockquote>
-<pre><code>%psql.sql SELECT origin, AVG(arrdelayminutes),STDDEV(arrdelayminutes),  
-COUNT(*) FROM faa.otp_c WHERE origin = 'ORD' OR origin = 'ATL'  
-GROUP BY origin;   
+<pre><code>%psql.sql SELECT origin, AVG(arrdelayminutes),STDDEV(arrdelayminutes),
+COUNT(*) FROM faa.otp_c WHERE origin = 'ORD' OR origin = 'ATL'
+GROUP BY origin;
 </code></pre>
 </blockquote>
 
@@ -1502,9 +1504,9 @@ GROUP BY origin;
 <p>Get average delay, standard deviation, and number of flights originating from Chicago O’Hare or Atlanta Hartsfield airports.  Click a new white rectangle and enter:</p>
 
 <blockquote>
-<pre><code>%psql.sql SELECT origin, AVG(arrdelayminutes),STDDEV(arrdelayminutes), 
+<pre><code>%psql.sql SELECT origin, AVG(arrdelayminutes),STDDEV(arrdelayminutes),
 COUNT(*) FROM faa.otp_c WHERE carrier = 'DL' AND origin IN ('ATL', 'MSP',
-'DTW') GROUP BY origin;   
+'DTW') GROUP BY origin;
 </code></pre>
 </blockquote>
 
@@ -1514,9 +1516,9 @@ COUNT(*) FROM faa.otp_c WHERE carrier = 'DL' AND origin IN ('ATL', 'MSP',
 <p>Get average delay, standard deviation, and number of flights for Delta and USAir flights originating from Atlanta Harsfield.  Click a new white rectangle and enter:</p>
 
 <blockquote>
-<pre><code>%psql.sql SELECT carrier, AVG(arrdelayminutes),STDDEV(arrdelayminutes), 
+<pre><code>%psql.sql SELECT carrier, AVG(arrdelayminutes),STDDEV(arrdelayminutes),
 COUNT(*) FROM faa.otp_c WHERE carrier IN ('DL', 'UA') AND origin = 'ATL'
-GROUP BY carrier;   
+GROUP BY carrier;
 </code></pre>
 </blockquote>
 
@@ -1546,7 +1548,7 @@ WHEN carrier = 'DL' THEN 2
 ELSE NULL
 END,
 arrdelayminutes
-)).* FROM faa.otp_r;    
+)).* FROM faa.otp_r;
 </code></pre>
 </blockquote>
 
@@ -1564,7 +1566,7 @@ WHEN origin = 'ATL' THEN 2
 ELSE NULL
 END,
 arrdelayminutes
-)).* FROM faa.otp_r;    
+)).* FROM faa.otp_r;
 </code></pre>
 </blockquote>
 
@@ -1583,7 +1585,7 @@ WHEN carrier = 'DL' AND origin = 'DTW' THEN 3
 ELSE NULL
 END,
 arrdelayminutes
-)).* FROM faa.otp_r;     
+)).* FROM faa.otp_r;
 </code></pre>
 </blockquote>
 
@@ -1647,7 +1649,7 @@ ARRAY[1,distance])).* FROM faa.otp_c;
 <p>Click a new white rectangle and enter:</p>
 
 <blockquote>
-<pre><code>%psql.sql  SELECT ( madlib.linregr(arrdelayminutes,  
+<pre><code>%psql.sql  SELECT ( madlib.linregr(arrdelayminutes,
 ARRAY[1,depdelayminutes])).* FROM faa.otp_c;
 </code></pre>
 </blockquote>
@@ -1873,6 +1875,6 @@ tutorial=# select count(*) from otp_r;
       </footer>
     </div>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+
   </body>
 </html>
