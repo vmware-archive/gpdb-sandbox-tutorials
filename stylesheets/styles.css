@@ -533,7 +533,7 @@ strong {
 }
 
 .wrapper {
-  width: 650px;
+  width: 602px;
   margin: 0 auto;
   position: relative;
 }
@@ -728,7 +728,7 @@ header p {
 }
 
 section {
-  width: 590px;
+  width: 622px;
   padding: 30px 30px 50px 30px;
   margin: 20px 0;
   margin-top: 190px;
@@ -747,11 +747,11 @@ small {
 }
 
 nav {
-  width: 240px;
+  width: 300px;
   position: fixed;
-  top: 220px;
+  top: 205px;
   left: 50%;
-  margin-left: -590px;
+  margin-left: -630px;
   text-align: right;
   /* font-size: 18px; */
 }
@@ -787,7 +787,9 @@ nav ul a:hover {
 
 footer {
   width: 180px;
-  position: fixed;
+  position: relative;
+  float: left;
+  clear: both;
   left: 50%;
   margin-left: -530px;
   bottom: 20px;
@@ -796,24 +798,44 @@ footer {
 }
 
 
-@media print, screen and (max-width: 1200px) {
+@media print, screen and (max-width: 1260px) {
+
+  nav {
+    width: 260px;
+    margin-left: -580px;
+  }
+
+}
+
+@media print, screen and (max-height: 840px) {
+  nav ul li { line-height: 19px; padding: 6px 0;}
+  nav ul a { font-size: 14px; }
+}
+
+@media print, screen and (max-width: 1160px){
+  nav ul a { font-size: 15px; }
+    nav {
+    width: 220px;
+    margin-left: -545px;
+  }
+}
+
+@media print, screen and (max-height: 840px) and (max-width: 1160px){
+  nav ul li { line-height: 17px; padding: 6px 0;}
+  nav ul a { font-size: 13px; }
+  nav {
+    width: 220px;
+    margin-left: -545px;
+  }
+}
+
+@media print, screen and (max-width: 1090px) {
 
   nav {
     width: 180px;
     margin-left: -520px;
   }
-}
 
-@media print, screen and (max-width: 1060px) {
-
-  nav {
-    width: 180px;
-    margin-left: -520px;
-  }
-
-}
-
-@media print, screen and (max-width: 1060px) {
   div.wrapper {
     width: auto;
     margin: 0;
@@ -856,6 +878,9 @@ footer {
     width: auto;
   }
 }
+
+
+
 @media print, screen and (max-width: 720px) {
   body {
     word-wrap: break-word;
