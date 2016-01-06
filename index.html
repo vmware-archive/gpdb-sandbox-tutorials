@@ -69,7 +69,7 @@ This screen provides you all the information you need to interact with the VM.
 
 <p>Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  </p>
 
-<p>To introduce Greenplum Database, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at <a href="http://www.transstats.bts.gov/">http://www.transstats.bts.gov/</a>.  The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. Data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010.  The FAA uses the data to calculate statistics such as the percent of flights that depart or arrive on time by origin, destination, and airline. </p>
+<p>To introduce Greenplum Database, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at <a href="http://www.transtats.bts.gov/">http://www.transstats.bts.gov/</a>.  The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. Data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010.  The FAA uses the data to calculate statistics such as the percent of flights that depart or arrive on time by origin, destination, and airline. </p>
 
 <p>You are encouraged to review the SQL scripts in the faa directory as you work
 through this introduction. You can run most of the exercises by entering the
@@ -94,6 +94,8 @@ commands yourself or by executing a script in the faa directory.</p>
 <a href="#lesson5">Lesson 5: Queries and Performance Tuning</a> </li>
 <li>
 <a href="#lesson6">Lesson 6: Introduction to Greenplum In-Database Analytics</a> </li>
+<li>
+<a href="#lesson7">Lesson 6: Backup and Recovery Operations</a> </li>
 <li>
 <a href="#appendix1">Appendix 1: Importing into VMware Fusion</a> </li>
 </ul>
@@ -637,7 +639,7 @@ tutorial-# =# \i copy_into_wac.sql
 </ol>
 
 <h4>
-<a id="load-data-with-gpdist" class="anchor" href="#load-data-with-gpdist" aria-hidden="true"><span class="octicon octicon-link"></span></a>Load data with gpdist</h4>
+<a id="load-data-with-gpfdist" class="anchor" href="#load-data-with-gpdist" aria-hidden="true"><span class="octicon octicon-link"></span></a>Load data with gpdist</h4>
 
 <p>For the FAA fact table, we will use an ETL (Extract, Transform, Load) process to load data from the source gzip files into a loading table, and then insert the data into a query and reporting table. For the best load speed, use the gpfdist Greenplum utility to distribute the rows to the segments. In a production system, gpfdist runs on the servers where the data is located. With a single-node Greenplum Database instance, there is only one host, and you run gpdist on it. Starting gpfdist is like starting a file server; there is no data movement until a request is made on the process.</p>
 
@@ -824,7 +826,7 @@ Review the create_fact_tables.sql script and note that some columns are excluded
 <p>Load the data from the faa_otp_load table into the faa.otp_r table using the SQL INSERT FROM statement. Load the faa.otp_c table from the faa.otp_r table. Both of these loads can be accomplished by running the load_into_fact_table.sql script.</p>
 
 <blockquote>
-<p><code>tutorial=#  load_into_fact_table.sql</code></p>
+<p><code>tutorial=#  \i load_into_fact_table.sql</code></p>
 </blockquote>
 </li>
 </ol>
@@ -1037,7 +1039,41 @@ width=1)
 </blockquote>
 </li>
 </ol>
+<h4>Changing optimizers</h4>
 
+<p>By default, the sandbox instance disables the Pivotal Query
+Optimizer and you may see "legacy query optimizer" listed in the
+EXPLAIN output under "Optimizer status."</p>
+
+<ol>
+<li><p>Check whether the Pivotal Query Optimizer is enabled.</p>
+
+<blockquote><p><code>$ gpconfig -s optimizer</code></p>
+
+<pre><code>Values on all segments are consistent
+GUC          : optimizer
+Master  value: off
+Segment value: off
+</code></pre></blockquote></li>
+<li><p>Enable the Pivotal Query Optimizer</p>
+
+<blockquote><p><code>$ gpconfig -c optimizer -v on --masteronly</code></p>
+
+<pre><code> 20151201:09:08:31:172854 gpconfig:gpdb-sandbox:gpadmin-[INFO]:-completed successfully
+</code></pre></blockquote></li>
+<li><p>Reload the configuration on master and segment instances.</p>
+
+<blockquote><p><code>$ gpstop -u</code></p>
+
+<pre><code>20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Starting gpstop with args: -u
+20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Gathering information and validating the environment...
+20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Obtaining Greenplum Master catalog information
+20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Obtaining Segment details from master...
+20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Greenplum Version: 'postgres (Greenplum Database) 4.3.6.1 build 2'
+20151201:09:08:49:172949 gpstop:gpdb-sandbox:gpadmin-[INFO]:-Signalling all postmaster processes to reload
+.
+</code></pre></blockquote></li>
+</ol>
 <h4>
 <a id="indexes-and-performance" class="anchor" href="#indexes-and-performance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Indexes and performance</h4>
 
