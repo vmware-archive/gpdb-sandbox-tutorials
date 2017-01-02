@@ -488,8 +488,9 @@ h1, h2, h3 {
   line-height: 1.1;
 }
 
-h1 {
+.inline-header {
   font-size: 22px;
+  text-align: center;
 }
 
 h2 {
