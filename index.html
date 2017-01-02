@@ -69,7 +69,7 @@ This screen provides you all the information you need to interact with the VM.
 
 <ul>
 <li>Username/Password combinations</li>
-<li>Managment URLs</li>
+<li>Management URLs</li>
 <li>IP address for SSH Connection</li>
 </ul>
 </li>
@@ -111,7 +111,7 @@ commands yourself or by executing a script in the faa directory.</p>
 <hr>
 
 <h2>
-<a id="introduction-to-the-greenplum-database--architecture" class="anchor" href="#introduction-to-the-greenplum-database--architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson0"></a>Introduction to the Greenplum Database  Architecture</h2>
+<a id="introduction-to-the-greenplum-database--architecture" class="anchor" href="#introduction-to-the-greenplum-database--architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson0"></a>Introduction to the Greenplum Database Architecture</h2>
 
 <p><a href="http://greenplum.org">Pivotal Greenplum Database</a> is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.</p>
 
@@ -153,7 +153,7 @@ commands yourself or by executing a script in the faa directory.</p>
 <h3>
 <a id="greenplum-interconnect" class="anchor" href="#greenplum-interconnect" aria-hidden="true"><span class="octicon octicon-link"></span></a>Greenplum Interconnect</h3>
 
-<p>The interconect is the networking layer of the Greenplum Database architecture.</p>
+<p>The interconnect is the networking layer of the Greenplum Database architecture.</p>
 
 <p>The interconnect refers to the inter-process communication between segments and the network infrastructure on which this communication relies. The Greenplum interconnect uses a standard 10-Gigabit Ethernet switching fabric.</p>
 
@@ -818,7 +818,7 @@ want to see details of the loading process.)</p>
 <h4>
 <a id="create-and-load-fact-tables" class="anchor" href="#create-and-load-fact-tables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create and Load fact tables</h4>
 
-<p>The final step of the ELT process is to move data from the load table to the fact table.  For the FAA example, you create two fact tables. The faa.otp_r table is a row-oriented table, which will be loaded with data from the faa.faa_otp_load table. The faa.otp_c table has the same structure as the faa.otp_r table, but is column-oriented and partitioned. You will load it with data from the faa.otp_r table.  The two tables will contain identical data and allow you to experiment with a column-oriented and partioned table in addition to a traditional row-oriented table. </p>
+<p>The final step of the ELT process is to move data from the load table to the fact table.  For the FAA example, you create two fact tables. The faa.otp_r table is a row-oriented table, which will be loaded with data from the faa.faa_otp_load table. The faa.otp_c table has the same structure as the faa.otp_r table, but is column-oriented and partitioned. You will load it with data from the faa.otp_r table.  The two tables will contain identical data and allow you to experiment with a column-oriented and partitioned table in addition to a traditional row-oriented table. </p>
 
 <ol>
 <li>
@@ -914,7 +914,7 @@ Review the create_fact_tables.sql script and note that some columns are excluded
 <p>Greenplum uses Multiversion Concurrency Control (MVCC) to guarantee isolation, one of the ACID properties of relational databases. MVCC enables multiple users of the database to obtain consistent results for a query, even if the data is changing as the query is being executed. There can be multiple versions of rows in the database, but a query sees a snapshot of the database at a single point in time, containing only the versions of rows that were valid at that point in time. When a row is updated or deleted and no active transactions continue to reference it, it can be removed. The VACUUM command removes older versions that are no longer needed, leaving free space that can be reused.
     In a Greenplum database, normal OLTP operations do not create the need for vacuuming out old rows, but loading data while tables are in use may. It is a best practice to VACUUM a table after a load. If the table is partitioned, and only a single partition is being altered, then a VACUUM on that partition may suffice.<br>
     The VACUUM FULL command behaves much differently than VACUUM, and its use is not recommended in Greenplum databases. It can be expensive in CPU and I/O, cause bloat in indexes, and lock data for long periods of time.
-    The ANALYZE command generates statistics about the distribution of data in a table. In particular it stores histograms about the values in each of the columns. The query optimizer depends on these statistics to select the best plan for executing a query. For example, the optimizer can use distribution data to decide on join orders. One of the optimizer’s goals in a join is to minimize the volume of data that must be analyzed and potententially moved between segments by using the statistics to choose the smallest result set to work with first.</p>
+    The ANALYZE command generates statistics about the distribution of data in a table. In particular it stores histograms about the values in each of the columns. The query optimizer depends on these statistics to select the best plan for executing a query. For example, the optimizer can use distribution data to decide on join orders. One of the optimizer’s goals in a join is to minimize the volume of data that must be analyzed and potentially moved between segments by using the statistics to choose the smallest result set to work with first.</p>
 
 <ol>
 <li>
@@ -1462,7 +1462,7 @@ Time: 30.658 ms
 <hr>
 
 <h2>
-<a id="lesson-6-introduction-to-greenplum-in-databaseanalytics" class="anchor" href="#lesson-6-introduction-to-greenplum-in-databaseanalytics" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson6"></a>Lesson 6: Introduction to Greenplum In-DatabaseAnalytics</h2>
+<a id="lesson-6-introduction-to-greenplum-in-databaseanalytics" class="anchor" href="#lesson-6-introduction-to-greenplum-in-databaseanalytics" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson6"></a>Lesson 6: Introduction to Greenplum In-Database Analytics</h2>
 
 <p>Running analytics directly in Greenplum Database, rather than exporting data to a separate analytics engine, allows greater agility when exploring large data sets and much better performance due to parallelizing the analytic processes across all the segments. </p>
 
@@ -1478,7 +1478,7 @@ Time: 30.658 ms
 <li>PMML, Predictive Modeling Markup Language </li>
 </ul>
 
-<p>The exercises in this chapter introduce using MADlib with Greenplum Database, using the FAA on-time data example dataset. You will examine scenarios comparing airlines and airports to learn whether there are significant relationships to be found.  In this lesson, you will use <a href="https://zeppelin.incubator.apache.org/">Apache Zeppelin (incubating)</a> to submit SQL statements to the Greenplum Database.  Apache Zeppelin is a web-based notebook that enables interactive data analytics.  A <a href="https://issues.apache.org/jira/browse/ZEPPELIN-250">PostgeSQL interpreter</a> has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. </p>
+<p>The exercises in this chapter introduce using MADlib with Greenplum Database, using the FAA on-time data example dataset. You will examine scenarios comparing airlines and airports to learn whether there are significant relationships to be found.  In this lesson, you will use <a href="https://zeppelin.incubator.apache.org/">Apache Zeppelin (incubating)</a> to submit SQL statements to the Greenplum Database.  Apache Zeppelin is a web-based notebook that enables interactive data analytics.  A <a href="https://issues.apache.org/jira/browse/ZEPPELIN-250">PostgreSQL interpreter</a> has been added to Zeppelin, so that it can now work directly with products such as Pivotal Greenplum Database and Pivotal HDB. </p>
 
 <h4>
 <a id="prepare-apache-zeppelin" class="anchor" href="#prepare-apache-zeppelin" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prepare Apache Zeppelin</h4>
