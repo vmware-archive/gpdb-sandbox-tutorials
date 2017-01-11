@@ -61,7 +61,7 @@
 <p>The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.</p>
 
 <ul>
-<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virtual Box.  If you import into VMware Fusion and would like to install the VMware Tools, see <a href="#appendix1">Appendix 1</a>
+<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virtual Box.  If you import into VMware Fusion and would like to install the VMware Tools, see <a href="#appendix-1-importing-into-vmware-fusion">Appendix 1</a>
 for installation details. </li>
 <li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
 <img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg" alt="Greenplum Sandbox booting">
@@ -84,34 +84,34 @@ through this introduction. You can run most of the exercises by entering the
 commands yourself or by executing a script in the faa directory.</p>
 
 <h2>
-<a id="tutorials" class="anchor" href="#tutorials" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="tutorials"></a>Tutorials</h2>
+<a id="tutorials" class="anchor" href="#tutorials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tutorials</h2>
 
 <ul>
-<li><a href="#lesson0">Introduction to the Greenplum Database Architecture</a></li>
+<li><a href="#introduction-to-the-greenplum-database--architecture">Introduction to the Greenplum Database Architecture</a></li>
 <li>
-<a href="#lesson1">Lesson 1: Create Users and Roles</a><br>
+<a href="#lesson-1-create-users-and-roles">Lesson 1: Create Users and Roles</a><br>
 </li>
 <li>
-<a href="#lesson2">Lesson 2: Create and Prepare Database</a><br>
+<a href="#lesson-2-create-and-prepare-database">Lesson 2: Create and Prepare Database</a><br>
 </li>
 <li>
-<a href="#lesson3">Lesson 3: Create Tables</a> </li>
+<a href="#lesson-3-create-tables">Lesson 3: Create Tables</a> </li>
 <li>
-<a href="#lesson4">Lesson 4: Data Loading</a> </li>
+<a href="#lesson-4-data-loading">Lesson 4: Data Loading</a> </li>
 <li>
-<a href="#lesson5">Lesson 5: Queries and Performance Tuning</a> </li>
+<a href="#lesson-5-queries-and-performance-tuning">Lesson 5: Queries and Performance Tuning</a> </li>
 <li>
-<a href="#lesson6">Lesson 6: Introduction to Greenplum In-Database Analytics</a> </li>
+<a href="#lesson-6-introduction-to-greenplum-in-databaseanalytics">Lesson 6: Introduction to Greenplum In-Database Analytics</a> </li>
 <li>
-<a href="#lesson7">Lesson 7: Backup and Recovery Operations</a> </li>
+<a href="#lesson-7-backup-and-recovery-operations">Lesson 7: Backup and Recovery Operations</a> </li>
 <li>
-<a href="#appendix1">Appendix 1: Importing into VMware Fusion</a> </li>
+<a href="#appendix-1-importing-into-vmware-fusion">Appendix 1: Importing into VMware Fusion</a> </li>
 </ul>
 
 <hr>
 
 <h2>
-<a id="introduction-to-the-greenplum-database--architecture" class="anchor" href="#introduction-to-the-greenplum-database--architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson0"></a>Introduction to the Greenplum Database Architecture</h2>
+<a id="introduction-to-the-greenplum-database--architecture" class="anchor" href="#introduction-to-the-greenplum-database--architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction to the Greenplum Database Architecture</h2>
 
 <p><a href="http://greenplum.org">Pivotal Greenplum Database</a> is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.</p>
 
@@ -175,7 +175,7 @@ commands yourself or by executing a script in the faa directory.</p>
 <hr>
 
 <h2>
-<a id="lesson-1-create-users-and-roles" class="anchor" href="#lesson-1-create-users-and-roles" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson1"></a>Lesson 1: Create Users and Roles</h2>
+<a id="lesson-1-create-users-and-roles" class="anchor" href="#lesson-1-create-users-and-roles" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 1: Create Users and Roles</h2>
 
 <p>Greenplum Database manages database access using roles. Initially, there is one superuser role—the role associated with the OS user who initialized the database instance, usually gpadmin. This user owns all of the Greenplum Database files and OS processes, so it is important to reserve the gpadmin role for system tasks only.  </p>
 
@@ -286,7 +286,7 @@ NOTICE:  resource queue required -- using default resource queue
 <p><a href="#tutorials">Return to Tutorial List</a>  </p>
 
 <h2>
-<a id="lesson-2-create-and-prepare-database" class="anchor" href="#lesson-2-create-and-prepare-database" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson2"></a>Lesson 2: Create and Prepare Database</h2>
+<a id="lesson-2-create-and-prepare-database" class="anchor" href="#lesson-2-create-and-prepare-database" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 2: Create and Prepare Database</h2>
 
 <p>Create a new database with the CREATE DATABASE SQL command in psql or the createdb utility command in a terminal. The new database is a copy of the template1 database, unless you specify a different template.
 To use the CREATE DATABASE command, you must be connected to a database. With a newly installed Greenplum Database system, you can connect to the template1 database to create your first user database. The createdb utility, entered at a shell prompt, is a wrapper around the CREATE DATABASE command. In this exercise you will drop the tutorial database if it exists and then create it new with the createdb utility.  </p>
@@ -443,7 +443,7 @@ tutorial=# CREATE SCHEMA faa;
 <p><a href="#tutorials">Return to Tutorial List</a>  </p>
 
 <h2>
-<a id="lesson-3-create-tables" class="anchor" href="#lesson-3-create-tables" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson3"></a>Lesson 3: Create Tables</h2>
+<a id="lesson-3-create-tables" class="anchor" href="#lesson-3-create-tables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 3: Create Tables</h2>
 
 <p>The CREATE TABLE SQL statement creates a table in the database.</p>
 
@@ -532,7 +532,7 @@ create table faa.d_distance_groups (distance_group_code text,   distance_group_d
 <p><a href="#tutorials">Return to Tutorial List</a>  </p>
 
 <h2>
-<a id="lesson-4-data-loading" class="anchor" href="#lesson-4-data-loading" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson4"></a>Lesson 4: Data Loading</h2>
+<a id="lesson-4-data-loading" class="anchor" href="#lesson-4-data-loading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 4: Data Loading</h2>
 
 <p>Loading external data into Greenplum Database tables can be accomplished in different ways. We will use three methods to load the FAA data:  </p>
 
@@ -857,7 +857,7 @@ Review the create_fact_tables.sql script and note that some columns are excluded
 <hr>
 
 <h2>
-<a id="lesson-5-queries-and-performance-tuning" class="anchor" href="#lesson-5-queries-and-performance-tuning" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson5"></a>Lesson 5: Queries and Performance Tuning</h2>
+<a id="lesson-5-queries-and-performance-tuning" class="anchor" href="#lesson-5-queries-and-performance-tuning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 5: Queries and Performance Tuning</h2>
 
 <p>This lesson provides an overview of how Greenplum Database processes queries. Understanding this process can be useful when writing and tuning queries.</p>
 
@@ -1462,7 +1462,7 @@ Time: 30.658 ms
 <hr>
 
 <h2>
-<a id="lesson-6-introduction-to-greenplum-in-databaseanalytics" class="anchor" href="#lesson-6-introduction-to-greenplum-in-databaseanalytics" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson6"></a>Lesson 6: Introduction to Greenplum In-Database Analytics</h2>
+<a id="lesson-6-introduction-to-greenplum-in-databaseanalytics" class="anchor" href="#lesson-6-introduction-to-greenplum-in-databaseanalytics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 6: Introduction to Greenplum In-Database Analytics</h2>
 
 <p>Running analytics directly in Greenplum Database, rather than exporting data to a separate analytics engine, allows greater agility when exploring large data sets and much better performance due to parallelizing the analytic processes across all the segments. </p>
 
@@ -1724,7 +1724,7 @@ Machine Learning on Big Data</a></p>
 <hr>
 
 <h2>
-<a id="lesson-7-backup-and-recovery-operations" class="anchor" href="#lesson-7-backup-and-recovery-operations" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="lesson7"></a>Lesson 7: Backup and Recovery Operations</h2>
+<a id="lesson-7-backup-and-recovery-operations" class="anchor" href="#lesson-7-backup-and-recovery-operations" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson 7: Backup and Recovery Operations</h2>
 
 <p>The Greenplum Database parallel dump utility gpcrondump backs up the Greenplum master instance and each active segment instance at the same time.</p>
 
@@ -1872,7 +1872,7 @@ tutorial=# select count(*) from otp_r;
 <hr>
 
 <h2>
-<a id="appendix-1-importing-into-vmware-fusion" class="anchor" href="#appendix-1-importing-into-vmware-fusion" aria-hidden="true"><span class="octicon octicon-link"></span></a><a name="appendix1"></a>Appendix 1: Importing into VMware Fusion</h2>
+<a id="appendix-1-importing-into-vmware-fusion" class="anchor" href="#appendix-1-importing-into-vmware-fusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix 1: Importing into VMware Fusion</h2>
 
 <p>These instructions will assist you in Importing this VM into VMware Fusion and then installing VMware Tools into the VM.</p>
 
