@@ -64,7 +64,7 @@
 <li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virtual Box.  If you import into VMware Fusion and would like to install the VMware Tools, see <a href="#appendix1">Appendix 1</a>
 for installation details. </li>
 <li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg" alt="">
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg" alt="Greenplum Sandbox booting">
 This screen provides you all the information you need to interact with the VM.
 
 <ul>
@@ -126,7 +126,7 @@ commands yourself or by executing a script in the faa directory.</p>
 <p>Greenplum Database stores and processes large amounts of data by distributing the data and processing workload across several servers or hosts. Greenplum Database is an array of individual databases based upon PostgreSQL 8.2 working together to present a single database image. The master is the entry point to the Greenplum Database system. It is the database instance to which clients connect and submit SQL statements. The master coordinates its work with the other database instances in the system, called segments, which store and process the data.</p>
 
 <p>Figure 1. High-Level Greenplum Database Architecture<br>
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/highlevel_arch.jpg" width="400">  </p>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/highlevel_arch.jpg" width="400" alt="High-Level Greenplum Database Architecture">  </p>
 
 <p>The following topics describe the components that make up a Greenplum Database system and how they work together. </p>
 
@@ -548,7 +548,7 @@ The SQL COPY command requires that external files be accessible to the host wher
 
 <p>Figure 1. External Tables Using Greenplum Parallel File Server (gpfdist) </p>
 
-<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/ext_tables.jpg" width="500"></p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/ext_tables.jpg" width="500" alt="External Tables Using Greenplum Parallel File Server"></p>
 
 <p>Another Greenplum utility, gpload, runs a load task that you specify in a YAML-formatted control file. You describe the source data locations, format, transformations required, participating hosts, database destinations, and other particulars in the control file and gpload executes the load. This allows you to describe a complex task and execute it in a controlled, repeatable fashion.</p>
 
@@ -871,7 +871,7 @@ Review the create_fact_tables.sql script and note that some columns are excluded
 <p>Most database operations—such as table scans, joins, aggregations, and sorts—execute across all segments in parallel. Each operation is performed on a segment database independent of the data stored in the other segment databases.</p>
 
 <p>Figure 1. Dispatching the Parallel Query Plan<br>
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/dispatch.jpg" width="400"></p>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/dispatch.jpg" width="400" alt="Dispatching the Parallel Query Plan"></p>
 
 <h4>
 <a id="understanding-greenplum-query-plans" class="anchor" href="#understanding-greenplum-query-plans" aria-hidden="true"><span class="octicon octicon-link"></span></a>Understanding Greenplum Query Plans</h4>
@@ -1416,7 +1416,7 @@ gp_segment_id ORDER BY gp_segment_id;
 </li>
 </ul>
 
-<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/part.jpg" width="400">  </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/part.jpg" width="400" alt="Greenplum Database partitioning">  </p>
 
 <p>The following exercise compares SELECT statements with WHERE clauses that do and
 do not use a partitioned column.</p>
@@ -1485,14 +1485,14 @@ Time: 30.658 ms
 
 <ol>
 <li>Open a browser on your desktop and browse to <code>http://X.X.X.X:8080</code> using the same IP address that you used for the ssh step. You will see the Apache Zepplin Welcome page.
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zepp.jpg" width="500">
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zepp.jpg" width="500" alt="Apache Zeppelin welcome page">
 </li>
 <li>Click Interpreter at the top of the Screen and scroll down to the psql section and press edit.<br>
 </li>
 <li>Edit the <em>postgresql.url</em> entry by adding tutorial to the end, so that it will connect to the <strong>tutorial</strong> database.</li>
 <li>Click Save and then Hit OK to restart the Interpreter</li>
 <li>Click on Create new note underneath the Notebook heading and type: <code>tutorial</code>
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zep-create.jpg" width="500"><br>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/zep-create.jpg" width="500" alt="Apache Zeppelin create page"><br>
 </li>
 <li>Click "tutorial" to open the newly created notebook.<br>
 </li>
@@ -1506,11 +1506,11 @@ Time: 30.658 ms
 </ol>
 
 <p>Then press the play button.<br>
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/play.jpg" width="200"></p>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/play.jpg" width="200" alt="Apache Zeppelin icons"></p>
 
 <p>The result should look like the graphic below.  </p>
 
-<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/count.jpg" width="600"></p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/count.jpg" width="600" alt="Apache Zeppelin output"></p>
 
 <h4>
 <a id="run-postgresql-built-in-aggregates" class="anchor" href="#run-postgresql-built-in-aggregates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run PostgreSQL built-in aggregates</h4>
@@ -1734,7 +1734,7 @@ Machine Learning on Big Data</a></p>
 
 <p>You can perform full or incremental backups. To restore a database to its state when an incremental backup was made, you will need to restore the previous full backup and all subsequent incremental backups.</p>
 
-<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/backup.jpg" width="400"> </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/backup.jpg" width="400" alt="Backing up a Greenplum Database"> </p>
 
 <p>Each file created for a backup begins with a 14-digit timestamp key that identifies the backup set the file belongs to.</p>
 
@@ -1742,7 +1742,7 @@ Machine Learning on Big Data</a></p>
 
 <p>The Greenplum Database parallel restore utility gpdbrestore takes the timestamp key generated by gpcrondump, validates the backup set, and restores the database objects and data into a distributed database in parallel. Parallel restore operations require a complete backup set created by gpcrondump, a full backup and any required incremental backups. </p>
 
-<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/restore.jpg" width="400"> </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/restore.jpg" width="400" alt="Restoring a Greenplum Database backup"> </p>
 
 <p>The Greenplum Database gpdbrestore utility provides flexibility and verification options for use with the automated backup files produced by gpcrondump or with backup files moved from the Greenplum array to an alternate location. </p>
 
@@ -1880,16 +1880,16 @@ tutorial=# select count(*) from otp_r;
 <li>Select File / Import then Choose the OVA File to import and hit Continue.</li>
 <li>Choose a Location to store the new VM and hit Save.  This will begin the Import process.   If you have any issues (older versions of Fusion sometimes stop), click relax the settings and Import the VM again.</li>
 <li><p>Click Customize Settings at the end of the Import process.<br>
-<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import1.jpg" width="400">  </p></li>
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import1.jpg" width="400" alt="VMWare Fusion import VM">  </p></li>
 <li>
 <p>Click General Icon under System Settings</p>
 
-<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import2.jpg" width="400">   </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import2.jpg" width="400" alt="VMWare Fusion system settings">   </p>
 </li>
 <li>
 <p>Then click the box next to OS, select Linux, and then Centos 64-bit. Then finally click Change. This will allow Fusion to select the proper Tools package to mount to the host. Close out the Settings Window and Start the VM.  </p>
 
-<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import3.jpg" width="400"> </p>
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import3.jpg" width="400" alt="VMWare Fusion VM settings"> </p>
 </li>
 <li><p>The VM startup might ask about a Virtual IDE device, if so, select No.  This will keep the VM from asking this question on EVERY boot.</p></li>
 <li>Login to the VM as root</li>
