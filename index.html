@@ -2,22 +2,45 @@
 layout: default
 ---
 
-<div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+<h2 class='inline-header'>Greenplum Database: Introduction and Tutorials using the Greenplum Database Sandbox VM</h2>
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+<p>These tutorials showcase how Greenplum Database can address day-to-day tasks performed in typical DW, BI and data science environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download from the Pivotal Network.  Both a Virtual Box, and a VMware version are available.  The Virtual Box VM is in OVA format and can be IMPORTED into Virtual Box, while the VMware VM is a ZIP file that can be opened directly.</p>
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title | escape }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
+<ul>
+<li><p><a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/4540/file_groups/566">4.3.12.0 Greenplum Database Sandbox Virtual Machines</a></p>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+<p>  <strong><em>Note: These VMs contain the commercially supported versions of Greenplum Database and Greenplum Command Center</em></strong></p></li>
+</ul>
 
-</div>
+
+<p>The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.</p>
+
+<ul>
+<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virtual Box.  If you import into VMware Fusion and would like to install the VMware Tools, see <a href="#appendix-1-importing-into-vmware-fusion">Appendix 1</a>
+for installation details. </li>
+<li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg" alt="Greenplum Sandbox booting">
+This screen provides you all the information you need to interact with the VM.
+
+<ul>
+<li>Username/Password combinations</li>
+<li>Management URLs</li>
+<li>IP address for SSH Connection</li>
+</ul>
+</li>
+</ul>
+
+<p>Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  </p>
+
+<p>To introduce Greenplum Database, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at <a href="http://www.transtats.bts.gov/">http://www.transtats.bts.gov/</a>.  The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. Data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010.  The FAA uses the data to calculate statistics such as the percent of flights that depart or arrive on time by origin, destination, and airline. </p>
+
+<p>You are encouraged to review the SQL scripts in the faa directory as you work
+through this introduction. You can run most of the exercises by entering the
+commands yourself or by executing a script in the faa directory.</p>
+
+<h2>Tutorials</h2>
+
+{% include tutorial_list.html %}
+
+

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Importing into VMware Fusion</title>
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/vnd.microsoft.icon'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-69171123-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Greenplum Database Tutorials</h1>
+        <p>For use with the Greenplum Database Sandbox</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials" class="button fork">View On GitHub</a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials/tarball/master" class="button">TAR</a></li>
+            <li><a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/4540/file_groups/566" class="button">SANDBOX VM</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <div id='sidebar'>
+        <p><a href='/'>Tutorials Home</a></p>
+        <p>
+  <span class='list-header'>Introduction</span><br/>
+  <a href="/introduction-to-the-greenplum-database-architecture">Introduction to the Greenplum Database Architecture</a><br/>
+</p>
+
+<p>
+  <span class='list-header'>Get Started</span><br/>
+  <a href="/create-users-and-roles">Create Users and Roles</a><br/>
+  <a href="/create-and-prepare-database">Create and Prepare Database</a><br/>
+  <a href="/create-tables">Create Tables</a> 
+</p>
+
+<p>
+  <span class='list-header'>Data Loading Unloading</span><br/>
+  <a href="/data-loading">Data Loading</a>
+</p>
+
+<p>
+  <span class='list-header'>Performance Tuning</span><br/>
+  <a href="/queries-and-performance-tuning">Queries and Performance Tuning</a>
+</p>
+
+<p>
+  <span class='list-header'>Analytics</span><br/>
+  <a href="/introduction-to-greenplum-in-database-analytics">Introduction to Greenplum In-Database Analytics</a>
+</p>
+
+<p>
+  <span class='list-header'>Administration</span><br/>
+  <a href="/backup-and-recovery-operations">Backup and Recovery Operations</a><br/>
+  <a href="/importing-into-vmware-fusion">Importing into VMware Fusion</a>
+</p>
+      </div>
+      <section>
+
+        <h2 class="inline-header">Importing into VMware Fusion</h2>
+
+<p>These instructions will assist you in Importing this VM into VMware Fusion and then installing VMware Tools into the VM.</p>
+
+<ol>
+<li>Select File / Import then Choose the OVA File to import and hit Continue.</li>
+<li>Choose a Location to store the new VM and hit Save.  This will begin the Import process.   If you have any issues (older versions of Fusion sometimes stop), click relax the settings and Import the VM again.</li>
+<li><p>Click Customize Settings at the end of the Import process.<br />
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import1.jpg" width="400" alt="VMWare Fusion import VM" />  </p></li>
+<li>
+<p>Click General Icon under System Settings</p>
+
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import2.jpg" width="400" alt="VMWare Fusion system settings" />   </p>
+</li>
+<li>
+<p>Then click the box next to OS, select Linux, and then Centos 64-bit. Then finally click Change. This will allow Fusion to select the proper Tools package to mount to the host. Close out the Settings Window and Start the VM.  </p>
+
+<p><img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/import3.jpg" width="400" alt="VMWare Fusion VM settings" /> </p>
+</li>
+<li><p>The VM startup might ask about a Virtual IDE device, if so, select No.  This will keep the VM from asking this question on EVERY boot.</p></li>
+<li>Login to the VM as root</li>
+<li>In the VMware Fusion menus, Select Virtual Machine / Install VMware Tools and then choose Install.</li>
+<li>
+<p>At the root prompt in the VM:  </p>
+
+<blockquote>
+<p><code>mkdir /mnt/dvd</code><br />
+<code>mount /dev/dvd2 /mnt/dvd -t iso9660</code>
+<code>tar xvfz /mnt/dvd/VMwareTools*.tar.gz -C /tmp</code>
+<code>/tmp/vmware-tools-distrib/vmware-install.pl</code></p>
+</blockquote>
+</li>
+<li><p>Follow the prompts and finish the install of VMware Tools.</p></li>
+<li>In the VMware Fusion menus, Select Virtual Machine / Cancel VMware Tools Installation</li>
+<li>Note:  X-Windows System is not installed.  To install:
+&gt;<code>yum groupinstall 'X Window System'</code>
+</li>
+</ol>
+
+
+      </section>
+      <div id='attribution'>
+        <p>Project maintained by <a href="https://github.com/greenplum-db">greenplum-db</a> &middot; <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </div>
+    </div>
+
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+  </body>
+</html>

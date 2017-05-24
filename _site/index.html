@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title></title>
+    <link href='images/favicon.ico' rel='shortcut icon' type='image/vnd.microsoft.icon'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-69171123-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Greenplum Database Tutorials</h1>
+        <p>For use with the Greenplum Database Sandbox</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials" class="button fork">View On GitHub</a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/greenplum-db/gpdb-sandbox-tutorials/tarball/master" class="button">TAR</a></li>
+            <li><a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/4540/file_groups/566" class="button">SANDBOX VM</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <div id='sidebar'>
+        <p><a href='/'>Tutorials Home</a></p>
+        <p>
+  <span class='list-header'>Introduction</span><br/>
+  <a href="/introduction-to-the-greenplum-database-architecture">Introduction to the Greenplum Database Architecture</a><br/>
+</p>
+
+<p>
+  <span class='list-header'>Get Started</span><br/>
+  <a href="/create-users-and-roles">Create Users and Roles</a><br/>
+  <a href="/create-and-prepare-database">Create and Prepare Database</a><br/>
+  <a href="/create-tables">Create Tables</a> 
+</p>
+
+<p>
+  <span class='list-header'>Data Loading Unloading</span><br/>
+  <a href="/data-loading">Data Loading</a>
+</p>
+
+<p>
+  <span class='list-header'>Performance Tuning</span><br/>
+  <a href="/queries-and-performance-tuning">Queries and Performance Tuning</a>
+</p>
+
+<p>
+  <span class='list-header'>Analytics</span><br/>
+  <a href="/introduction-to-greenplum-in-database-analytics">Introduction to Greenplum In-Database Analytics</a>
+</p>
+
+<p>
+  <span class='list-header'>Administration</span><br/>
+  <a href="/backup-and-recovery-operations">Backup and Recovery Operations</a><br/>
+  <a href="/importing-into-vmware-fusion">Importing into VMware Fusion</a>
+</p>
+      </div>
+      <section>
+
+        <h2 class='inline-header'>Greenplum Database: Introduction and Tutorials using the Greenplum Database Sandbox VM</h2>
+
+<p>These tutorials showcase how Greenplum Database can address day-to-day tasks performed in typical DW, BI and data science environments. It is designed to be used with the Greenplum Database Sandbox VM that is available for download from the Pivotal Network.  Both a Virtual Box, and a VMware version are available.  The Virtual Box VM is in OVA format and can be IMPORTED into Virtual Box, while the VMware VM is a ZIP file that can be opened directly.</p>
+
+<ul>
+<li><p><a href="https://network.pivotal.io/products/pivotal-gpdb#/releases/4540/file_groups/566">4.3.12.0 Greenplum Database Sandbox Virtual Machines</a></p>
+
+<p>  <strong><em>Note: These VMs contain the commercially supported versions of Greenplum Database and Greenplum Command Center</em></strong></p></li>
+</ul>
+
+
+<p>The scripts/data for this tutorial are in the gpdb-sandbox virtual machine at /home/gpadmin.   The repository is pre-cloned, but will update as the VM boots in order to provide the most recent version of these instructions.</p>
+
+<ul>
+<li>Import the GPDB Sandbox Virtual Machine into VMware Fusion or Virtual Box.  If you import into VMware Fusion and would like to install the VMware Tools, see <a href="#appendix-1-importing-into-vmware-fusion">Appendix 1</a>
+for installation details. </li>
+<li>Start the GPDB Sandbox Virtual Machine.  Once the machine starts, you will see the following screen
+<img src="https://raw.githubusercontent.com/greenplum-db/gpdb-sandbox-tutorials/gh-pages/images/Boot%20Image.jpg" alt="Greenplum Sandbox booting">
+This screen provides you all the information you need to interact with the VM.
+
+<ul>
+<li>Username/Password combinations</li>
+<li>Management URLs</li>
+<li>IP address for SSH Connection</li>
+</ul>
+</li>
+</ul>
+
+<p>Interacting with the Sandbox via a new terminal is preferable, as it makes many of the operations simpler.  </p>
+
+<p>To introduce Greenplum Database, we use a public data set, the Airline On-Time Statistics and Delay Causes data set, published by the United States Department of Transportation at <a href="http://www.transtats.bts.gov/">http://www.transtats.bts.gov/</a>.  The On-Time Performance dataset records flights by date, airline, originating airport, destination airport, and many other flight details. Data is available for flights since 1987. The exercises in this guide use data for about a million flights in 2009 and 2010.  The FAA uses the data to calculate statistics such as the percent of flights that depart or arrive on time by origin, destination, and airline. </p>
+
+<p>You are encouraged to review the SQL scripts in the faa directory as you work
+through this introduction. You can run most of the exercises by entering the
+commands yourself or by executing a script in the faa directory.</p>
+
+<h2>Tutorials</h2>
+
+<p>
+  <span class='list-header'>Introduction</span><br/>
+  <a href="/introduction-to-the-greenplum-database-architecture">Introduction to the Greenplum Database Architecture</a><br/>
+</p>
+
+<p>
+  <span class='list-header'>Get Started</span><br/>
+  <a href="/create-users-and-roles">Create Users and Roles</a><br/>
+  <a href="/create-and-prepare-database">Create and Prepare Database</a><br/>
+  <a href="/create-tables">Create Tables</a> 
+</p>
+
+<p>
+  <span class='list-header'>Data Loading Unloading</span><br/>
+  <a href="/data-loading">Data Loading</a>
+</p>
+
+<p>
+  <span class='list-header'>Performance Tuning</span><br/>
+  <a href="/queries-and-performance-tuning">Queries and Performance Tuning</a>
+</p>
+
+<p>
+  <span class='list-header'>Analytics</span><br/>
+  <a href="/introduction-to-greenplum-in-database-analytics">Introduction to Greenplum In-Database Analytics</a>
+</p>
+
+<p>
+  <span class='list-header'>Administration</span><br/>
+  <a href="/backup-and-recovery-operations">Backup and Recovery Operations</a><br/>
+  <a href="/importing-into-vmware-fusion">Importing into VMware Fusion</a>
+</p>
+
+
+
+
+      </section>
+      <div id='attribution'>
+        <p>Project maintained by <a href="https://github.com/greenplum-db">greenplum-db</a> &middot; <small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </div>
+    </div>
+
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+  </body>
+</html>
