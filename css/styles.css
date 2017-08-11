@@ -759,10 +759,18 @@ small {
 #sidebar {
   width: 238px;
   position: fixed;
-  top: 250px;
+  top: 220px;
   left: 50%;
-  margin-left: -630px;
+  margin-left: -620px;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow-y: auto;
+  overflow-x: hidden;
+  bottom: 0;
+  padding: 0 80px 80px 0;
+}
+
+#sidebar p {
+  margin: 0 0 15px;
 }
 
 #sidebar a {
