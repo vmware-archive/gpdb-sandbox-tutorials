@@ -29,25 +29,21 @@ permalink: /psql-commandline-client
 
 <p>it tries to connect to the database using a number of default settings:</p>
 
-<p>
 <ul>
 <li>TCP Port: 5432</li>
 <li>Host: will use the Unix Domain Socket</li>
 <li>Username: your Unix username</li>
 <li>Database: same as your username</li>
 </ul>
-</p>
 
 <p>Each setting can be changed on the commandline, or overridden using the configuration file or environment variables. The most common settings are:</p>
 
-<p>
 <ul>
 <li>Hostname: -h or --host</li>
 <li>Username: -U or --username (uppercase U)</li>
 <li>TCP-Port: -p or --port</li>
 <li>Database name: -d or --dbname</li>
 </ul>
-</p>
 
 <p>Therefore in order to connect from your local workstation to a Greenplum Database server, you need the following command line:</p>
 
