@@ -27,7 +27,7 @@ permalink: /psql-commandline-client
 </blockquote>
 <br/>
 
-<p>it tries to connect to the database using a number of default settings:</p>
+<p>psql tries to connect to the database using a number of default settings:</p>
 
 <ul>
 <li>TCP Port: 5432</li>
@@ -71,14 +71,14 @@ permalink: /psql-commandline-client
 
 <h4><a id="what-does-psql-offer" class="anchor" href="#what-does-psql-offer" aria-hidden="true"><span class="octicon octicon-link"></span></a>What does psql offer?</h4>
 
-<p>Once connected to the database, psql offers a broad range of commands to explore the database:</p>
+<p>Once connected to the database, psql offers a broad range of commands to explore the database. Here are a few common commands:</p>
 <ul>
 <li>\l: lists all databases</li>
 <li>\l+: lists all databases and shows extended information</li>
-<li>\c <database>: connects to <database></li>
+<li>\c "database": connects to "database"</li>
 <li>\timing: switches client-side timing on or off</li>
 <li>\dt: lists all tables</li>
-<li>\dt+: lists all tables and extended information</li>
+<li>\dt+: lists all tables and shows extended information</li>
 <li>\dt public.*: lists all tables in the public schema</li>
 <li>\dn: lists all schemas</li>
 <li>\df: lists all functions</li>
@@ -86,10 +86,9 @@ permalink: /psql-commandline-client
 </ul>
 
 
-
 <h4><a id="how-to-load-data-using-psql" class="anchor" href="#how-to-load-data-using-psql" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to load data using psql</h4>
 
-<p>The COPY command can be used to load data from files into tables. Psql is often used in scripts to execute the COPY command, however that can also happen interactively. Connect to your database and execute the following command:</p>
+<p>The COPY command can be used to load data from files into tables. psql is often used in scripts to execute the COPY command, however that can also happen interactively. Connect to your database and execute the following command:</p>
 
 
 <blockquote>
@@ -97,9 +96,9 @@ permalink: /psql-commandline-client
 </blockquote>
 <br/>
 
-<p>Note: the file needs to be on the database server, and needs to be accessible for the user which runs the Greenplum Database. The server will directly open the file and read the data.</p>
+<p>Note: the file needs to be on the database server, and needs to be accessible for the user which runs the Greenplum Database (usually <i>gpadmin</i>). The server will directly open the file and read the data.</p>
 
-<p>That is not very handy, if psql runs on another host. However psql offers a nice way to work around this problem:</p>
+<p>That is not very handy if psql runs on another host. However psql itself offers a nice way to work around this problem:</p>
 
 
 <blockquote>
@@ -107,7 +106,7 @@ permalink: /psql-commandline-client
 </blockquote>
 <br/>
 
-<p>Using the backslash form, psql will transfer the file over the network to the database.</p>
+<p>Using the backslash form, psql will transfer the file over the network to the database, and execute the COPY command.</p>
 
 
 
@@ -144,6 +143,10 @@ permalink: /psql-commandline-client
 
 <blockquote>
 <p><code>psql -c “SELECT COUNT(*) FROM tablename”</code></p>
+<code> count </code><br/>
+<code>-------</code><br/>
+<code>   390</code><br/>
+<code>(1 row)</code><br/>
 </blockquote>
 <br/>
 
@@ -152,6 +155,7 @@ permalink: /psql-commandline-client
 
 <blockquote>
 <p><code>psql -q -A -t -c “SELECT COUNT(*) FROM tablename”</code></p>
+<code>   390</code><br/>
 </blockquote>
 <br/>
 
@@ -179,6 +183,53 @@ permalink: /psql-commandline-client
 
 <p>The command line option -x/--expanded and the inline option \x will switch to row-based output. In this format, every tuple will be printed on a separate line. This makes it easy to read very long or very wide datasets.</p>
 
+<p>Example showing the difference between row and column based output:</p>
+
+<blockquote>
+<p><code>SELECT * FROM pg_class LIMIT 1;</code></p>
+<p><code>
+     relname      | relnamespace | reltype | relowner | relam | relfilenode | reltablespace | relpages | reltuples | reltoastrelid | reltoastidxid | relhasindex | relisshared | relkind | relstorage | relnatts | relchecks | reltriggers | relukeys | relfkeys | relrefs | relhasoids | relhaspkey | relhasrules | relhassubclass | relfrozenxid |          relacl          | reloptions</code><br/>
+<code>------------------+--------------+---------+----------+-------+-------------+---------------+----------+-----------+---------------+---------------+-------------+-------------+---------+------------+----------+-----------+-------------+----------+----------+---------+------------+------------+-------------+----------------+--------------+--------------------------+------------</code><br/>
+<code> gp_size_of_index |        11913 |   12017 |       10 |     0 |       12016 |             0 |        0 |         0 |             0 |             0 | f           | f           | v       | v          |        7 |         0 |           0 |        0 |        0 |       0 | f          | f          | t           | f              |            0 | {gpadmin=arwdDxt/gpadmin,=r/gpadmin} |</code><br/>
+<code>(1 row)</code></p>
+</blockquote>
+<br/>
+
+<blockquote>
+<p><code>\x</code></p>
+<p><code>SELECT * FROM pg_class LIMIT 1;</code></p>
+<code>-[ RECORD 1 ]--+-------------------------</code><br/>
+<code>relname        | gp_size_of_index</code><br/>
+<code>relnamespace   | 11913</code><br/>
+<code>reltype        | 12017</code><br/>
+<code>relowner       | 10</code><br/>
+<code>relam          | 0</code><br/>
+<code>relfilenode    | 12016</code><br/>
+<code>reltablespace  | 0</code><br/>
+<code>relpages       | 0</code><br/>
+<code>reltuples      | 0</code><br/>
+<code>reltoastrelid  | 0</code><br/>
+<code>reltoastidxid  | 0</code><br/>
+<code>relhasindex    | f</code><br/>
+<code>relisshared    | f</code><br/>
+<code>relkind        | v</code><br/>
+<code>relstorage     | v</code><br/>
+<code>relnatts       | 7</code><br/>
+<code>relchecks      | 0</code><br/>
+<code>reltriggers    | 0</code><br/>
+<code>relukeys       | 0</code><br/>
+<code>relfkeys       | 0</code><br/>
+<code>relrefs        | 0</code><br/>
+<code>relhasoids     | f</code><br/>
+<code>relhaspkey     | f</code><br/>
+<code>relhasrules    | t</code><br/>
+<code>relhassubclass | f</code><br/>
+<code>relfrozenxid   | 0</code><br/>
+<code>relacl         | {gpadmin=arwdDxt/gpadmin,=r/gpadmin}</code><br/>
+<code>reloptions     | </code></p>
+</blockquote>
+<br/>
+
 
 
 
@@ -188,6 +239,13 @@ permalink: /psql-commandline-client
 
 <blockquote>
 <p><code>\timing</code></p>
+<code>SELECT * FROM pg_class;</code><br/>
+<code> count </code><br/>
+<code>-------</code><br/>
+<code>   390</code><br/>
+<code>(1 row)</code><br/>
+<code></code><br/>
+<code>Time: 3,025 ms</code></p>
 </blockquote>
 <br/>
 
@@ -218,5 +276,5 @@ permalink: /psql-commandline-client
 
 <h4><a id="next-steps" class="anchor" href="#next-steps" aria-hidden="true"><span class="octicon octicon-link"></span></a>Next steps</h4>
 
-<p>Now that you learned how to use psql, it’s time to create a database for your project. Alternatively you can look into GUI clients like pgAdmin3.</p>
+<p>Now that you learned how to use psql, it’s time to create a database for your project. Alternatively you can look into GUI clients like pgAdmin3 or pgAdmin4.</p>
 
